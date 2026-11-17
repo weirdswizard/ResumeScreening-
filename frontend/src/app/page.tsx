@@ -367,7 +367,7 @@ export default function Home() {
         />
       </div>
 
-      {/* 1. Clean Navigation Bar (Clean Text Logo, No Clunky Box or Badge) */}
+      {/* 1. Clean Navigation Bar */}
       <header className="sticky top-0 z-50 w-full border-b border-slate-200/80 dark:border-white/[0.07] bg-white/80 dark:bg-[#06070a]/80 backdrop-blur-xl transition-all duration-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-18 flex items-center justify-between gap-3 relative z-10">
           {/* Clean Elegant Text Logo */}
@@ -427,7 +427,7 @@ export default function Home() {
               {theme === "dark" ? (
                 <Sun className="w-4 h-4 text-amber-400 group-hover:rotate-45 transition-transform duration-300" />
               ) : (
-                <Moon className="w-4 h-4 text-indigo-600 group-hover:-rotate-12 transition-transform duration-300" />
+                <Moon className="w-4 h-4 text-purple-600 group-hover:-rotate-12 transition-transform duration-300" />
               )}
             </button>
 
@@ -735,36 +735,79 @@ export default function Home() {
               )}
 
               {/* ATS Job Description Matching Section */}
-              <div className="pt-3.5 border-t border-slate-200 dark:border-white/[0.07]">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 mb-2.5">
-                  <label className="flex items-center gap-2 text-xs font-semibold text-slate-700 dark:text-zinc-300 cursor-pointer select-none">
-                    <input
-                      type="checkbox"
-                      checked={includeAts}
-                      onChange={(e) => setIncludeAts(e.target.checked)}
-                      className="rounded border-slate-300 dark:border-white/20 bg-white dark:bg-black text-[#9C27B0] focus:ring-[#9C27B0] h-4 w-4 shrink-0 cursor-pointer accent-[#9C27B0]"
-                    />
-                    <span>Compare with Target Job Description (Skill Matching)</span>
-                  </label>
-                  {includeAts && (
-                    <button
-                      type="button"
-                      onClick={() => setJobDescription(SAMPLE_JOB_DESCRIPTION)}
-                      className="text-xs text-[#00BCD4] hover:underline transition cursor-pointer font-medium self-end sm:self-auto"
+              <div className="pt-4 border-t border-slate-200 dark:border-white/[0.07]">
+                {/* Modern Interactive Switch Card (Replaces the raw checkbox, styled to Purple & Cyan theme) */}
+                <div
+                  onClick={() => setIncludeAts(!includeAts)}
+                  className={`p-3 sm:p-3.5 rounded-xl border transition-all duration-200 cursor-pointer select-none flex items-center justify-between gap-3 ${
+                    includeAts
+                      ? "bg-slate-100/90 dark:bg-white/[0.06] border-purple-300 dark:border-purple-500/40 shadow-sm"
+                      : "bg-slate-50/50 hover:bg-slate-100/60 dark:bg-white/[0.02] dark:hover:bg-white/[0.04] border-slate-200 dark:border-white/10"
+                  }`}
+                >
+                  <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+                    <div
+                      className={`w-8 h-8 rounded-lg flex items-center justify-center shrink-0 transition-colors ${
+                        includeAts
+                          ? "bg-gradient-to-br from-[#9C27B0]/20 to-[#00BCD4]/20 text-[#00BCD4] dark:text-[#00BCD4]"
+                          : "bg-slate-200/70 dark:bg-white/[0.05] text-slate-500 dark:text-zinc-400"
+                      }`}
                     >
-                      Paste Sample Job Req
-                    </button>
-                  )}
+                      <Target className="w-4 h-4" />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs sm:text-sm font-semibold text-slate-800 dark:text-white">
+                          Compare with Target Job Description
+                        </span>
+                        <span className="text-[10px] font-medium px-2 py-0.5 rounded-full bg-slate-200 dark:bg-white/10 text-slate-600 dark:text-zinc-300 hidden xs:inline-block">
+                          ATS Matching
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-500 dark:text-zinc-400 truncate">
+                        Evaluate keyword alignment and missing competencies
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Modern Toggle Switch Knob (Purple to Cyan Gradient) */}
+                  <div className="flex items-center gap-2 shrink-0">
+                    <div
+                      className={`w-11 h-6 flex items-center rounded-full p-0.5 transition-colors duration-200 cursor-pointer ${
+                        includeAts
+                          ? "bg-gradient-to-r from-[#9C27B0] to-[#00BCD4] shadow-sm shadow-purple-500/25"
+                          : "bg-slate-300 dark:bg-white/15"
+                      }`}
+                    >
+                      <div
+                        className={`bg-white w-5 h-5 rounded-full shadow-md transform transition-transform duration-200 ease-in-out ${
+                          includeAts ? "translate-x-5" : "translate-x-0"
+                        }`}
+                      />
+                    </div>
+                  </div>
                 </div>
 
                 {includeAts && (
-                  <div className="animate-fadeIn mt-2">
+                  <div className="animate-fadeIn mt-3 space-y-2">
+                    <div className="flex items-center justify-between px-1">
+                      <span className="text-[11px] font-medium text-slate-500 dark:text-zinc-400">
+                        Target Job Requisition
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => setJobDescription(SAMPLE_JOB_DESCRIPTION)}
+                        className="text-xs text-[#00BCD4] hover:underline font-semibold transition cursor-pointer"
+                      >
+                        Paste Sample Job Req
+                      </button>
+                    </div>
                     <textarea
                       rows={4}
                       value={jobDescription}
                       onChange={(e) => setJobDescription(e.target.value)}
                       placeholder="Paste target job description to measure keyword overlap and missing competencies..."
-                      className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-xl p-3 text-xs sm:text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-zinc-600 focus:outline-none focus:border-[#00BCD4] font-mono transition resize-y min-h-[90px]"
+                      className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-xl p-3 text-xs sm:text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-zinc-600 focus:outline-none focus:border-[#9C27B0] font-mono transition resize-y min-h-[90px]"
                     />
                   </div>
                 )}
