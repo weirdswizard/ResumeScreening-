@@ -27,7 +27,8 @@ import {
   Building2,
   Users,
   Sun,
-  Moon
+  Moon,
+  X
 } from "lucide-react";
 
 interface TopCategory {
@@ -195,7 +196,6 @@ export default function Home() {
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // Initialize theme from localStorage or system preference
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme") as "dark" | "light" | null;
     if (savedTheme === "light") {
@@ -304,47 +304,47 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 flex flex-col font-sans selection:bg-indigo-500 selection:text-white transition-colors duration-200 antialiased">
-      {/* Navigation Header with Dark / Light Switcher */}
-      <header className="border-b border-slate-200/90 bg-white/90 dark:border-slate-800/80 dark:bg-slate-900/90 backdrop-blur-xl sticky top-0 z-50 transition-colors duration-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3.5 flex items-center justify-between gap-4">
+    <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 flex flex-col font-sans selection:bg-indigo-500 selection:text-white transition-colors duration-200 antialiased w-full max-w-full overflow-x-hidden">
+      {/* Responsive Navigation Header */}
+      <header className="border-b border-slate-200/90 bg-white/90 dark:border-slate-800/80 dark:bg-slate-900/90 backdrop-blur-xl sticky top-0 z-50 transition-colors duration-200 w-full">
+        <div className="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-2 sm:gap-4">
           {/* Logo & Product Name */}
-          <div className="flex items-center gap-3">
-            <div className="p-2.5 bg-gradient-to-tr from-indigo-600 via-indigo-500 to-violet-500 rounded-xl shadow-lg shadow-indigo-500/25 border border-indigo-400/20 text-white">
-              <Brain className="w-5 h-5" />
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+            <div className="p-2 sm:p-2.5 bg-gradient-to-tr from-indigo-600 via-indigo-500 to-violet-500 rounded-xl shadow-lg shadow-indigo-500/25 border border-indigo-400/20 text-white shrink-0">
+              <Brain className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
-            <div>
-              <div className="flex items-center gap-2">
-                <span className="text-base sm:text-lg font-bold tracking-tight text-slate-900 dark:text-white">
+            <div className="min-w-0">
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                <span className="text-sm sm:text-lg font-bold tracking-tight text-slate-900 dark:text-white truncate">
                   TalentScan<span className="text-indigo-600 dark:text-indigo-400 font-extrabold">.ai</span>
                 </span>
-                <span className="text-[10px] px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 font-semibold uppercase tracking-wider">
+                <span className="text-[9px] sm:text-[10px] px-1.5 sm:px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 font-semibold uppercase tracking-wider shrink-0">
                   Live
                 </span>
               </div>
-              <p className="text-[11px] text-slate-500 dark:text-slate-400">
-                AI Resume Screener &amp; Talent Intelligence Platform
+              <p className="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 truncate hidden xs:block">
+                AI Resume Screener &amp; Talent Platform
               </p>
             </div>
           </div>
 
-          {/* Navigation Links, Actions & Theme Toggle */}
-          <div className="flex items-center gap-2 sm:gap-3 text-xs">
+          {/* Navigation Actions */}
+          <div className="flex items-center gap-1.5 sm:gap-2.5 text-xs shrink-0">
             <button
               type="button"
               onClick={() => setShowRolesModal(!showRolesModal)}
-              className="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700/60 transition flex items-center gap-1.5 font-medium cursor-pointer shadow-sm"
+              className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700/60 transition flex items-center gap-1.5 font-medium cursor-pointer shadow-sm text-[11px] sm:text-xs"
             >
               <Compass className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
-              <span>Supported Roles (25)</span>
+              <span><span className="hidden sm:inline">Supported </span>Roles (25)</span>
             </button>
 
-            {/* Dark / Light Mode Switcher Button */}
+            {/* Dark / Light Mode Switcher */}
             <button
               type="button"
               onClick={toggleTheme}
               aria-label="Toggle theme"
-              className="p-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700/60 transition flex items-center justify-center cursor-pointer shadow-sm group"
+              className="p-1.5 sm:p-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700/60 transition flex items-center justify-center cursor-pointer shadow-sm group"
               title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
             >
               {theme === "dark" ? (
@@ -359,26 +359,27 @@ export default function Home() {
 
       {/* Supported Roles Drawer */}
       {showRolesModal && (
-        <div className="bg-white dark:bg-slate-900 border-b border-indigo-500/30 px-4 py-5 animate-fadeIn shadow-xl backdrop-blur-md transition-colors duration-200">
+        <div className="bg-white dark:bg-slate-900 border-b border-indigo-500/30 px-3.5 sm:px-4 py-4 sm:py-5 animate-fadeIn shadow-xl backdrop-blur-md transition-colors duration-200 max-h-[80vh] overflow-y-auto">
           <div className="max-w-7xl mx-auto space-y-3">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Compass className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-                <h2 className="font-bold text-sm text-slate-900 dark:text-indigo-200">
+                <h2 className="font-bold text-xs sm:text-sm text-slate-900 dark:text-indigo-200">
                   25 Supported Candidate Job Tracks
                 </h2>
               </div>
               <button
                 onClick={() => setShowRolesModal(false)}
-                className="text-xs text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white cursor-pointer font-medium"
+                className="p-1 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white cursor-pointer"
+                aria-label="Close modal"
               >
-                Close ✕
+                <X className="w-4 h-4" />
               </button>
             </div>
-            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-              Our natural language classifier automatically recognizes competencies and matches candidate profiles across these high-demand industries:
+            <p className="text-[11px] sm:text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
+              Our natural language classifier automatically recognizes competencies across these 25 domains:
             </p>
-            <div className="flex flex-wrap gap-2 pt-1">
+            <div className="flex flex-wrap gap-1.5 sm:gap-2 pt-1">
               {[
                 "Data Science", "Python Developer", "Java Developer", "DevOps Engineer",
                 "Web Designing", "HR", "Testing", "Automation Testing", "Blockchain",
@@ -388,7 +389,7 @@ export default function Home() {
               ].map((role) => (
                 <span
                   key={role}
-                  className="px-3 py-1 rounded-lg bg-slate-100 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700/60 text-slate-800 dark:text-slate-200 text-xs font-medium"
+                  className="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700/60 text-slate-800 dark:text-slate-200 text-[11px] sm:text-xs font-medium"
                 >
                   {role}
                 </span>
@@ -399,83 +400,85 @@ export default function Home() {
       )}
 
       {/* Main Content Area */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex-1 w-full space-y-8">
+      <main className="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 py-5 sm:py-8 flex-1 w-full space-y-6 sm:space-y-8">
         {/* Human-Centered Hero Section */}
-        <div className="text-center max-w-2xl mx-auto pt-2 space-y-3">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-200 dark:border-indigo-500/20 text-indigo-700 dark:text-indigo-400 text-xs font-semibold shadow-sm">
-            <Sparkles className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
+        <div className="text-center max-w-2xl mx-auto pt-1 sm:pt-2 space-y-2.5 sm:space-y-3">
+          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-200 dark:border-indigo-500/20 text-indigo-700 dark:text-indigo-400 text-[11px] sm:text-xs font-semibold shadow-sm">
+            <Sparkles className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400 shrink-0" />
             <span>AI Talent Intelligence for Modern Hiring</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-tight">
+          <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-snug sm:leading-tight">
             Find the right role for every candidate — <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 dark:from-indigo-400 dark:via-purple-300 dark:to-pink-400 bg-clip-text text-transparent">in seconds</span>
           </h2>
-          <p className="text-slate-600 dark:text-slate-400 text-sm sm:text-base leading-relaxed">
+          <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-base leading-relaxed px-1">
             Drop in candidate CVs or resumes to automatically reveal their strongest domain fit, extract proven technical skills, and generate actionable recruiter interview notes.
           </p>
 
-          {/* 3 Step Pill Indicator */}
-          <div className="inline-flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 pt-2 font-medium">
-            <span className="flex items-center gap-1 text-slate-700 dark:text-slate-300"><Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" /> 1. Upload CV</span>
-            <span className="text-slate-400 dark:text-slate-600">→</span>
-            <span className="flex items-center gap-1 text-slate-700 dark:text-slate-300"><Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" /> 2. AI Analysis</span>
-            <span className="text-slate-400 dark:text-slate-600">→</span>
-            <span className="flex items-center gap-1 text-slate-700 dark:text-slate-300"><Check className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" /> 3. Interview Insights</span>
+          {/* 3 Step Indicator (Responsive Wrapping) */}
+          <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs text-slate-500 dark:text-slate-400 pt-1 font-medium">
+            <span className="flex items-center gap-1 text-slate-700 dark:text-slate-300"><Check className="w-3 h-3 text-emerald-600 dark:text-emerald-400" /> 1. Upload CV</span>
+            <span className="text-slate-400 dark:text-slate-600 hidden xs:inline">→</span>
+            <span className="flex items-center gap-1 text-slate-700 dark:text-slate-300"><Check className="w-3 h-3 text-emerald-600 dark:text-emerald-400" /> 2. AI Analysis</span>
+            <span className="text-slate-400 dark:text-slate-600 hidden xs:inline">→</span>
+            <span className="flex items-center gap-1 text-slate-700 dark:text-slate-300"><Check className="w-3 h-3 text-emerald-600 dark:text-emerald-400" /> 3. Interview Insights</span>
           </div>
         </div>
 
         {/* Workspace Layout Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8 items-start">
           {/* Left Column: Input Form (7 cols) */}
-          <div className="lg:col-span-7 space-y-6">
-            <div className="bg-white dark:bg-slate-900/90 border border-slate-200/90 dark:border-slate-800/90 rounded-2xl p-6 shadow-xl shadow-slate-200/50 dark:shadow-2xl backdrop-blur-md transition-colors duration-200">
+          <div className="lg:col-span-7 space-y-4 sm:space-y-6">
+            <div className="bg-white dark:bg-slate-900/90 border border-slate-200/90 dark:border-slate-800/90 rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-xl shadow-slate-200/50 dark:shadow-2xl backdrop-blur-md transition-colors duration-200">
               {/* Tab Selector & Sample Buttons */}
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200 dark:border-slate-800 pb-5 mb-5">
-                <div className="flex gap-1.5 p-1 bg-slate-100 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 w-fit">
-                  <button
-                    type="button"
-                    onClick={() => setActiveTab("upload")}
-                    className={`px-4 py-2 rounded-lg text-xs font-semibold transition flex items-center gap-2 cursor-pointer ${
-                      activeTab === "upload"
-                        ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/30"
-                        : "text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"
-                    }`}
-                  >
-                    <UploadCloud className="w-4 h-4" /> Upload Document
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setActiveTab("paste")}
-                    className={`px-4 py-2 rounded-lg text-xs font-semibold transition flex items-center gap-2 cursor-pointer ${
-                      activeTab === "paste"
-                        ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/30"
-                        : "text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"
-                    }`}
-                  >
-                    <FileText className="w-4 h-4" /> Paste Text
-                  </button>
+              <div className="flex flex-col gap-3 border-b border-slate-200 dark:border-slate-800 pb-4 sm:pb-5 mb-4 sm:mb-5">
+                <div className="flex items-center justify-between gap-2 flex-wrap">
+                  <div className="flex gap-1 p-1 bg-slate-100 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 w-full sm:w-fit">
+                    <button
+                      type="button"
+                      onClick={() => setActiveTab("upload")}
+                      className={`flex-1 sm:flex-initial px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs font-semibold transition flex items-center justify-center gap-1.5 sm:gap-2 cursor-pointer ${
+                        activeTab === "upload"
+                          ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/30"
+                          : "text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"
+                      }`}
+                    >
+                      <UploadCloud className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> Upload Document
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setActiveTab("paste")}
+                      className={`flex-1 sm:flex-initial px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs font-semibold transition flex items-center justify-center gap-1.5 sm:gap-2 cursor-pointer ${
+                        activeTab === "paste"
+                          ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/30"
+                          : "text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"
+                      }`}
+                    >
+                      <FileText className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> Paste Text
+                    </button>
+                  </div>
                 </div>
 
                 {/* Quick Sample Selector */}
-                <div className="flex items-center flex-wrap gap-1.5 text-xs">
-                  <span className="text-slate-500 font-medium text-[11px] mr-1">Sample Profiles:</span>
+                <div className="flex items-center flex-wrap gap-1 sm:gap-1.5 text-xs pt-1">
+                  <span className="text-slate-500 font-medium text-[10px] sm:text-[11px] mr-0.5">Try sample:</span>
                   <button
                     type="button"
                     onClick={() => loadSample("data_scientist")}
-                    className="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/90 dark:hover:bg-slate-700 text-indigo-700 dark:text-indigo-300 rounded-lg text-[11px] font-medium transition cursor-pointer border border-slate-200 dark:border-slate-700/60"
+                    className="px-2 py-0.5 sm:px-2.5 sm:py-1 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/90 dark:hover:bg-slate-700 text-indigo-700 dark:text-indigo-300 rounded-md sm:rounded-lg text-[10px] sm:text-[11px] font-medium transition cursor-pointer border border-slate-200 dark:border-slate-700/60"
                   >
                     Alex (Data Science)
                   </button>
                   <button
                     type="button"
                     onClick={() => loadSample("java_developer")}
-                    className="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/90 dark:hover:bg-slate-700 text-indigo-700 dark:text-indigo-300 rounded-lg text-[11px] font-medium transition cursor-pointer border border-slate-200 dark:border-slate-700/60"
+                    className="px-2 py-0.5 sm:px-2.5 sm:py-1 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/90 dark:hover:bg-slate-700 text-indigo-700 dark:text-indigo-300 rounded-md sm:rounded-lg text-[10px] sm:text-[11px] font-medium transition cursor-pointer border border-slate-200 dark:border-slate-700/60"
                   >
                     Marcus (Java)
                   </button>
                   <button
                     type="button"
                     onClick={() => loadSample("devops_engineer")}
-                    className="px-2.5 py-1 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/90 dark:hover:bg-slate-700 text-indigo-700 dark:text-indigo-300 rounded-lg text-[11px] font-medium transition cursor-pointer border border-slate-200 dark:border-slate-700/60 hidden sm:inline"
+                    className="px-2 py-0.5 sm:px-2.5 sm:py-1 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/90 dark:hover:bg-slate-700 text-indigo-700 dark:text-indigo-300 rounded-md sm:rounded-lg text-[10px] sm:text-[11px] font-medium transition cursor-pointer border border-slate-200 dark:border-slate-700/60"
                   >
                     Sarah (DevOps)
                   </button>
@@ -488,7 +491,7 @@ export default function Home() {
                   onDragOver={(e) => e.preventDefault()}
                   onDrop={handleDrop}
                   onClick={() => fileInputRef.current?.click()}
-                  className="border-2 border-dashed border-slate-300 hover:border-indigo-500/80 dark:border-slate-700 dark:hover:border-indigo-500/80 rounded-2xl p-8 text-center cursor-pointer transition bg-slate-50/60 hover:bg-indigo-50/50 dark:bg-slate-950/40 dark:hover:bg-indigo-950/15 group"
+                  className="border-2 border-dashed border-slate-300 hover:border-indigo-500/80 dark:border-slate-700 dark:hover:border-indigo-500/80 rounded-xl sm:rounded-2xl p-5 sm:p-8 text-center cursor-pointer transition bg-slate-50/60 hover:bg-indigo-50/50 dark:bg-slate-950/40 dark:hover:bg-indigo-950/15 group"
                 >
                   <input
                     ref={fileInputRef}
@@ -497,26 +500,26 @@ export default function Home() {
                     onChange={handleFileChange}
                     className="hidden"
                   />
-                  <div className="w-16 h-16 mx-auto mb-3.5 rounded-2xl bg-slate-100 dark:bg-slate-800/80 group-hover:bg-indigo-100 dark:group-hover:bg-indigo-600/20 text-slate-500 dark:text-slate-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 flex items-center justify-center transition border border-slate-200 dark:border-slate-700 shadow-inner">
-                    <UploadCloud className="w-8 h-8" />
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-2.5 sm:mb-3.5 rounded-xl sm:rounded-2xl bg-slate-100 dark:bg-slate-800/80 group-hover:bg-indigo-100 dark:group-hover:bg-indigo-600/20 text-slate-500 dark:text-slate-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 flex items-center justify-center transition border border-slate-200 dark:border-slate-700 shadow-inner">
+                    <UploadCloud className="w-6 h-6 sm:w-8 sm:h-8" />
                   </div>
                   {selectedFile ? (
                     <div className="space-y-1">
-                      <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-xs font-semibold mb-1">
+                      <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-[11px] font-semibold mb-1">
                         <FileCheck className="w-3.5 h-3.5" /> File Selected
                       </div>
-                      <p className="text-base font-bold text-slate-900 dark:text-white">{selectedFile.name}</p>
-                      <p className="text-xs text-slate-500 dark:text-slate-400">
-                        {(selectedFile.size / 1024).toFixed(1)} KB • Click or drop another document to change
+                      <p className="text-sm sm:text-base font-bold text-slate-900 dark:text-white break-all px-2">{selectedFile.name}</p>
+                      <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400">
+                        {(selectedFile.size / 1024).toFixed(1)} KB • Tap to replace
                       </p>
                     </div>
                   ) : (
                     <div>
-                      <p className="text-sm font-semibold text-slate-800 dark:text-slate-200">
-                        Drop candidate resume here, or <span className="text-indigo-600 dark:text-indigo-400 underline decoration-indigo-400/50 underline-offset-2">browse files</span>
+                      <p className="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200">
+                        Drop candidate resume here, or <span className="text-indigo-600 dark:text-indigo-400 underline decoration-indigo-400/50 underline-offset-2">browse</span>
                       </p>
-                      <p className="text-xs text-slate-500 mt-1.5">
-                        Accepts standard PDF, DOCX, and TXT files
+                      <p className="text-[10px] sm:text-xs text-slate-500 mt-1">
+                        Supports PDF, DOCX, and TXT files
                       </p>
                     </div>
                   )}
@@ -527,13 +530,13 @@ export default function Home() {
               {activeTab === "paste" && (
                 <div>
                   <textarea
-                    rows={9}
+                    rows={7}
                     value={resumeText}
                     onChange={(e) => setResumeText(e.target.value)}
                     placeholder="Paste resume text here (Summary, Technical Experience, Skills, Education)..."
-                    className="w-full bg-slate-50 dark:bg-slate-950/90 border border-slate-200 dark:border-slate-800 rounded-xl p-3.5 text-xs sm:text-sm text-slate-900 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-indigo-500 font-mono transition"
+                    className="w-full bg-slate-50 dark:bg-slate-950/90 border border-slate-200 dark:border-slate-800 rounded-xl p-3 sm:p-3.5 text-xs sm:text-sm text-slate-900 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-indigo-500 font-mono transition resize-y min-h-[140px]"
                   />
-                  <div className="flex justify-between items-center text-[11px] text-slate-500 mt-1.5 px-1 font-mono">
+                  <div className="flex justify-between items-center text-[10px] sm:text-[11px] text-slate-500 mt-1 px-1 font-mono">
                     <span>{resumeText.split(/\s+/).filter(Boolean).length} words</span>
                     <span>{resumeText.length} characters</span>
                   </div>
@@ -541,22 +544,22 @@ export default function Home() {
               )}
 
               {/* ATS Job Description Matching Section */}
-              <div className="mt-6 pt-5 border-t border-slate-200 dark:border-slate-800">
-                <div className="flex items-center justify-between mb-3">
-                  <label className="flex items-center gap-2.5 text-xs font-semibold text-slate-800 dark:text-slate-200 cursor-pointer">
+              <div className="mt-4 sm:mt-6 pt-4 sm:pt-5 border-t border-slate-200 dark:border-slate-800">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-3 mb-2.5">
+                  <label className="flex items-center gap-2 text-xs font-semibold text-slate-800 dark:text-slate-200 cursor-pointer">
                     <input
                       type="checkbox"
                       checked={includeAts}
                       onChange={(e) => setIncludeAts(e.target.checked)}
-                      className="rounded border-slate-300 dark:border-slate-700 text-indigo-600 focus:ring-indigo-500 bg-white dark:bg-slate-800 h-4 w-4"
+                      className="rounded border-slate-300 dark:border-slate-700 text-indigo-600 focus:ring-indigo-500 bg-white dark:bg-slate-800 h-4 w-4 shrink-0"
                     />
-                    <span>Compare Against Specific Job Description (ATS Alignment)</span>
+                    <span className="text-[11px] sm:text-xs">Compare with Job Req (ATS Alignment)</span>
                   </label>
                   {includeAts && (
                     <button
                       type="button"
                       onClick={() => setJobDescription(SAMPLE_JOB_DESCRIPTION)}
-                      className="text-[11px] text-indigo-600 dark:text-indigo-400 hover:text-indigo-500 dark:hover:text-indigo-300 transition cursor-pointer font-medium"
+                      className="text-[10px] sm:text-[11px] text-indigo-600 dark:text-indigo-400 hover:underline transition cursor-pointer font-medium self-end sm:self-auto"
                     >
                       Paste Sample Job Req
                     </button>
@@ -564,13 +567,13 @@ export default function Home() {
                 </div>
 
                 {includeAts && (
-                  <div className="animate-fadeIn">
+                  <div className="animate-fadeIn mt-2">
                     <textarea
                       rows={4}
                       value={jobDescription}
                       onChange={(e) => setJobDescription(e.target.value)}
-                      placeholder="Paste your open role's job description to check keyword alignment and identify candidate skill gaps..."
-                      className="w-full bg-slate-50 dark:bg-slate-950/90 border border-slate-200 dark:border-slate-800 rounded-xl p-3 text-xs sm:text-sm text-slate-900 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-indigo-500 font-mono transition"
+                      placeholder="Paste target job description to check keyword alignment and skill gaps..."
+                      className="w-full bg-slate-50 dark:bg-slate-950/90 border border-slate-200 dark:border-slate-800 rounded-xl p-2.5 sm:p-3 text-xs sm:text-sm text-slate-900 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-indigo-500 font-mono transition resize-y min-h-[90px]"
                     />
                   </div>
                 )}
@@ -578,28 +581,28 @@ export default function Home() {
 
               {/* Error Message Alert */}
               {error && (
-                <div className="mt-4 p-3.5 rounded-xl bg-red-50 dark:bg-red-950/50 border border-red-200 dark:border-red-500/50 text-red-700 dark:text-red-300 text-xs flex items-center gap-2.5">
+                <div className="mt-3.5 p-3 rounded-xl bg-red-50 dark:bg-red-950/50 border border-red-200 dark:border-red-500/50 text-red-700 dark:text-red-300 text-xs flex items-center gap-2">
                   <AlertCircle className="w-4 h-4 shrink-0 text-red-500 dark:text-red-400" />
                   <span className="font-medium">{error}</span>
                 </div>
               )}
 
-              {/* Action Buttons */}
-              <div className="mt-6 flex items-center gap-3">
+              {/* Action Buttons (Full Width on Mobile) */}
+              <div className="mt-5 flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3">
                 <button
                   type="button"
                   onClick={handleScreenResume}
                   disabled={isLoading}
-                  className="flex-1 py-3 px-6 rounded-xl font-bold text-sm bg-gradient-to-r from-indigo-600 via-indigo-500 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white shadow-lg shadow-indigo-600/30 transition flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                  className="flex-1 py-2.5 sm:py-3 px-4 sm:px-6 rounded-xl font-bold text-xs sm:text-sm bg-gradient-to-r from-indigo-600 via-indigo-500 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white shadow-lg shadow-indigo-600/30 transition flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                 >
                   {isLoading ? (
                     <>
-                      <RefreshCw className="w-4 h-4 animate-spin" />
-                      Evaluating Candidate Profile...
+                      <RefreshCw className="w-3.5 h-3.5 sm:w-4 sm:h-4 animate-spin" />
+                      Evaluating Profile...
                     </>
                   ) : (
                     <>
-                      <Sparkles className="w-4 h-4" />
+                      <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                       Evaluate &amp; Screen Resume
                     </>
                   )}
@@ -607,77 +610,77 @@ export default function Home() {
                 <button
                   type="button"
                   onClick={resetAll}
-                  className="px-5 py-3 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800/80 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 text-xs font-semibold transition cursor-pointer"
+                  className="py-2.5 sm:py-3 px-4 sm:px-5 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800/80 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 text-xs font-semibold transition cursor-pointer text-center"
                 >
                   Clear
                 </button>
               </div>
             </div>
 
-            {/* Platform Highlights Card */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
-              <div className="bg-white dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800/80 rounded-xl p-3.5 flex items-start gap-2.5 shadow-sm">
+            {/* Platform Highlights */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3 text-xs">
+              <div className="bg-white dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800/80 rounded-xl p-3 flex items-start gap-2 shadow-sm">
                 <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="font-semibold text-slate-800 dark:text-slate-200">Zero-Bias Screening</h4>
-                  <p className="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">Focuses purely on verified technical skills, experience, and domain alignment.</p>
+                  <h4 className="font-semibold text-slate-800 dark:text-slate-200 text-[11px] sm:text-xs">Zero-Bias Screening</h4>
+                  <p className="text-slate-500 dark:text-slate-400 text-[10px] sm:text-[11px] mt-0.5">Focuses purely on verified technical skills, experience, and domain alignment.</p>
                 </div>
               </div>
-              <div className="bg-white dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800/80 rounded-xl p-3.5 flex items-start gap-2.5 shadow-sm">
+              <div className="bg-white dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800/80 rounded-xl p-3 flex items-start gap-2 shadow-sm">
                 <Target className="w-4 h-4 text-indigo-600 dark:text-indigo-400 shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="font-semibold text-slate-800 dark:text-slate-200">25 Career Tracks</h4>
-                  <p className="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">Trained across engineering, data science, management, and legal professions.</p>
+                  <h4 className="font-semibold text-slate-800 dark:text-slate-200 text-[11px] sm:text-xs">25 Career Tracks</h4>
+                  <p className="text-slate-500 dark:text-slate-400 text-[10px] sm:text-[11px] mt-0.5">Trained across engineering, data science, management, and tech roles.</p>
                 </div>
               </div>
-              <div className="bg-white dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800/80 rounded-xl p-3.5 flex items-start gap-2.5 shadow-sm">
+              <div className="bg-white dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800/80 rounded-xl p-3 flex items-start gap-2 shadow-sm">
                 <BarChart3 className="w-4 h-4 text-purple-600 dark:text-purple-400 shrink-0 mt-0.5" />
                 <div>
-                  <h4 className="font-semibold text-slate-800 dark:text-slate-200">Instant ATS Check</h4>
-                  <p className="text-slate-500 dark:text-slate-400 text-[11px] mt-0.5">Measure cosine similarity alignment against specific target role descriptions.</p>
+                  <h4 className="font-semibold text-slate-800 dark:text-slate-200 text-[11px] sm:text-xs">Instant ATS Check</h4>
+                  <p className="text-slate-500 dark:text-slate-400 text-[10px] sm:text-[11px] mt-0.5">Measure cosine similarity alignment against target role descriptions.</p>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Right Column: Results Dashboard (5 cols) */}
-          <div className="lg:col-span-5 space-y-6">
+          <div className="lg:col-span-5 space-y-4 sm:space-y-6">
             {result ? (
-              <div className="space-y-6 animate-fadeIn">
+              <div className="space-y-4 sm:space-y-6 animate-fadeIn">
                 {/* Human-Like Recruiter Assessment Card */}
                 {result.assessment && (
-                  <div className="bg-gradient-to-br from-indigo-50/90 via-white to-white dark:from-indigo-950/90 dark:via-slate-900 dark:to-slate-900 border border-indigo-200 dark:border-indigo-500/40 rounded-2xl p-6 shadow-xl dark:shadow-2xl relative overflow-hidden transition-colors duration-200">
-                    <div className="flex items-center justify-between text-xs font-semibold mb-3">
-                      <span className="flex items-center gap-1.5 text-indigo-700 dark:text-indigo-300">
-                        <UserCheck className="w-4 h-4 text-indigo-600 dark:text-indigo-400" /> AI Recruiter Assessment
+                  <div className="bg-gradient-to-br from-indigo-50/90 via-white to-white dark:from-indigo-950/90 dark:via-slate-900 dark:to-slate-900 border border-indigo-200 dark:border-indigo-500/40 rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-xl dark:shadow-2xl relative overflow-hidden transition-colors duration-200">
+                    <div className="flex items-center justify-between text-xs font-semibold mb-2.5 sm:mb-3 gap-2 flex-wrap">
+                      <span className="flex items-center gap-1.5 text-indigo-700 dark:text-indigo-300 text-[11px] sm:text-xs">
+                        <UserCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-indigo-600 dark:text-indigo-400" /> AI Recruiter Assessment
                       </span>
-                      <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-400 font-bold text-[11px]">
+                      <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-400 font-bold text-[10px] sm:text-[11px] shrink-0">
                         {result.assessment.verdict}
                       </span>
                     </div>
 
-                    <div className="mt-3">
-                      <span className="text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-bold">
+                    <div className="mt-2">
+                      <span className="text-[10px] sm:text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-bold">
                         Top Recommended Role Fit
                       </span>
-                      <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-1 tracking-tight">
+                      <h3 className="text-xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-0.5 sm:mt-1 tracking-tight break-words">
                         {result.predicted_category}
                       </h3>
                     </div>
 
                     {/* Conversational Narrative */}
-                    <p className="mt-3.5 text-xs text-slate-700 dark:text-slate-300 leading-relaxed bg-slate-100/80 dark:bg-slate-950/60 p-3.5 rounded-xl border border-slate-200 dark:border-slate-800/80">
+                    <p className="mt-3 text-xs text-slate-700 dark:text-slate-300 leading-relaxed bg-slate-100/80 dark:bg-slate-950/60 p-3 sm:p-3.5 rounded-xl border border-slate-200 dark:border-slate-800/80">
                       {result.assessment.narrative}
                     </p>
 
                     {/* Actionable Interview Tips */}
-                    <div className="mt-4 space-y-2">
-                      <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
-                        <Lightbulb className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400" /> Recruiter Interview Tips:
+                    <div className="mt-3.5 space-y-1.5">
+                      <span className="text-[10px] sm:text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
+                        <Lightbulb className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400 shrink-0" /> Recruiter Interview Tips:
                       </span>
-                      <ul className="space-y-1.5 text-xs text-slate-700 dark:text-slate-300">
+                      <ul className="space-y-1 text-xs text-slate-700 dark:text-slate-300 pl-1">
                         {result.assessment.actionable_tips.map((tip, idx) => (
-                          <li key={idx} className="flex items-start gap-2">
+                          <li key={idx} className="flex items-start gap-1.5 text-[11px] sm:text-xs">
                             <span className="text-indigo-600 dark:text-indigo-400 font-bold">•</span>
                             <span>{tip}</span>
                           </li>
@@ -686,14 +689,14 @@ export default function Home() {
                     </div>
 
                     {/* Progress Bar */}
-                    <div className="mt-5 pt-4 border-t border-slate-200 dark:border-slate-800">
-                      <div className="flex justify-between items-center text-xs mb-2">
-                        <span className="text-slate-700 dark:text-slate-300 font-semibold">Model Confidence</span>
-                        <span className="text-indigo-600 dark:text-indigo-300 font-bold font-mono text-sm">
+                    <div className="mt-4 pt-3.5 border-t border-slate-200 dark:border-slate-800">
+                      <div className="flex justify-between items-center text-xs mb-1.5">
+                        <span className="text-slate-700 dark:text-slate-300 font-semibold text-[11px] sm:text-xs">Model Confidence</span>
+                        <span className="text-indigo-600 dark:text-indigo-300 font-bold font-mono text-xs sm:text-sm">
                           {result.confidence}%
                         </span>
                       </div>
-                      <div className="w-full bg-slate-200 dark:bg-slate-800/90 h-2.5 rounded-full overflow-hidden border border-slate-300 dark:border-slate-700/50">
+                      <div className="w-full bg-slate-200 dark:bg-slate-800/90 h-2 sm:h-2.5 rounded-full overflow-hidden border border-slate-300 dark:border-slate-700/50">
                         <div
                           className="bg-gradient-to-r from-indigo-500 via-indigo-400 to-purple-500 h-full rounded-full transition-all duration-700"
                           style={{ width: `${Math.max(result.confidence, 8)}%` }}
@@ -705,14 +708,14 @@ export default function Home() {
 
                 {/* ATS Job Match Card (If calculated) */}
                 {result.ats_match && (
-                  <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/90 rounded-2xl p-5 shadow-md dark:shadow-lg transition-colors duration-200">
-                    <div className="flex items-center justify-between mb-3.5">
-                      <div className="flex items-center gap-2">
-                        <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
-                        <h4 className="text-sm font-bold text-slate-900 dark:text-white">Job Description Match (ATS)</h4>
+                  <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/90 rounded-xl sm:rounded-2xl p-4 sm:p-5 shadow-md dark:shadow-lg transition-colors duration-200">
+                    <div className="flex items-center justify-between mb-3 gap-2">
+                      <div className="flex items-center gap-1.5">
+                        <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                        <h4 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">Job Match (ATS)</h4>
                       </div>
                       <span
-                        className={`text-xs font-bold font-mono px-2.5 py-1 rounded-lg border ${
+                        className={`text-xs font-bold font-mono px-2 py-0.5 rounded-lg border ${
                           result.ats_match.score >= 50
                             ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-700 dark:text-emerald-400"
                             : "bg-amber-500/10 border-amber-500/30 text-amber-700 dark:text-amber-400"
@@ -722,37 +725,37 @@ export default function Home() {
                       </span>
                     </div>
 
-                    <div className="space-y-3.5 text-xs">
+                    <div className="space-y-3 text-xs">
                       <div>
-                        <span className="text-slate-600 dark:text-slate-400 block mb-1.5 font-semibold">
-                          Candidate Strengths Overlapping Role ({result.ats_match.matched_skills.length}):
+                        <span className="text-slate-600 dark:text-slate-400 block mb-1 font-semibold text-[11px] sm:text-xs">
+                          Matching Strengths ({result.ats_match.matched_skills.length}):
                         </span>
-                        <div className="flex flex-wrap gap-1.5">
+                        <div className="flex flex-wrap gap-1">
                           {result.ats_match.matched_skills.length > 0 ? (
                             result.ats_match.matched_skills.map((s) => (
                               <span
                                 key={s}
-                                className="px-2.5 py-1 rounded-md bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-500/30 text-emerald-800 dark:text-emerald-300 text-[11px] font-medium"
+                                className="px-2 py-0.5 rounded-md bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-500/30 text-emerald-800 dark:text-emerald-300 text-[10px] sm:text-[11px] font-medium"
                               >
                                 ✓ {s}
                               </span>
                             ))
                           ) : (
-                            <span className="text-slate-500 italic">No specific keyword overlap detected.</span>
+                            <span className="text-slate-500 italic text-[11px]">No keyword overlap detected.</span>
                           )}
                         </div>
                       </div>
 
                       {result.ats_match.missing_skills.length > 0 && (
                         <div>
-                          <span className="text-slate-600 dark:text-slate-400 block mb-1.5 font-semibold">
-                            Role Requirements to Verify in Interview ({result.ats_match.missing_skills.length}):
+                          <span className="text-slate-600 dark:text-slate-400 block mb-1 font-semibold text-[11px] sm:text-xs">
+                            Missing Skills to Probe ({result.ats_match.missing_skills.length}):
                           </span>
-                          <div className="flex flex-wrap gap-1.5">
+                          <div className="flex flex-wrap gap-1">
                             {result.ats_match.missing_skills.map((s) => (
                               <span
                                 key={s}
-                                className="px-2.5 py-1 rounded-md bg-amber-50 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-500/30 text-amber-800 dark:text-amber-300 text-[11px] font-medium"
+                                className="px-2 py-0.5 rounded-md bg-amber-50 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-500/30 text-amber-800 dark:text-amber-300 text-[10px] sm:text-[11px] font-medium"
                               >
                                 ✗ {s}
                               </span>
@@ -765,21 +768,21 @@ export default function Home() {
                 )}
 
                 {/* Top 5 Alternative Role Matches */}
-                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/90 rounded-2xl p-5 shadow-md dark:shadow-lg transition-colors duration-200">
-                  <div className="flex items-center gap-2 mb-4">
-                    <BarChart3 className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-                    <h4 className="text-sm font-bold text-slate-900 dark:text-white">Career Track Probability Distribution</h4>
+                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/90 rounded-xl sm:rounded-2xl p-4 sm:p-5 shadow-md dark:shadow-lg transition-colors duration-200">
+                  <div className="flex items-center gap-1.5 mb-3.5">
+                    <BarChart3 className="w-4 h-4 text-indigo-600 dark:text-indigo-400 shrink-0" />
+                    <h4 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">Role Probability Distribution</h4>
                   </div>
-                  <div className="space-y-3">
+                  <div className="space-y-2.5">
                     {result.top_categories.map((cat, idx) => (
                       <div key={cat.category}>
-                        <div className="flex justify-between items-center text-xs mb-1.5">
-                          <span className="text-slate-800 dark:text-slate-200 font-medium">
+                        <div className="flex justify-between items-center text-[11px] sm:text-xs mb-1">
+                          <span className="text-slate-800 dark:text-slate-200 font-medium truncate mr-2">
                             {idx + 1}. {cat.category}
                           </span>
-                          <span className="text-slate-500 dark:text-slate-400 font-mono font-bold">{cat.probability}%</span>
+                          <span className="text-slate-500 dark:text-slate-400 font-mono font-bold shrink-0">{cat.probability}%</span>
                         </div>
-                        <div className="w-full bg-slate-100 dark:bg-slate-800/90 h-2 rounded-full overflow-hidden border border-slate-200 dark:border-slate-700/40">
+                        <div className="w-full bg-slate-100 dark:bg-slate-800/90 h-1.5 sm:h-2 rounded-full overflow-hidden border border-slate-200 dark:border-slate-700/40">
                           <div
                             className={`h-full rounded-full transition-all duration-500 ${
                               idx === 0
@@ -797,24 +800,24 @@ export default function Home() {
                 </div>
 
                 {/* Extracted Skills Section */}
-                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/90 rounded-2xl p-5 shadow-md dark:shadow-lg transition-colors duration-200">
-                  <div className="flex items-center gap-2 mb-3.5">
-                    <Layers className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-                    <h4 className="text-sm font-bold text-slate-900 dark:text-white">Candidate Skills &amp; Competencies</h4>
+                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/90 rounded-xl sm:rounded-2xl p-4 sm:p-5 shadow-md dark:shadow-lg transition-colors duration-200">
+                  <div className="flex items-center gap-1.5 mb-3">
+                    <Layers className="w-4 h-4 text-indigo-600 dark:text-indigo-400 shrink-0" />
+                    <h4 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">Detected Competencies</h4>
                   </div>
 
                   {Object.keys(result.detected_skills).length > 0 ? (
-                    <div className="space-y-3 text-xs">
+                    <div className="space-y-2.5 text-xs">
                       {Object.entries(result.detected_skills).map(([group, skills]) => (
                         <div key={group}>
-                          <span className="text-slate-500 dark:text-slate-400 text-[10px] font-bold uppercase tracking-wider block mb-1.5">
+                          <span className="text-slate-500 dark:text-slate-400 text-[10px] font-bold uppercase tracking-wider block mb-1">
                             {group}
                           </span>
-                          <div className="flex flex-wrap gap-1.5">
+                          <div className="flex flex-wrap gap-1">
                             {skills.map((skill) => (
                               <span
                                 key={skill}
-                                className="px-2.5 py-1 rounded-lg bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-500/25 text-indigo-700 dark:text-indigo-300 text-[11px] font-medium"
+                                className="px-2 py-0.5 rounded-md bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-500/25 text-indigo-700 dark:text-indigo-300 text-[10px] sm:text-[11px] font-medium"
                               >
                                 {skill}
                               </span>
@@ -832,12 +835,12 @@ export default function Home() {
               </div>
             ) : (
               /* Empty State Placeholder */
-              <div className="h-full min-h-[380px] bg-white/60 dark:bg-slate-900/40 border-2 border-dashed border-slate-300 dark:border-slate-800 rounded-2xl p-8 flex flex-col items-center justify-center text-center transition-colors duration-200">
-                <div className="w-16 h-16 rounded-2xl bg-slate-100 dark:bg-slate-800/60 flex items-center justify-center text-slate-400 dark:text-slate-500 mb-4 border border-slate-200 dark:border-slate-700/50 shadow-inner">
-                  <Briefcase className="w-8 h-8" />
+              <div className="h-full min-h-[260px] sm:min-h-[380px] bg-white/60 dark:bg-slate-900/40 border-2 border-dashed border-slate-300 dark:border-slate-800 rounded-xl sm:rounded-2xl p-6 sm:p-8 flex flex-col items-center justify-center text-center transition-colors duration-200">
+                <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-slate-100 dark:bg-slate-800/60 flex items-center justify-center text-slate-400 dark:text-slate-500 mb-3 sm:mb-4 border border-slate-200 dark:border-slate-700/50 shadow-inner">
+                  <Briefcase className="w-6 h-6 sm:w-8 sm:h-8" />
                 </div>
-                <h3 className="text-base font-bold text-slate-800 dark:text-slate-200">Candidate Evaluation Ready</h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400 max-w-xs mt-2 leading-relaxed">
+                <h3 className="text-sm sm:text-base font-bold text-slate-800 dark:text-slate-200">Candidate Evaluation Ready</h3>
+                <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 max-w-xs mt-1.5 leading-relaxed">
                   Upload a candidate resume or pick one of the quick profiles on the left to see the AI recruiter assessment and role match.
                 </p>
               </div>
@@ -846,13 +849,13 @@ export default function Home() {
         </div>
       </main>
 
-      {/* Professional Product Footer */}
-      <footer className="border-t border-slate-200 dark:border-slate-900 bg-white/80 dark:bg-slate-950/90 py-6 text-center text-xs text-slate-500 dark:text-slate-500 mt-12 transition-colors duration-200">
-        <div className="max-w-7xl mx-auto px-4 space-y-1.5">
-          <p className="font-semibold text-slate-700 dark:text-slate-400">
+      {/* Responsive Footer */}
+      <footer className="border-t border-slate-200 dark:border-slate-900 bg-white/80 dark:bg-slate-950/90 py-5 sm:py-6 text-center text-xs text-slate-500 dark:text-slate-500 mt-8 sm:mt-12 transition-colors duration-200 w-full px-4">
+        <div className="max-w-7xl mx-auto space-y-1">
+          <p className="font-semibold text-slate-700 dark:text-slate-400 text-[11px] sm:text-xs">
             TalentScan AI • Intelligent Resume Screening &amp; Candidate Classification
           </p>
-          <p className="text-slate-500 dark:text-slate-600 text-[11px]">
+          <p className="text-slate-500 dark:text-slate-600 text-[10px] sm:text-[11px]">
             Powered by Natural Language Processing &amp; Machine Learning • Privacy-First Architecture
           </p>
         </div>
