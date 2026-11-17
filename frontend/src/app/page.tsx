@@ -895,22 +895,6 @@ export default function Home() {
                           ))}
                         </ul>
                       </div>
-
-                      {/* Model Confidence Progress Bar */}
-                      <div className="mt-4 pt-3.5 border-t border-slate-200 dark:border-white/[0.08]">
-                        <div className="flex justify-between items-center text-xs mb-1">
-                          <span className="text-slate-700 dark:text-zinc-300 font-medium">Model Confidence</span>
-                          <span className="text-[#00BCD4] font-bold font-mono text-xs sm:text-sm">
-                            {result.confidence}%
-                          </span>
-                        </div>
-                        <div className="w-full bg-slate-200 dark:bg-black/60 h-2 rounded-full overflow-hidden border border-slate-300 dark:border-white/10">
-                          <div
-                            className="bg-gradient-to-r from-[#9C27B0] to-[#00BCD4] h-full rounded-full transition-all duration-700"
-                            style={{ width: `${Math.max(result.confidence, 8)}%` }}
-                          />
-                        </div>
-                      </div>
                     </div>
                   )}
 
