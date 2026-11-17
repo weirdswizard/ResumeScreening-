@@ -531,41 +531,31 @@ export default function Home() {
           </button>
         </div>
 
-        {/* 3. Subtle Warm Orange Horizon Arc (Refined, Non-Neon) */}
-        <div className="horizon-arc-wrapper mt-10 sm:mt-16">
-          <div className="horizon-arc flex flex-col items-center pt-6 sm:pt-10">
-            {/* Genuine Technical Specs of the Project Inside the Curve */}
-            <div className="max-w-4xl mx-auto px-4 text-center">
-              <p className="text-[10px] sm:text-xs uppercase tracking-wider text-zinc-400 font-semibold mb-3 sm:mb-4">
-                Core System Architecture
-              </p>
-              <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center justify-center gap-x-6 gap-y-2.5 sm:gap-8 text-zinc-300 text-xs font-medium">
-                <div className="flex items-center justify-center sm:justify-start gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#C8521C]" />
-                  <span>25 Job Categories</span>
-                </div>
-                <div className="flex items-center justify-center sm:justify-start gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#C8521C]" />
-                  <span>TF-IDF Vectorization</span>
-                </div>
-                <div className="flex items-center justify-center sm:justify-start gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#C8521C]" />
-                  <span>Random Forest Model</span>
-                </div>
-                <div className="flex items-center justify-center sm:justify-start gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#C8521C]" />
-                  <span>PDF, DOCX &amp; TXT Parser</span>
-                </div>
-              </div>
-            </div>
-          </div>
+        {/* Core System Architecture Badges */}
+        <div className="mt-9 sm:mt-12 flex flex-wrap items-center justify-center gap-2 sm:gap-3 max-w-3xl mx-auto px-4">
+          <span className="px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-zinc-300 text-xs font-medium flex items-center gap-2 shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#C8521C]" />
+            25 Job Categories
+          </span>
+          <span className="px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-zinc-300 text-xs font-medium flex items-center gap-2 shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#C8521C]" />
+            TF-IDF Vectorization
+          </span>
+          <span className="px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-zinc-300 text-xs font-medium flex items-center gap-2 shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#C8521C]" />
+            Random Forest Model
+          </span>
+          <span className="px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-zinc-300 text-xs font-medium flex items-center gap-2 shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#C8521C]" />
+            PDF, DOCX &amp; TXT Parser
+          </span>
         </div>
       </section>
 
-      {/* 4. Interactive Workspace Dashboard (Embedded Below the Arc) */}
+      {/* 3. Interactive Workspace Dashboard */}
       <section
         ref={workspaceRef}
-        className="relative z-10 -mt-16 sm:-mt-24 md:-mt-32 max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 pb-16 sm:pb-20 w-full"
+        className="relative z-10 mt-8 sm:mt-12 max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 pb-16 sm:pb-20 w-full"
       >
         <div className="rounded-2xl sm:rounded-3xl border border-white/[0.08] bg-[#0c0d12] shadow-2xl p-4 sm:p-7">
           {/* Workspace Header */}
