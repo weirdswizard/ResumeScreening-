@@ -17,53 +17,85 @@
   animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Deep Charcoal Background with Subtle Warm Ambient Undertones */
+/* Atmospheric Multi-Layered Dark Background with Smooth Warm Gradients */
 .dark-space-bg {
-  background-color: #08080a;
+  background-color: #070709;
   background-image: 
-    radial-gradient(ellipse 60% 40% at 20% -5%, rgba(190, 75, 25, 0.06) 0%, transparent 60%),
-    radial-gradient(ellipse 60% 40% at 80% -5%, rgba(190, 75, 25, 0.06) 0%, transparent 60%);
+    /* Subtle warm ambient glow behind the hero center */
+    radial-gradient(ellipse 70% 45% at 50% 18%, rgba(185, 75, 25, 0.12) 0%, rgba(130, 48, 15, 0.04) 55%, transparent 75%),
+    /* Soft upward ambient bloom rising from the horizon */
+    radial-gradient(ellipse 95% 55% at 50% 38%, rgba(200, 80, 26, 0.18) 0%, rgba(150, 55, 18, 0.07) 50%, transparent 80%),
+    /* Top corner dark warm vignettes */
+    radial-gradient(circle 500px at 15% 0%, rgba(160, 60, 20, 0.07) 0%, transparent 60%),
+    radial-gradient(circle 500px at 85% 0%, rgba(160, 60, 20, 0.07) 0%, transparent 60%),
+    /* Smooth vertical depth */
+    linear-gradient(180deg, #09090c 0%, #070709 35%, #050507 100%);
 }
 
-/* Subtle Warm Orange Curved Horizon (No Blinding Neon) */
+/* Glowing Curved Horizon with Smooth Upward Gradient Mix */
 .horizon-arc-wrapper {
   position: relative;
   width: 100%;
   overflow: hidden;
-  padding-top: 10px;
+  padding-top: 25px;
+}
+
+/* Upward Atmospheric Glow Diffuser - Blends the Horizon naturally into the Hero */
+.horizon-arc-wrapper::before {
+  content: "";
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120%;
+  max-width: 1200px;
+  height: 140px;
+  background: radial-gradient(ellipse at 50% 100%, rgba(200, 82, 28, 0.28) 0%, rgba(160, 60, 20, 0.12) 40%, rgba(120, 42, 14, 0.03) 70%, transparent 90%);
+  filter: blur(28px);
+  pointer-events: none;
+  z-index: 1;
 }
 
 .horizon-arc {
   position: relative;
-  width: 150%;
-  left: -25%;
-  height: 180px;
+  width: 155%;
+  left: -27.5%;
+  height: 190px;
   border-radius: 50% 50% 0 0 / 100% 100% 0 0;
-  background: radial-gradient(ellipse at 50% 0%, rgba(195, 80, 28, 0.18) 0%, rgba(160, 65, 22, 0.06) 40%, rgba(8, 8, 10, 0.95) 75%);
-  border-top: 1px solid rgba(210, 88, 32, 0.55);
+  /* Smooth internal gradient fading naturally into the darker background */
+  background: radial-gradient(ellipse at 50% 0%, rgba(195, 80, 28, 0.26) 0%, rgba(140, 52, 16, 0.11) 32%, rgba(10, 10, 14, 0.85) 60%, #070709 100%);
+  border-top: 1.5px solid rgba(220, 95, 36, 0.65);
   box-shadow: 
-    0 -8px 24px rgba(185, 75, 25, 0.25),
-    0 -1px 6px rgba(220, 95, 38, 0.4),
-    inset 0 8px 30px rgba(185, 75, 25, 0.12);
+    0 -12px 36px rgba(195, 78, 26, 0.35),
+    0 -2px 10px rgba(230, 105, 42, 0.6),
+    inset 0 12px 35px rgba(185, 72, 22, 0.16);
 }
 
 @media (min-width: 640px) {
+  .horizon-arc-wrapper {
+    padding-top: 35px;
+  }
+  .horizon-arc-wrapper::before {
+    top: -50px;
+    height: 180px;
+    filter: blur(36px);
+  }
   .horizon-arc {
-    width: 135%;
-    left: -17.5%;
-    height: 240px;
+    width: 138%;
+    left: -19%;
+    height: 250px;
     box-shadow: 
-      0 -10px 32px rgba(185, 75, 25, 0.28),
-      0 -1px 8px rgba(220, 95, 38, 0.45),
-      inset 0 10px 40px rgba(185, 75, 25, 0.14);
+      0 -16px 48px rgba(195, 78, 26, 0.38),
+      0 -2px 12px rgba(235, 110, 45, 0.65),
+      inset 0 16px 45px rgba(185, 72, 22, 0.18);
   }
 }
 
 @media (min-width: 1024px) {
   .horizon-arc {
-    width: 125%;
-    left: -12.5%;
-    height: 280px;
+    width: 128%;
+    left: -14%;
+    height: 290px;
   }
 }
 
@@ -84,7 +116,7 @@
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #08080a;
+  background: #070709;
 }
 ::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.12);

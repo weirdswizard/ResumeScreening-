@@ -489,6 +489,10 @@ export default function Home() {
 
       {/* 2. Hero Section (Project Centered with Subtle Warm Horizon) */}
       <section className="relative pt-12 sm:pt-16 pb-0 overflow-hidden flex flex-col items-center text-center px-4 sm:px-6 lg:px-8">
+        {/* Atmospheric Ambient Gradient Glows behind Hero Content */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[650px] max-w-full h-[280px] bg-gradient-to-b from-[#C8521C]/14 via-[#C8521C]/06 to-transparent blur-[80px] rounded-full pointer-events-none -z-10" />
+        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 w-[850px] max-w-full h-[220px] bg-gradient-to-t from-[#C8521C]/22 via-[#C8521C]/08 to-transparent blur-[65px] rounded-full pointer-events-none -z-10" />
+
         {/* Project Tag Badge */}
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs text-zinc-300 mb-5">
           <span className="w-2 h-2 rounded-full bg-[#C8521C]" />
