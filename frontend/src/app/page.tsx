@@ -26,9 +26,7 @@ import {
   X,
   Play,
   Cpu,
-  FileCode,
-  GitBranch,
-  BookOpen
+  GitBranch
 } from "lucide-react";
 
 interface TopCategory {
@@ -310,78 +308,74 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-[#08080a] text-[#E4E4E7] flex flex-col font-sans selection:bg-[#C8521C] selection:text-white dark-space-bg transition-colors duration-200 antialiased w-full max-w-full overflow-x-hidden">
-      {/* 1. Clean Project Navigation Bar */}
-      <header className="sticky top-0 z-50 w-full border-b border-white/[0.06] bg-[#08080a]/90 backdrop-blur-md transition-all duration-200">
-        <div className="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 h-16 sm:h-18 flex items-center justify-between gap-3">
-          {/* Logo & Project Title */}
-          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
-            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-[#C8521C]/20 border border-[#C8521C]/40 flex items-center justify-center text-[#E06629] shrink-0">
-              <FileCode className="w-4 h-4 sm:w-5 sm:h-5" />
-            </div>
-            <div className="flex items-center gap-2 min-w-0">
-              <span className="text-sm sm:text-lg font-bold tracking-tight text-white font-sans">
-                <span className="hidden xs:inline">ResumeScreening</span>
-                <span className="xs:hidden">Resume</span>
-                <span className="text-[#D45B1E]">.ai</span>
-              </span>
-              <span className="hidden sm:inline-block text-[10px] uppercase font-medium px-2 py-0.5 rounded bg-white/[0.05] border border-white/[0.08] text-zinc-400">
-                NLP Model
-              </span>
-            </div>
+    <div
+      className={`min-h-screen flex flex-col font-sans selection:bg-[#C8521C] selection:text-white transition-colors duration-300 antialiased w-full max-w-full overflow-x-hidden ${
+        theme === "dark"
+          ? "bg-[#060709] text-zinc-100 contrasting-ambient-bg"
+          : "bg-[#f8fafc] text-slate-900 contrasting-ambient-bg-light"
+      }`}
+    >
+      {/* 1. Clean Minimal Navigation Bar (Clean Text Logo, No Clunky Box or Badge) */}
+      <header className="sticky top-0 z-50 w-full border-b border-slate-200/80 dark:border-white/[0.07] bg-white/80 dark:bg-[#060709]/80 backdrop-blur-xl transition-all duration-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-18 flex items-center justify-between gap-3">
+          {/* Clean Elegant Text Logo */}
+          <div className="flex items-center gap-2">
+            <span className="text-lg sm:text-xl font-extrabold tracking-tight text-slate-900 dark:text-white font-sans">
+              Resume<span className="text-[#E05626]">Screening</span>
+            </span>
           </div>
 
           {/* Genuine Project Links */}
-          <nav className="hidden md:flex items-center gap-6 text-xs text-zinc-400">
+          <nav className="hidden md:flex items-center gap-7 text-xs font-medium text-slate-600 dark:text-zinc-400">
             <button
               onClick={() => setShowRolesModal(true)}
-              className="hover:text-white transition-colors cursor-pointer flex items-center gap-1.5"
+              className="hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer flex items-center gap-1.5"
             >
-              <Compass className="w-3.5 h-3.5 text-[#D45B1E]" />
+              <Compass className="w-3.5 h-3.5 text-[#E05626]" />
               <span>25 Categories</span>
             </button>
             <button
               onClick={() => setShowArchModal(true)}
-              className="hover:text-white transition-colors cursor-pointer flex items-center gap-1.5"
+              className="hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer flex items-center gap-1.5"
             >
-              <Cpu className="w-3.5 h-3.5 text-[#D45B1E]" />
+              <Cpu className="w-3.5 h-3.5 text-[#0D9488]" />
               <span>Model Specs</span>
             </button>
             <a
               href="https://github.com/weirdswizard/ResumeScreening-.git"
               target="_blank"
               rel="noopener noreferrer"
-              className="hover:text-white transition-colors flex items-center gap-1.5"
+              className="hover:text-slate-900 dark:hover:text-white transition-colors flex items-center gap-1.5"
             >
-              <GitBranch className="w-3.5 h-3.5 text-[#D45B1E]" />
+              <GitBranch className="w-3.5 h-3.5" />
               <span>GitHub</span>
             </a>
           </nav>
 
           {/* Right Action Items */}
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="flex items-center gap-2 sm:gap-3 shrink-0">
             {/* Roles Drawer Trigger for Mobile */}
             <button
               type="button"
               onClick={() => setShowRolesModal(!showRolesModal)}
-              className="md:hidden px-2.5 py-1.5 rounded-full bg-white/[0.04] hover:bg-white/[0.08] text-xs text-zinc-300 border border-white/10 transition flex items-center gap-1 cursor-pointer"
+              className="md:hidden px-2.5 py-1.5 rounded-full bg-slate-100 dark:bg-white/[0.05] hover:bg-slate-200 dark:hover:bg-white/[0.1] text-xs text-slate-700 dark:text-zinc-300 border border-slate-200 dark:border-white/10 transition flex items-center gap-1 cursor-pointer"
             >
-              <Compass className="w-3 h-3 text-[#D45B1E]" />
-              <span className="text-[11px]">25 Roles</span>
+              <Compass className="w-3 h-3 text-[#E05626]" />
+              <span className="text-[11px]">Roles</span>
             </button>
 
-            {/* Theme Toggle Button */}
+            {/* Light / Dark Mode Toggle Button */}
             <button
               type="button"
               onClick={toggleTheme}
               aria-label="Toggle theme"
-              className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/[0.04] hover:bg-white/[0.08] text-zinc-400 hover:text-white border border-white/10 transition flex items-center justify-center cursor-pointer"
+              className="w-9 h-9 rounded-full bg-slate-100 hover:bg-slate-200 dark:bg-white/[0.05] dark:hover:bg-white/[0.1] text-slate-700 dark:text-zinc-300 border border-slate-200 dark:border-white/10 transition flex items-center justify-center cursor-pointer shadow-sm group"
               title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
             >
               {theme === "dark" ? (
-                <Sun className="w-3.5 h-3.5 text-zinc-300" />
+                <Sun className="w-4 h-4 text-amber-400 group-hover:rotate-45 transition-transform duration-300" />
               ) : (
-                <Moon className="w-3.5 h-3.5 text-zinc-300" />
+                <Moon className="w-4 h-4 text-indigo-600 group-hover:-rotate-12 transition-transform duration-300" />
               )}
             </button>
 
@@ -389,10 +383,9 @@ export default function Home() {
             <button
               type="button"
               onClick={scrollToWorkspace}
-              className="px-3 sm:px-5 py-1.5 sm:py-2 rounded-full bg-[#C8521C] hover:bg-[#D95B22] text-white font-semibold text-xs sm:text-sm tracking-wide transition-colors border border-[#E06629]/40 cursor-pointer"
+              className="px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full bg-[#E05626] hover:bg-[#eb6130] text-white font-semibold text-xs sm:text-sm tracking-wide transition-all shadow-md shadow-orange-500/20 cursor-pointer active:scale-95"
             >
-              <span className="xs:hidden">Screen</span>
-              <span className="hidden xs:inline">Screen Resume</span>
+              Screen Resume
             </button>
           </div>
         </div>
@@ -400,25 +393,25 @@ export default function Home() {
 
       {/* 25 Supported Job Tracks Modal */}
       {showRolesModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fadeIn">
-          <div className="bg-[#0e1015] border border-white/10 rounded-2xl max-w-2xl w-full p-5 sm:p-7 shadow-2xl relative max-h-[85vh] overflow-y-auto">
-            <div className="flex items-center justify-between pb-4 border-b border-white/10">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fadeIn">
+          <div className="bg-white dark:bg-[#0e1015] border border-slate-200 dark:border-white/10 rounded-2xl max-w-2xl w-full p-5 sm:p-7 shadow-2xl relative max-h-[85vh] overflow-y-auto">
+            <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-white/10">
               <div className="flex items-center gap-2.5">
-                <div className="p-2 rounded-lg bg-[#C8521C]/20 border border-[#C8521C]/30 text-[#E06629]">
+                <div className="p-2 rounded-xl bg-orange-500/10 border border-orange-500/20 text-[#E05626]">
                   <Compass className="w-5 h-5" />
                 </div>
                 <div>
-                  <h2 className="font-bold text-base sm:text-lg text-white">
+                  <h2 className="font-bold text-base sm:text-lg text-slate-900 dark:text-white">
                     25 Trained Job Categories
                   </h2>
-                  <p className="text-xs text-zinc-400">
+                  <p className="text-xs text-slate-500 dark:text-zinc-400">
                     Pre-trained NLP multi-class model categories
                   </p>
                 </div>
               </div>
               <button
                 onClick={() => setShowRolesModal(false)}
-                className="p-1.5 text-zinc-400 hover:text-white hover:bg-white/[0.08] rounded-lg transition cursor-pointer"
+                className="p-1.5 text-slate-500 hover:text-slate-900 dark:text-zinc-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.08] rounded-lg transition cursor-pointer"
                 aria-label="Close modal"
               >
                 <X className="w-5 h-5" />
@@ -434,16 +427,16 @@ export default function Home() {
               ].map((role) => (
                 <span
                   key={role}
-                  className="px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-zinc-300 text-xs font-medium"
+                  className="px-3 py-1.5 rounded-full bg-slate-100 dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 text-slate-800 dark:text-zinc-300 text-xs font-medium"
                 >
                   {role}
                 </span>
               ))}
             </div>
-            <div className="mt-6 pt-4 border-t border-white/10 flex justify-end">
+            <div className="mt-6 pt-4 border-t border-slate-200 dark:border-white/10 flex justify-end">
               <button
                 onClick={() => setShowRolesModal(false)}
-                className="px-5 py-2 rounded-full bg-[#C8521C] hover:bg-[#D95B22] text-white text-xs font-semibold cursor-pointer"
+                className="px-5 py-2 rounded-full bg-[#E05626] hover:bg-[#eb6130] text-white text-xs font-semibold cursor-pointer"
               >
                 Close
               </button>
@@ -454,31 +447,31 @@ export default function Home() {
 
       {/* Model Architecture Modal */}
       {showArchModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fadeIn">
-          <div className="bg-[#0e1015] border border-white/10 rounded-2xl max-w-xl w-full p-5 sm:p-7 shadow-2xl relative max-h-[85vh] overflow-y-auto space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-white/10">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fadeIn">
+          <div className="bg-white dark:bg-[#0e1015] border border-slate-200 dark:border-white/10 rounded-2xl max-w-xl w-full p-5 sm:p-7 shadow-2xl relative max-h-[85vh] overflow-y-auto space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-white/10">
               <div className="flex items-center gap-2">
-                <Cpu className="w-5 h-5 text-[#D45B1E]" />
-                <h3 className="font-bold text-white text-base">Model &amp; Pipeline Architecture</h3>
+                <Cpu className="w-5 h-5 text-[#0D9488]" />
+                <h3 className="font-bold text-slate-900 dark:text-white text-base">Model &amp; Pipeline Architecture</h3>
               </div>
               <button
                 onClick={() => setShowArchModal(false)}
-                className="p-1.5 text-zinc-400 hover:text-white hover:bg-white/[0.08] rounded-lg transition cursor-pointer"
+                className="p-1.5 text-slate-500 hover:text-slate-900 dark:text-zinc-400 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/[0.08] rounded-lg transition cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
-            <div className="space-y-3 text-xs text-zinc-300 leading-relaxed">
-              <p><strong className="text-white">Dataset:</strong> Kaggle UpdatedResumeDataSet comprising 962 resumes across 25 distinct job classifications.</p>
-              <p><strong className="text-white">Preprocessing:</strong> URL removal, punctuation cleaning, symbol stripping, extra whitespace trimming, and lowercasing via Python regex.</p>
-              <p><strong className="text-white">Feature Representation:</strong> Scikit-Learn TF-IDF vectorizer (Term Frequency-Inverse Document Frequency) with English stopword filtering.</p>
-              <p><strong className="text-white">Classifier:</strong> Multi-class Random Forest with 100 estimators achieving 100% test evaluation score.</p>
-              <p><strong className="text-white">Document Parsing:</strong> PDF extraction via pypdf, Word document parsing via python-docx, and UTF-8 plain text handling.</p>
+            <div className="space-y-3 text-xs text-slate-600 dark:text-zinc-300 leading-relaxed">
+              <p><strong className="text-slate-900 dark:text-white">Dataset:</strong> Kaggle UpdatedResumeDataSet comprising 962 resumes across 25 distinct job classifications.</p>
+              <p><strong className="text-slate-900 dark:text-white">Preprocessing:</strong> URL removal, punctuation cleaning, symbol stripping, extra whitespace trimming, and lowercasing via Python regex.</p>
+              <p><strong className="text-slate-900 dark:text-white">Feature Representation:</strong> Scikit-Learn TF-IDF vectorizer (Term Frequency-Inverse Document Frequency) with English stopword filtering.</p>
+              <p><strong className="text-slate-900 dark:text-white">Classifier:</strong> Multi-class Random Forest with 100 estimators achieving 100% test evaluation score.</p>
+              <p><strong className="text-slate-900 dark:text-white">Document Parsing:</strong> PDF extraction via pypdf, Word document parsing via python-docx, and UTF-8 plain text handling.</p>
             </div>
-            <div className="pt-3 border-t border-white/10 flex justify-end">
+            <div className="pt-3 border-t border-slate-200 dark:border-white/10 flex justify-end">
               <button
                 onClick={() => setShowArchModal(false)}
-                className="px-4 py-2 rounded-full bg-[#C8521C] hover:bg-[#D95B22] text-white text-xs font-semibold cursor-pointer"
+                className="px-4 py-2 rounded-full bg-[#E05626] hover:bg-[#eb6130] text-white text-xs font-semibold cursor-pointer"
               >
                 Got it
               </button>
@@ -487,27 +480,27 @@ export default function Home() {
         </div>
       )}
 
-      {/* 2. Hero Section (Project Centered with Subtle Warm Horizon) */}
+      {/* 2. Hero Section (Dual Contrasting Ambient Highlights: Coral Left + Teal Right) */}
       <section className="relative pt-12 sm:pt-16 pb-0 overflow-hidden flex flex-col items-center text-center px-4 sm:px-6 lg:px-8">
-        {/* Atmospheric Ambient Gradient Glows behind Hero Content */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[650px] max-w-full h-[280px] bg-gradient-to-b from-[#C8521C]/14 via-[#C8521C]/06 to-transparent blur-[80px] rounded-full pointer-events-none -z-10" />
-        <div className="absolute bottom-12 left-1/2 -translate-x-1/2 w-[850px] max-w-full h-[220px] bg-gradient-to-t from-[#C8521C]/22 via-[#C8521C]/08 to-transparent blur-[65px] rounded-full pointer-events-none -z-10" />
+        {/* Dual Contrasting Color Blooms (Left Coral/Orange + Right Teal/Cyan) */}
+        <div className="absolute top-1/3 left-[-5%] sm:left-[5%] w-[450px] sm:w-[550px] max-w-full h-[320px] bg-gradient-to-r from-[#E04B26]/18 to-transparent blur-[85px] rounded-full pointer-events-none -z-10" />
+        <div className="absolute top-1/3 right-[-5%] sm:right-[5%] w-[450px] sm:w-[550px] max-w-full h-[320px] bg-gradient-to-l from-[#0D9488]/18 to-transparent blur-[85px] rounded-full pointer-events-none -z-10" />
 
         {/* Project Tag Badge */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs text-zinc-300 mb-5">
-          <span className="w-2 h-2 rounded-full bg-[#C8521C]" />
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 text-xs text-slate-700 dark:text-zinc-300 mb-5 shadow-sm">
+          <span className="w-2 h-2 rounded-full bg-[#E05626]" />
           <span>Machine Learning &amp; NLP Project</span>
-          <span className="text-zinc-500">•</span>
-          <span className="text-zinc-400">25 Career Categories</span>
+          <span className="text-slate-400 dark:text-zinc-500">•</span>
+          <span className="text-slate-600 dark:text-zinc-400">25 Career Categories</span>
         </div>
 
-        {/* Honest Heading */}
-        <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight leading-[1.15] max-w-3xl mx-auto px-2">
+        {/* Heading */}
+        <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-[1.15] max-w-3xl mx-auto px-2">
           Resume Screening &amp; Classification
         </h1>
 
-        {/* Project Description */}
-        <p className="mt-4 sm:mt-5 text-sm sm:text-base text-zinc-400 max-w-2xl mx-auto leading-relaxed px-2">
+        {/* Description */}
+        <p className="mt-4 sm:mt-5 text-sm sm:text-base text-slate-600 dark:text-zinc-400 max-w-2xl mx-auto leading-relaxed px-2">
           An automated machine learning system trained on resume text to predict job category fit across 25 career domains, extract key technical competencies, and measure alignment with target job requisitions.
         </p>
 
@@ -516,59 +509,59 @@ export default function Home() {
           <button
             type="button"
             onClick={() => loadSample("data_scientist")}
-            className="px-5 sm:px-6 py-2.5 sm:py-3 rounded-full bg-white/[0.05] hover:bg-white/[0.09] text-white font-medium text-xs sm:text-sm border border-white/10 transition-colors flex items-center gap-2 cursor-pointer"
+            className="px-5 sm:px-6 py-2.5 sm:py-3 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-900 dark:bg-white/[0.05] dark:hover:bg-white/[0.1] dark:text-white font-medium text-xs sm:text-sm border border-slate-300 dark:border-white/10 transition-colors flex items-center gap-2 cursor-pointer shadow-sm active:scale-95"
           >
-            <Play className="w-3.5 h-3.5 fill-white text-white" />
+            <Play className="w-3.5 h-3.5 fill-current" />
             <span>Load Sample Resume</span>
           </button>
 
           <button
             type="button"
             onClick={scrollToWorkspace}
-            className="px-6 sm:px-7 py-2.5 sm:py-3 rounded-full bg-[#C8521C] hover:bg-[#D95B22] text-white font-semibold text-xs sm:text-sm transition-colors border border-[#E06629]/40 flex items-center gap-1.5 cursor-pointer"
+            className="px-6 sm:px-7 py-2.5 sm:py-3 rounded-full bg-[#E05626] hover:bg-[#eb6130] text-white font-semibold text-xs sm:text-sm transition-all shadow-md shadow-orange-500/25 flex items-center gap-1.5 cursor-pointer active:scale-95"
           >
             <span>Analyze Resume</span>
           </button>
         </div>
 
-        {/* Core System Architecture Badges */}
+        {/* Clean Architecture Badges (No Arc, Crisp Alignment) */}
         <div className="mt-9 sm:mt-12 flex flex-wrap items-center justify-center gap-2 sm:gap-3 max-w-3xl mx-auto px-4">
-          <span className="px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-zinc-300 text-xs font-medium flex items-center gap-2 shadow-sm">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#C8521C]" />
+          <span className="px-3.5 py-1.5 rounded-full bg-white/80 dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 text-slate-700 dark:text-zinc-300 text-xs font-medium flex items-center gap-2 shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#E05626]" />
             25 Job Categories
           </span>
-          <span className="px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-zinc-300 text-xs font-medium flex items-center gap-2 shadow-sm">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#C8521C]" />
+          <span className="px-3.5 py-1.5 rounded-full bg-white/80 dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 text-slate-700 dark:text-zinc-300 text-xs font-medium flex items-center gap-2 shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#0D9488]" />
             TF-IDF Vectorization
           </span>
-          <span className="px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-zinc-300 text-xs font-medium flex items-center gap-2 shadow-sm">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#C8521C]" />
+          <span className="px-3.5 py-1.5 rounded-full bg-white/80 dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 text-slate-700 dark:text-zinc-300 text-xs font-medium flex items-center gap-2 shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#E05626]" />
             Random Forest Model
           </span>
-          <span className="px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-zinc-300 text-xs font-medium flex items-center gap-2 shadow-sm">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#C8521C]" />
+          <span className="px-3.5 py-1.5 rounded-full bg-white/80 dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 text-slate-700 dark:text-zinc-300 text-xs font-medium flex items-center gap-2 shadow-sm">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#0D9488]" />
             PDF, DOCX &amp; TXT Parser
           </span>
         </div>
       </section>
 
-      {/* 3. Interactive Workspace Dashboard */}
+      {/* 3. Interactive Workspace Dashboard (With Full Light & Dark Support) */}
       <section
         ref={workspaceRef}
         className="relative z-10 mt-8 sm:mt-12 max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 pb-16 sm:pb-20 w-full"
       >
-        <div className="rounded-2xl sm:rounded-3xl border border-white/[0.08] bg-[#0c0d12] shadow-2xl p-4 sm:p-7">
+        <div className="rounded-2xl sm:rounded-3xl border border-slate-200/90 dark:border-white/[0.08] bg-white/90 dark:bg-[#0c0d12]/95 shadow-xl dark:shadow-2xl p-4 sm:p-7 backdrop-blur-md transition-colors duration-200">
           {/* Workspace Header */}
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-white/[0.07] gap-3 mb-5 sm:mb-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-200 dark:border-white/[0.07] gap-3 mb-5 sm:mb-6">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-[#C8521C]/20 border border-[#C8521C]/30 text-[#E06629] flex items-center justify-center">
+              <div className="w-8 h-8 rounded-lg bg-orange-500/10 border border-orange-500/20 text-[#E05626] flex items-center justify-center">
                 <Brain className="w-4 h-4" />
               </div>
               <div>
-                <h3 className="font-bold text-sm sm:text-base text-white">
+                <h3 className="font-bold text-sm sm:text-base text-slate-900 dark:text-white">
                   Resume Screener &amp; Skill Matcher
                 </h3>
-                <p className="text-xs text-zinc-400">
+                <p className="text-xs text-slate-500 dark:text-zinc-400">
                   Select a sample profile or upload a document to run inference
                 </p>
               </div>
@@ -576,25 +569,25 @@ export default function Home() {
 
             {/* Quick Sample Selector Pills */}
             <div className="flex items-center flex-wrap gap-1.5 text-xs">
-              <span className="text-zinc-500 text-[11px] font-medium mr-0.5">Try sample:</span>
+              <span className="text-slate-500 dark:text-zinc-500 text-[11px] font-medium mr-0.5">Try sample:</span>
               <button
                 type="button"
                 onClick={() => loadSample("data_scientist")}
-                className="px-2.5 py-1 rounded-full bg-white/[0.04] hover:bg-[#C8521C]/20 text-zinc-300 hover:text-white border border-white/10 hover:border-[#C8521C]/40 text-[11px] font-medium transition cursor-pointer"
+                className="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-white/[0.04] dark:hover:bg-[#E05626]/20 dark:text-zinc-300 dark:hover:text-white border border-slate-200 dark:border-white/10 text-[11px] font-medium transition cursor-pointer"
               >
                 Alex (Data Science)
               </button>
               <button
                 type="button"
                 onClick={() => loadSample("java_developer")}
-                className="px-2.5 py-1 rounded-full bg-white/[0.04] hover:bg-[#C8521C]/20 text-zinc-300 hover:text-white border border-white/10 hover:border-[#C8521C]/40 text-[11px] font-medium transition cursor-pointer"
+                className="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-white/[0.04] dark:hover:bg-[#E05626]/20 dark:text-zinc-300 dark:hover:text-white border border-slate-200 dark:border-white/10 text-[11px] font-medium transition cursor-pointer"
               >
                 Marcus (Java)
               </button>
               <button
                 type="button"
                 onClick={() => loadSample("devops_engineer")}
-                className="px-2.5 py-1 rounded-full bg-white/[0.04] hover:bg-[#C8521C]/20 text-zinc-300 hover:text-white border border-white/10 hover:border-[#C8521C]/40 text-[11px] font-medium transition cursor-pointer"
+                className="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-white/[0.04] dark:hover:bg-[#E05626]/20 dark:text-zinc-300 dark:hover:text-white border border-slate-200 dark:border-white/10 text-[11px] font-medium transition cursor-pointer"
               >
                 Sarah (DevOps)
               </button>
@@ -606,15 +599,15 @@ export default function Home() {
             {/* Left Column: Input Form (7 cols) */}
             <div className="lg:col-span-7 space-y-4 sm:space-y-5">
               {/* Tab Selector: Upload Document vs Paste Text */}
-              <div className="flex items-center justify-between gap-2 border-b border-white/[0.06] pb-3.5">
-                <div className="flex p-1 bg-black/40 rounded-xl border border-white/[0.08] w-full sm:w-auto">
+              <div className="flex items-center justify-between gap-2 border-b border-slate-200 dark:border-white/[0.06] pb-3.5">
+                <div className="flex p-1 bg-slate-100 dark:bg-black/40 rounded-xl border border-slate-200 dark:border-white/[0.08] w-full sm:w-auto">
                   <button
                     type="button"
                     onClick={() => setActiveTab("upload")}
                     className={`flex-1 sm:flex-initial px-3.5 py-1.5 rounded-lg text-xs font-semibold transition flex items-center justify-center gap-1.5 cursor-pointer ${
                       activeTab === "upload"
-                        ? "bg-[#C8521C] text-white"
-                        : "text-zinc-400 hover:text-white"
+                        ? "bg-[#E05626] text-white shadow-sm"
+                        : "text-slate-600 hover:text-slate-900 dark:text-zinc-400 dark:hover:text-white"
                     }`}
                   >
                     <UploadCloud className="w-3.5 h-3.5" /> Upload Document
@@ -624,8 +617,8 @@ export default function Home() {
                     onClick={() => setActiveTab("paste")}
                     className={`flex-1 sm:flex-initial px-3.5 py-1.5 rounded-lg text-xs font-semibold transition flex items-center justify-center gap-1.5 cursor-pointer ${
                       activeTab === "paste"
-                        ? "bg-[#C8521C] text-white"
-                        : "text-zinc-400 hover:text-white"
+                        ? "bg-[#E05626] text-white shadow-sm"
+                        : "text-slate-600 hover:text-slate-900 dark:text-zinc-400 dark:hover:text-white"
                     }`}
                   >
                     <FileText className="w-3.5 h-3.5" /> Paste Text
@@ -639,7 +632,7 @@ export default function Home() {
                   onDragOver={(e) => e.preventDefault()}
                   onDrop={handleDrop}
                   onClick={() => fileInputRef.current?.click()}
-                  className="border border-dashed border-white/15 hover:border-[#C8521C]/70 rounded-xl sm:rounded-2xl p-6 sm:p-9 text-center cursor-pointer transition bg-black/30 hover:bg-black/50 group"
+                  className="border border-dashed border-slate-300 hover:border-[#E05626] dark:border-white/15 dark:hover:border-[#E05626]/70 rounded-xl sm:rounded-2xl p-6 sm:p-9 text-center cursor-pointer transition bg-slate-50/70 hover:bg-slate-100/70 dark:bg-black/30 dark:hover:bg-black/50 group"
                 >
                   <input
                     ref={fileInputRef}
@@ -648,27 +641,27 @@ export default function Home() {
                     onChange={handleFileChange}
                     className="hidden"
                   />
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 mx-auto mb-3 rounded-xl bg-white/[0.04] group-hover:bg-[#C8521C]/20 text-zinc-400 group-hover:text-[#E06629] flex items-center justify-center transition border border-white/10 group-hover:border-[#C8521C]/40">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 mx-auto mb-3 rounded-xl bg-white dark:bg-white/[0.04] group-hover:bg-orange-50 dark:group-hover:bg-[#E05626]/20 text-slate-500 dark:text-zinc-400 group-hover:text-[#E05626] flex items-center justify-center transition border border-slate-200 dark:border-white/10 shadow-sm">
                     <UploadCloud className="w-6 h-6 sm:w-7 sm:h-7" />
                   </div>
                   {selectedFile ? (
                     <div className="space-y-1">
-                      <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold mb-1">
+                      <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-xs font-semibold mb-1">
                         <FileCheck className="w-3.5 h-3.5" /> File Selected
                       </div>
-                      <p className="text-sm font-bold text-white break-all px-2">
+                      <p className="text-sm font-bold text-slate-900 dark:text-white break-all px-2">
                         {selectedFile.name}
                       </p>
-                      <p className="text-xs text-zinc-400">
+                      <p className="text-xs text-slate-500 dark:text-zinc-400">
                         {(selectedFile.size / 1024).toFixed(1)} KB • Click to replace file
                       </p>
                     </div>
                   ) : (
                     <div>
-                      <p className="text-xs sm:text-sm font-medium text-white">
-                        Drop resume file here, or <span className="text-[#D45B1E] underline underline-offset-4">browse</span>
+                      <p className="text-xs sm:text-sm font-medium text-slate-800 dark:text-white">
+                        Drop resume file here, or <span className="text-[#E05626] underline underline-offset-4 font-semibold">browse</span>
                       </p>
-                      <p className="text-[11px] sm:text-xs text-zinc-500 mt-1">
+                      <p className="text-[11px] sm:text-xs text-slate-500 dark:text-zinc-500 mt-1">
                         Supports PDF, DOCX, and TXT files
                       </p>
                     </div>
@@ -684,9 +677,9 @@ export default function Home() {
                     value={resumeText}
                     onChange={(e) => setResumeText(e.target.value)}
                     placeholder="Paste resume text here (Summary, Work Experience, Technical Skills, Education)..."
-                    className="w-full bg-black/40 border border-white/10 rounded-xl sm:rounded-2xl p-3.5 text-xs sm:text-sm text-white placeholder:text-zinc-600 focus:outline-none focus:border-[#C8521C] font-mono transition resize-y min-h-[150px]"
+                    className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-xl sm:rounded-2xl p-3.5 text-xs sm:text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-zinc-600 focus:outline-none focus:border-[#E05626] font-mono transition resize-y min-h-[150px]"
                   />
-                  <div className="flex justify-between items-center text-xs text-zinc-500 mt-1.5 px-1 font-mono">
+                  <div className="flex justify-between items-center text-xs text-slate-500 dark:text-zinc-500 mt-1.5 px-1 font-mono">
                     <span>{resumeText.split(/\s+/).filter(Boolean).length} words</span>
                     <span>{resumeText.length} characters</span>
                   </div>
@@ -694,14 +687,14 @@ export default function Home() {
               )}
 
               {/* ATS Job Description Matching Section */}
-              <div className="pt-3.5 border-t border-white/[0.07]">
+              <div className="pt-3.5 border-t border-slate-200 dark:border-white/[0.07]">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 mb-2.5">
-                  <label className="flex items-center gap-2 text-xs font-semibold text-zinc-300 cursor-pointer select-none">
+                  <label className="flex items-center gap-2 text-xs font-semibold text-slate-700 dark:text-zinc-300 cursor-pointer select-none">
                     <input
                       type="checkbox"
                       checked={includeAts}
                       onChange={(e) => setIncludeAts(e.target.checked)}
-                      className="rounded border-white/20 bg-black text-[#C8521C] focus:ring-[#C8521C] h-4 w-4 shrink-0 cursor-pointer accent-[#C8521C]"
+                      className="rounded border-slate-300 dark:border-white/20 bg-white dark:bg-black text-[#E05626] focus:ring-[#E05626] h-4 w-4 shrink-0 cursor-pointer accent-[#E05626]"
                     />
                     <span>Compare with Target Job Description (Skill Matching)</span>
                   </label>
@@ -709,7 +702,7 @@ export default function Home() {
                     <button
                       type="button"
                       onClick={() => setJobDescription(SAMPLE_JOB_DESCRIPTION)}
-                      className="text-xs text-[#D45B1E] hover:underline transition cursor-pointer font-medium self-end sm:self-auto"
+                      className="text-xs text-[#E05626] hover:underline transition cursor-pointer font-medium self-end sm:self-auto"
                     >
                       Paste Sample Job Req
                     </button>
@@ -723,7 +716,7 @@ export default function Home() {
                       value={jobDescription}
                       onChange={(e) => setJobDescription(e.target.value)}
                       placeholder="Paste target job description to measure keyword overlap and missing competencies..."
-                      className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-xs sm:text-sm text-white placeholder:text-zinc-600 focus:outline-none focus:border-[#C8521C] font-mono transition resize-y min-h-[90px]"
+                      className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-xl p-3 text-xs sm:text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-zinc-600 focus:outline-none focus:border-[#E05626] font-mono transition resize-y min-h-[90px]"
                     />
                   </div>
                 )}
@@ -731,19 +724,19 @@ export default function Home() {
 
               {/* Error Message Alert */}
               {error && (
-                <div className="p-3 rounded-xl bg-red-950/40 border border-red-500/30 text-red-300 text-xs flex items-center gap-2">
-                  <AlertCircle className="w-4 h-4 shrink-0 text-red-400" />
+                <div className="p-3 rounded-xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-500/30 text-red-700 dark:text-red-300 text-xs flex items-center gap-2">
+                  <AlertCircle className="w-4 h-4 shrink-0 text-red-500" />
                   <span className="font-medium">{error}</span>
                 </div>
               )}
 
-              {/* Action Buttons: Clean Dark Warm Styling */}
+              {/* Action Buttons */}
               <div className="pt-1 flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
                 <button
                   type="button"
                   onClick={handleScreenResume}
                   disabled={isLoading}
-                  className="flex-1 py-2.5 sm:py-3 px-5 rounded-full font-semibold text-xs sm:text-sm bg-[#C8521C] hover:bg-[#D95B22] text-white transition-colors border border-[#E06629]/40 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                  className="flex-1 py-2.5 sm:py-3 px-5 rounded-full font-semibold text-xs sm:text-sm bg-[#E05626] hover:bg-[#eb6130] text-white transition-all shadow-md shadow-orange-500/25 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer active:scale-95"
                 >
                   {isLoading ? (
                     <>
@@ -760,7 +753,7 @@ export default function Home() {
                 <button
                   type="button"
                   onClick={resetAll}
-                  className="py-2.5 sm:py-3 px-5 rounded-full border border-white/10 hover:bg-white/[0.06] text-zinc-400 hover:text-white text-xs font-medium transition cursor-pointer text-center"
+                  className="py-2.5 sm:py-3 px-5 rounded-full border border-slate-300 dark:border-white/10 hover:bg-slate-100 dark:hover:bg-white/[0.06] text-slate-600 dark:text-zinc-400 hover:text-slate-900 dark:hover:text-white text-xs font-medium transition cursor-pointer text-center"
                 >
                   Clear
                 </button>
@@ -773,39 +766,39 @@ export default function Home() {
                 <div className="space-y-4 animate-fadeIn">
                   {/* Model Classification Result Card */}
                   {result.assessment && (
-                    <div className="bg-[#101217] border border-[#C8521C]/40 rounded-xl sm:rounded-2xl p-4 sm:p-5 shadow-lg relative overflow-hidden">
+                    <div className="bg-slate-50 dark:bg-[#101217] border border-orange-200 dark:border-[#E05626]/40 rounded-xl sm:rounded-2xl p-4 sm:p-5 shadow-md relative overflow-hidden transition-colors">
                       <div className="flex items-center justify-between text-xs font-semibold mb-2.5 gap-2 flex-wrap">
-                        <span className="flex items-center gap-1.5 text-[#E06629] text-xs font-bold uppercase tracking-wider">
+                        <span className="flex items-center gap-1.5 text-[#E05626] text-xs font-bold uppercase tracking-wider">
                           <CheckCircle2 className="w-4 h-4" /> Classification Result
                         </span>
-                        <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-bold text-[11px]">
+                        <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 font-bold text-[11px]">
                           {result.assessment.verdict}
                         </span>
                       </div>
 
                       <div className="mt-1">
-                        <span className="text-[10px] sm:text-[11px] uppercase tracking-wider text-zinc-500 font-bold">
+                        <span className="text-[10px] sm:text-[11px] uppercase tracking-wider text-slate-500 dark:text-zinc-500 font-bold">
                           Predicted Job Category
                         </span>
-                        <h3 className="text-xl sm:text-2xl font-extrabold text-white mt-0.5 tracking-tight break-words">
+                        <h3 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white mt-0.5 tracking-tight break-words">
                           {result.predicted_category}
                         </h3>
                       </div>
 
                       {/* Model Narrative */}
-                      <p className="mt-3 text-xs text-zinc-300 leading-relaxed bg-black/40 p-3 rounded-lg border border-white/[0.06]">
+                      <p className="mt-3 text-xs text-slate-700 dark:text-zinc-300 leading-relaxed bg-white dark:bg-black/40 p-3 rounded-lg border border-slate-200 dark:border-white/[0.06]">
                         {result.assessment.narrative}
                       </p>
 
                       {/* Technical Focus Areas */}
                       <div className="mt-3.5 space-y-1.5">
-                        <span className="text-[11px] font-bold text-zinc-300 uppercase tracking-wider flex items-center gap-1">
-                          <Lightbulb className="w-3.5 h-3.5 text-zinc-400 shrink-0" /> Suggested Focus Areas:
+                        <span className="text-[11px] font-bold text-slate-700 dark:text-zinc-300 uppercase tracking-wider flex items-center gap-1">
+                          <Lightbulb className="w-3.5 h-3.5 text-amber-500 shrink-0" /> Suggested Focus Areas:
                         </span>
-                        <ul className="space-y-1 text-xs text-zinc-400 pl-1">
+                        <ul className="space-y-1 text-xs text-slate-600 dark:text-zinc-400 pl-1">
                           {result.assessment.actionable_tips.map((tip, idx) => (
                             <li key={idx} className="flex items-start gap-1.5 text-xs">
-                              <span className="text-[#C8521C] font-bold">•</span>
+                              <span className="text-[#E05626] font-bold">•</span>
                               <span>{tip}</span>
                             </li>
                           ))}
@@ -813,16 +806,16 @@ export default function Home() {
                       </div>
 
                       {/* Model Confidence Progress Bar */}
-                      <div className="mt-4 pt-3.5 border-t border-white/[0.08]">
+                      <div className="mt-4 pt-3.5 border-t border-slate-200 dark:border-white/[0.08]">
                         <div className="flex justify-between items-center text-xs mb-1">
-                          <span className="text-zinc-300 font-medium">Model Confidence</span>
-                          <span className="text-[#E06629] font-bold font-mono text-xs sm:text-sm">
+                          <span className="text-slate-700 dark:text-zinc-300 font-medium">Model Confidence</span>
+                          <span className="text-[#E05626] font-bold font-mono text-xs sm:text-sm">
                             {result.confidence}%
                           </span>
                         </div>
-                        <div className="w-full bg-black/60 h-2 rounded-full overflow-hidden border border-white/10">
+                        <div className="w-full bg-slate-200 dark:bg-black/60 h-2 rounded-full overflow-hidden border border-slate-300 dark:border-white/10">
                           <div
-                            className="bg-[#C8521C] h-full rounded-full transition-all duration-700"
+                            className="bg-[#E05626] h-full rounded-full transition-all duration-700"
                             style={{ width: `${Math.max(result.confidence, 8)}%` }}
                           />
                         </div>
@@ -832,17 +825,17 @@ export default function Home() {
 
                   {/* ATS Job Match Card (If calculated) */}
                   {result.ats_match && (
-                    <div className="bg-[#101217] border border-white/10 rounded-xl sm:rounded-2xl p-4 shadow-md">
+                    <div className="bg-slate-50 dark:bg-[#101217] border border-slate-200 dark:border-white/10 rounded-xl sm:rounded-2xl p-4 shadow-sm">
                       <div className="flex items-center justify-between mb-3 gap-2">
                         <div className="flex items-center gap-1.5">
-                          <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
-                          <h4 className="text-xs sm:text-sm font-bold text-white">Job Alignment</h4>
+                          <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                          <h4 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">Job Alignment</h4>
                         </div>
                         <span
                           className={`text-xs font-bold font-mono px-2 py-0.5 rounded-full border ${
                             result.ats_match.score >= 50
-                              ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-400"
-                              : "bg-amber-500/10 border-amber-500/30 text-amber-400"
+                              ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-600 dark:text-emerald-400"
+                              : "bg-amber-500/10 border-amber-500/30 text-amber-600 dark:text-amber-400"
                           }`}
                         >
                           {result.ats_match.score}% Skill Overlap
@@ -851,7 +844,7 @@ export default function Home() {
 
                       <div className="space-y-3 text-xs">
                         <div>
-                          <span className="text-zinc-400 block mb-1 font-semibold text-xs">
+                          <span className="text-slate-600 dark:text-zinc-400 block mb-1 font-semibold text-xs">
                             Matched Skills ({result.ats_match.matched_skills.length}):
                           </span>
                           <div className="flex flex-wrap gap-1">
@@ -859,27 +852,27 @@ export default function Home() {
                               result.ats_match.matched_skills.map((s) => (
                                 <span
                                   key={s}
-                                  className="px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-[11px] font-medium"
+                                  className="px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-500/10 border border-emerald-200 dark:border-emerald-500/20 text-emerald-700 dark:text-emerald-300 text-[11px] font-medium"
                                 >
                                   ✓ {s}
                                 </span>
                               ))
                             ) : (
-                              <span className="text-zinc-500 italic">No keyword overlap detected.</span>
+                              <span className="text-slate-500 dark:text-zinc-500 italic">No keyword overlap detected.</span>
                             )}
                           </div>
                         </div>
 
                         {result.ats_match.missing_skills.length > 0 && (
                           <div>
-                            <span className="text-zinc-400 block mb-1 font-semibold text-xs">
+                            <span className="text-slate-600 dark:text-zinc-400 block mb-1 font-semibold text-xs">
                               Missing Role Keywords ({result.ats_match.missing_skills.length}):
                             </span>
                             <div className="flex flex-wrap gap-1">
                               {result.ats_match.missing_skills.map((s) => (
                                 <span
                                   key={s}
-                                  className="px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300 text-[11px] font-medium"
+                                  className="px-2 py-0.5 rounded-full bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 text-amber-700 dark:text-amber-300 text-[11px] font-medium"
                                 >
                                   ✗ {s}
                                 </span>
@@ -892,28 +885,28 @@ export default function Home() {
                   )}
 
                   {/* Top 5 Probability Distribution */}
-                  <div className="bg-[#101217] border border-white/10 rounded-xl sm:rounded-2xl p-4 shadow-md">
+                  <div className="bg-slate-50 dark:bg-[#101217] border border-slate-200 dark:border-white/10 rounded-xl sm:rounded-2xl p-4 shadow-sm">
                     <div className="flex items-center gap-1.5 mb-3">
-                      <BarChart3 className="w-4 h-4 text-[#C8521C] shrink-0" />
-                      <h4 className="text-xs sm:text-sm font-bold text-white">Top Role Probabilities</h4>
+                      <BarChart3 className="w-4 h-4 text-[#E05626] shrink-0" />
+                      <h4 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">Top Role Probabilities</h4>
                     </div>
                     <div className="space-y-2.5">
                       {result.top_categories.map((cat, idx) => (
                         <div key={cat.category}>
                           <div className="flex justify-between items-center text-xs mb-1">
-                            <span className="text-zinc-300 font-medium truncate mr-2">
+                            <span className="text-slate-800 dark:text-zinc-300 font-medium truncate mr-2">
                               {idx + 1}. {cat.category}
                             </span>
-                            <span className="text-zinc-400 font-mono font-bold shrink-0">{cat.probability}%</span>
+                            <span className="text-slate-500 dark:text-zinc-400 font-mono font-bold shrink-0">{cat.probability}%</span>
                           </div>
-                          <div className="w-full bg-black/60 h-2 rounded-full overflow-hidden border border-white/[0.06]">
+                          <div className="w-full bg-slate-200 dark:bg-black/60 h-2 rounded-full overflow-hidden border border-slate-300 dark:border-white/[0.06]">
                             <div
                               className={`h-full rounded-full transition-all duration-500 ${
                                 idx === 0
-                                  ? "bg-[#C8521C]"
+                                  ? "bg-[#E05626]"
                                   : idx === 1
-                                  ? "bg-[#C8521C]/60"
-                                  : "bg-zinc-700"
+                                  ? "bg-[#E05626]/70"
+                                  : "bg-slate-400 dark:bg-zinc-700"
                               }`}
                               style={{ width: `${Math.max(cat.probability, 4)}%` }}
                             />
@@ -924,24 +917,24 @@ export default function Home() {
                   </div>
 
                   {/* Extracted Skills Section */}
-                  <div className="bg-[#101217] border border-white/10 rounded-xl sm:rounded-2xl p-4 shadow-md">
+                  <div className="bg-slate-50 dark:bg-[#101217] border border-slate-200 dark:border-white/10 rounded-xl sm:rounded-2xl p-4 shadow-sm">
                     <div className="flex items-center gap-1.5 mb-3">
-                      <Layers className="w-4 h-4 text-[#C8521C] shrink-0" />
-                      <h4 className="text-xs sm:text-sm font-bold text-white">Extracted Skills</h4>
+                      <Layers className="w-4 h-4 text-[#E05626] shrink-0" />
+                      <h4 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">Extracted Skills</h4>
                     </div>
 
                     {Object.keys(result.detected_skills).length > 0 ? (
                       <div className="space-y-2.5 text-xs">
                         {Object.entries(result.detected_skills).map(([group, skills]) => (
                           <div key={group}>
-                            <span className="text-zinc-500 text-[10px] font-bold uppercase tracking-wider block mb-1">
+                            <span className="text-slate-500 dark:text-zinc-500 text-[10px] font-bold uppercase tracking-wider block mb-1">
                               {group}
                             </span>
                             <div className="flex flex-wrap gap-1">
                               {skills.map((skill) => (
                                 <span
                                   key={skill}
-                                  className="px-2 py-0.5 rounded-full bg-white/[0.04] border border-white/10 text-zinc-300 text-[11px] font-medium"
+                                  className="px-2 py-0.5 rounded-full bg-white dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 text-slate-700 dark:text-zinc-300 text-[11px] font-medium shadow-2xs"
                                 >
                                   {skill}
                                 </span>
@@ -951,7 +944,7 @@ export default function Home() {
                         ))}
                       </div>
                     ) : (
-                      <p className="text-xs text-zinc-500 italic">
+                      <p className="text-xs text-slate-500 dark:text-zinc-500 italic">
                         No standardized domain skills detected in text.
                       </p>
                     )}
@@ -959,12 +952,12 @@ export default function Home() {
                 </div>
               ) : (
                 /* Empty State Workspace Placeholder */
-                <div className="h-full min-h-[280px] sm:min-h-[380px] bg-black/30 border border-dashed border-white/10 rounded-xl sm:rounded-2xl p-6 flex flex-col items-center justify-center text-center">
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-white/[0.04] flex items-center justify-center text-zinc-500 mb-3 border border-white/10">
-                    <Briefcase className="w-6 h-6 text-[#C8521C]/60" />
+                <div className="h-full min-h-[280px] sm:min-h-[380px] bg-slate-50/50 dark:bg-black/30 border border-dashed border-slate-300 dark:border-white/10 rounded-xl sm:rounded-2xl p-6 flex flex-col items-center justify-center text-center">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-white dark:bg-white/[0.04] flex items-center justify-center text-slate-400 dark:text-zinc-500 mb-3 border border-slate-200 dark:border-white/10 shadow-sm">
+                    <Briefcase className="w-6 h-6 text-[#E05626]/70" />
                   </div>
-                  <h3 className="text-sm sm:text-base font-bold text-white">Profile Evaluation Ready</h3>
-                  <p className="text-xs text-zinc-400 max-w-xs mt-1.5 leading-relaxed">
+                  <h3 className="text-sm sm:text-base font-bold text-slate-800 dark:text-white">Profile Evaluation Ready</h3>
+                  <p className="text-xs text-slate-500 dark:text-zinc-400 max-w-xs mt-1.5 leading-relaxed">
                     Upload a resume file or load a sample profile on the left to view the predicted role classification and extracted skills.
                   </p>
                 </div>
@@ -975,35 +968,35 @@ export default function Home() {
 
         {/* Technical Highlights Section */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-5 mt-6 sm:mt-8">
-          <div className="bg-[#0c0d12] border border-white/[0.07] rounded-xl sm:rounded-2xl p-4 sm:p-5 flex items-start gap-3 shadow-lg">
-            <div className="p-2 rounded-lg bg-[#C8521C]/20 border border-[#C8521C]/30 text-[#E06629] shrink-0">
+          <div className="bg-white/90 dark:bg-[#0c0d12] border border-slate-200/90 dark:border-white/[0.07] rounded-xl sm:rounded-2xl p-4 sm:p-5 flex items-start gap-3 shadow-sm dark:shadow-lg transition-colors">
+            <div className="p-2 rounded-lg bg-orange-500/10 border border-orange-500/20 text-[#E05626] shrink-0">
               <FileText className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
             <div>
-              <h4 className="font-bold text-xs sm:text-sm text-white">NLP Text Processing</h4>
-              <p className="text-xs text-zinc-400 mt-1 leading-relaxed">
+              <h4 className="font-bold text-xs sm:text-sm text-slate-900 dark:text-white">NLP Text Processing</h4>
+              <p className="text-xs text-slate-600 dark:text-zinc-400 mt-1 leading-relaxed">
                 Cleans resume content using regex patterns, tokenization, stopword filtering, and TF-IDF matrix generation.
               </p>
             </div>
           </div>
-          <div className="bg-[#0c0d12] border border-white/[0.07] rounded-xl sm:rounded-2xl p-4 sm:p-5 flex items-start gap-3 shadow-lg">
-            <div className="p-2 rounded-lg bg-[#C8521C]/20 border border-[#C8521C]/30 text-[#E06629] shrink-0">
+          <div className="bg-white/90 dark:bg-[#0c0d12] border border-slate-200/90 dark:border-white/[0.07] rounded-xl sm:rounded-2xl p-4 sm:p-5 flex items-start gap-3 shadow-sm dark:shadow-lg transition-colors">
+            <div className="p-2 rounded-lg bg-teal-500/10 border border-teal-500/20 text-[#0D9488] shrink-0">
               <Target className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
             <div>
-              <h4 className="font-bold text-xs sm:text-sm text-white">25 Career Classifications</h4>
-              <p className="text-xs text-zinc-400 mt-1 leading-relaxed">
+              <h4 className="font-bold text-xs sm:text-sm text-slate-900 dark:text-white">25 Career Classifications</h4>
+              <p className="text-xs text-slate-600 dark:text-zinc-400 mt-1 leading-relaxed">
                 Categorizes candidate documents across Engineering, Data Science, Cloud, Management, and IT tracks.
               </p>
             </div>
           </div>
-          <div className="bg-[#0c0d12] border border-white/[0.07] rounded-xl sm:rounded-2xl p-4 sm:p-5 flex items-start gap-3 shadow-lg">
-            <div className="p-2 rounded-lg bg-[#C8521C]/20 border border-[#C8521C]/30 text-[#E06629] shrink-0">
+          <div className="bg-white/90 dark:bg-[#0c0d12] border border-slate-200/90 dark:border-white/[0.07] rounded-xl sm:rounded-2xl p-4 sm:p-5 flex items-start gap-3 shadow-sm dark:shadow-lg transition-colors">
+            <div className="p-2 rounded-lg bg-orange-500/10 border border-orange-500/20 text-[#E05626] shrink-0">
               <BarChart3 className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
             <div>
-              <h4 className="font-bold text-xs sm:text-sm text-white">Skill &amp; Keyword Alignment</h4>
-              <p className="text-xs text-zinc-400 mt-1 leading-relaxed">
+              <h4 className="font-bold text-xs sm:text-sm text-slate-900 dark:text-white">Skill &amp; Keyword Alignment</h4>
+              <p className="text-xs text-slate-600 dark:text-zinc-400 mt-1 leading-relaxed">
                 Compares candidate competencies against target job descriptions using cosine similarity and keyword extraction.
               </p>
             </div>
@@ -1011,14 +1004,14 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. Minimal Footer */}
-      <footer className="border-t border-white/[0.06] bg-[#08080a] py-6 sm:py-7 text-center text-xs text-zinc-500 w-full px-4 mt-auto">
+      {/* 4. Minimal Footer */}
+      <footer className="border-t border-slate-200 dark:border-white/[0.06] bg-white/70 dark:bg-[#08080a] py-6 sm:py-7 text-center text-xs text-slate-500 dark:text-zinc-500 w-full px-4 mt-auto transition-colors">
         <div className="max-w-7xl mx-auto space-y-1.5">
           <div className="flex items-center justify-center gap-2">
-            <span className="font-semibold text-zinc-300">ResumeScreening.ai</span>
+            <span className="font-semibold text-slate-700 dark:text-zinc-300">ResumeScreening</span>
             <span>• Machine Learning &amp; Natural Language Processing Project</span>
           </div>
-          <p className="text-zinc-500 text-[11px]">
+          <p className="text-slate-500 dark:text-zinc-500 text-[11px]">
             Trained with Python, Scikit-Learn &amp; FastAPI • Next.js &amp; Tailwind CSS Frontend
           </p>
         </div>

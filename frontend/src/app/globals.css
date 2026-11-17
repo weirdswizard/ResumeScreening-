@@ -17,30 +17,28 @@
   animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Atmospheric Multi-Layered Dark Background with Smooth Warm Gradients */
-.dark-space-bg {
-  background-color: #070709;
+/* Dual-Contrast Ambient Background: Warm Coral/Orange Left + Cool Teal/Cyan Right */
+.contrasting-ambient-bg {
+  background-color: #060709;
   background-image: 
-    /* Subtle warm ambient glow behind the hero center */
-    radial-gradient(ellipse 70% 45% at 50% 18%, rgba(185, 75, 25, 0.10) 0%, rgba(130, 48, 15, 0.03) 55%, transparent 75%),
-    /* Mid-page ambient warmth */
-    radial-gradient(ellipse 90% 50% at 50% 45%, rgba(190, 75, 24, 0.08) 0%, rgba(140, 50, 16, 0.02) 50%, transparent 80%),
-    /* Top corner dark warm vignettes */
-    radial-gradient(circle 500px at 15% 0%, rgba(160, 60, 20, 0.06) 0%, transparent 60%),
-    radial-gradient(circle 500px at 85% 0%, rgba(160, 60, 20, 0.06) 0%, transparent 60%),
-    /* Smooth vertical depth */
-    linear-gradient(180deg, #09090c 0%, #070709 35%, #050507 100%);
+    /* Left ambient warm reddish-orange / coral glow */
+    radial-gradient(ellipse 55% 55% at 5% 25%, rgba(225, 75, 35, 0.16) 0%, rgba(180, 50, 20, 0.05) 50%, transparent 75%),
+    /* Right ambient contrasting cool teal / cyan glow */
+    radial-gradient(ellipse 55% 55% at 95% 30%, rgba(16, 145, 140, 0.16) 0%, rgba(10, 95, 95, 0.05) 50%, transparent 75%),
+    /* Center bottom subtle depth */
+    radial-gradient(ellipse 80% 45% at 50% 85%, rgba(20, 24, 30, 0.5) 0%, transparent 80%),
+    /* Base dark gradation */
+    linear-gradient(180deg, #090a0d 0%, #060709 40%, #040507 100%);
 }
 
-/* Card Panels: Deep Matte Obsidian */
-.dark-card {
-  background: #0f1015;
-  border: 1px solid rgba(255, 255, 255, 0.07);
-}
-
-.dark-card-inner {
-  background: #090a0d;
-  border: 1px solid rgba(255, 255, 255, 0.06);
+.contrasting-ambient-bg-light {
+  background-color: #f8fafc;
+  background-image: 
+    /* Left warm ambient tint */
+    radial-gradient(ellipse 55% 55% at 5% 25%, rgba(234, 88, 12, 0.08) 0%, transparent 65%),
+    /* Right contrasting cool teal tint */
+    radial-gradient(ellipse 55% 55% at 95% 30%, rgba(13, 148, 136, 0.08) 0%, transparent 65%),
+    linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
 }
 
 /* Subtle Scrollbar */
@@ -49,12 +47,12 @@
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #070709;
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.12);
+  background: rgba(150, 150, 150, 0.2);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(210, 88, 32, 0.4);
+  background: rgba(210, 88, 32, 0.5);
 }
