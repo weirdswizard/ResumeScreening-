@@ -13,22 +13,22 @@ import {
   BarChart3,
   Sparkles,
   ChevronDown,
-  ChevronUp,
   RefreshCw,
   ShieldCheck,
   FileCheck,
-  UserCheck,
   Lightbulb,
   Target,
   ArrowRight,
-  TrendingUp,
   Check,
   Compass,
-  Building2,
-  Users,
   Sun,
   Moon,
-  X
+  X,
+  Play,
+  Cpu,
+  FileCode,
+  GitBranch,
+  BookOpen
 } from "lucide-react";
 
 interface TopCategory {
@@ -169,18 +169,17 @@ B.A. in Human Resource Management & Organizational Psychology`
 };
 
 const SAMPLE_JOB_DESCRIPTION = `Role: Senior Machine Learning / NLP Engineer
-Company: Apex Artificial Intelligence
-Location: Remote / Hybrid
+Company: Technology Systems Inc.
+Location: Remote
 
 About the Role:
-We are looking for an experienced Machine Learning & NLP Engineer to lead the design and deployment of natural language systems, resume understanding pipelines, and predictive algorithms.
+We are looking for an experienced Machine Learning & NLP Engineer to design and deploy natural language processing pipelines and predictive text classification models.
 
 Key Requirements:
 - 3+ years experience with Python, Machine Learning, Deep Learning, and NLP.
 - Proven proficiency with Scikit-learn, TensorFlow, PyTorch, Pandas, and NumPy.
-- Experience building production REST APIs with FastAPI or Flask and containerizing with Docker.
-- Demonstrated background in text classification, TF-IDF vectorization, and model evaluation.
-- Strong team collaboration and technical communication skills.`;
+- Experience building REST APIs with FastAPI or Flask and containerizing with Docker.
+- Strong background in text vectorization, TF-IDF, and model evaluation metrics.`;
 
 export default function Home() {
   const [theme, setTheme] = useState<"dark" | "light">("dark");
@@ -193,8 +192,10 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<ScreenResponse | null>(null);
   const [showRolesModal, setShowRolesModal] = useState(false);
+  const [showArchModal, setShowArchModal] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const workspaceRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const savedTheme = localStorage.getItem("theme") as "dark" | "light" | null;
@@ -240,6 +241,11 @@ export default function Home() {
     setResumeText(SAMPLE_RESUMES[key]);
     setSelectedFile(null);
     setError(null);
+    scrollToWorkspace();
+  };
+
+  const scrollToWorkspace = () => {
+    workspaceRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   const handleScreenResume = async () => {
@@ -304,82 +310,121 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 flex flex-col font-sans selection:bg-indigo-500 selection:text-white transition-colors duration-200 antialiased w-full max-w-full overflow-x-hidden">
-      {/* Responsive Navigation Header */}
-      <header className="border-b border-slate-200/90 bg-white/90 dark:border-slate-800/80 dark:bg-slate-900/90 backdrop-blur-xl sticky top-0 z-50 transition-colors duration-200 w-full">
-        <div className="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 py-3 flex items-center justify-between gap-2 sm:gap-4">
-          {/* Logo & Product Name */}
-          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
-            <div className="p-2 sm:p-2.5 bg-gradient-to-tr from-indigo-600 via-indigo-500 to-violet-500 rounded-xl shadow-lg shadow-indigo-500/25 border border-indigo-400/20 text-white shrink-0">
-              <Brain className="w-4 h-4 sm:w-5 sm:h-5" />
+    <div className="min-h-screen bg-[#08080a] text-[#E4E4E7] flex flex-col font-sans selection:bg-[#C8521C] selection:text-white dark-space-bg transition-colors duration-200 antialiased w-full max-w-full overflow-x-hidden">
+      {/* 1. Clean Project Navigation Bar */}
+      <header className="sticky top-0 z-50 w-full border-b border-white/[0.06] bg-[#08080a]/90 backdrop-blur-md transition-all duration-200">
+        <div className="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 h-16 sm:h-18 flex items-center justify-between gap-3">
+          {/* Logo & Project Title */}
+          <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+            <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-[#C8521C]/20 border border-[#C8521C]/40 flex items-center justify-center text-[#E06629] shrink-0">
+              <FileCode className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
-            <div className="min-w-0">
-              <div className="flex items-center gap-1.5 sm:gap-2">
-                <span className="text-sm sm:text-lg font-bold tracking-tight text-slate-900 dark:text-white truncate">
-                  TalentScan<span className="text-indigo-600 dark:text-indigo-400 font-extrabold">.ai</span>
-                </span>
-                <span className="text-[9px] sm:text-[10px] px-1.5 sm:px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 font-semibold uppercase tracking-wider shrink-0">
-                  Live
-                </span>
-              </div>
-              <p className="text-[10px] sm:text-[11px] text-slate-500 dark:text-slate-400 truncate hidden xs:block">
-                AI Resume Screener &amp; Talent Platform
-              </p>
+            <div className="flex items-center gap-2 min-w-0">
+              <span className="text-sm sm:text-lg font-bold tracking-tight text-white font-sans">
+                <span className="hidden xs:inline">ResumeScreening</span>
+                <span className="xs:hidden">Resume</span>
+                <span className="text-[#D45B1E]">.ai</span>
+              </span>
+              <span className="hidden sm:inline-block text-[10px] uppercase font-medium px-2 py-0.5 rounded bg-white/[0.05] border border-white/[0.08] text-zinc-400">
+                NLP Model
+              </span>
             </div>
           </div>
 
-          {/* Navigation Actions */}
-          <div className="flex items-center gap-1.5 sm:gap-2.5 text-xs shrink-0">
+          {/* Genuine Project Links */}
+          <nav className="hidden md:flex items-center gap-6 text-xs text-zinc-400">
+            <button
+              onClick={() => setShowRolesModal(true)}
+              className="hover:text-white transition-colors cursor-pointer flex items-center gap-1.5"
+            >
+              <Compass className="w-3.5 h-3.5 text-[#D45B1E]" />
+              <span>25 Categories</span>
+            </button>
+            <button
+              onClick={() => setShowArchModal(true)}
+              className="hover:text-white transition-colors cursor-pointer flex items-center gap-1.5"
+            >
+              <Cpu className="w-3.5 h-3.5 text-[#D45B1E]" />
+              <span>Model Specs</span>
+            </button>
+            <a
+              href="https://github.com/weirdswizard/ResumeScreening-.git"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-white transition-colors flex items-center gap-1.5"
+            >
+              <GitBranch className="w-3.5 h-3.5 text-[#D45B1E]" />
+              <span>GitHub</span>
+            </a>
+          </nav>
+
+          {/* Right Action Items */}
+          <div className="flex items-center gap-2 shrink-0">
+            {/* Roles Drawer Trigger for Mobile */}
             <button
               type="button"
               onClick={() => setShowRolesModal(!showRolesModal)}
-              className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700/60 transition flex items-center gap-1.5 font-medium cursor-pointer shadow-sm text-[11px] sm:text-xs"
+              className="md:hidden px-2.5 py-1.5 rounded-full bg-white/[0.04] hover:bg-white/[0.08] text-xs text-zinc-300 border border-white/10 transition flex items-center gap-1 cursor-pointer"
             >
-              <Compass className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
-              <span><span className="hidden sm:inline">Supported </span>Roles (25)</span>
+              <Compass className="w-3 h-3 text-[#D45B1E]" />
+              <span className="text-[11px]">25 Roles</span>
             </button>
 
-            {/* Dark / Light Mode Switcher */}
+            {/* Theme Toggle Button */}
             <button
               type="button"
               onClick={toggleTheme}
               aria-label="Toggle theme"
-              className="p-1.5 sm:p-2 rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/80 dark:hover:bg-slate-700/80 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700/60 transition flex items-center justify-center cursor-pointer shadow-sm group"
+              className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-white/[0.04] hover:bg-white/[0.08] text-zinc-400 hover:text-white border border-white/10 transition flex items-center justify-center cursor-pointer"
               title={theme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode"}
             >
               {theme === "dark" ? (
-                <Sun className="w-4 h-4 text-amber-400 group-hover:rotate-45 transition-transform duration-300" />
+                <Sun className="w-3.5 h-3.5 text-zinc-300" />
               ) : (
-                <Moon className="w-4 h-4 text-indigo-600 group-hover:-rotate-12 transition-transform duration-300" />
+                <Moon className="w-3.5 h-3.5 text-zinc-300" />
               )}
+            </button>
+
+            {/* Screener Anchor Button */}
+            <button
+              type="button"
+              onClick={scrollToWorkspace}
+              className="px-3 sm:px-5 py-1.5 sm:py-2 rounded-full bg-[#C8521C] hover:bg-[#D95B22] text-white font-semibold text-xs sm:text-sm tracking-wide transition-colors border border-[#E06629]/40 cursor-pointer"
+            >
+              <span className="xs:hidden">Screen</span>
+              <span className="hidden xs:inline">Screen Resume</span>
             </button>
           </div>
         </div>
       </header>
 
-      {/* Supported Roles Drawer */}
+      {/* 25 Supported Job Tracks Modal */}
       {showRolesModal && (
-        <div className="bg-white dark:bg-slate-900 border-b border-indigo-500/30 px-3.5 sm:px-4 py-4 sm:py-5 animate-fadeIn shadow-xl backdrop-blur-md transition-colors duration-200 max-h-[80vh] overflow-y-auto">
-          <div className="max-w-7xl mx-auto space-y-3">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Compass className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
-                <h2 className="font-bold text-xs sm:text-sm text-slate-900 dark:text-indigo-200">
-                  25 Supported Candidate Job Tracks
-                </h2>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fadeIn">
+          <div className="bg-[#0e1015] border border-white/10 rounded-2xl max-w-2xl w-full p-5 sm:p-7 shadow-2xl relative max-h-[85vh] overflow-y-auto">
+            <div className="flex items-center justify-between pb-4 border-b border-white/10">
+              <div className="flex items-center gap-2.5">
+                <div className="p-2 rounded-lg bg-[#C8521C]/20 border border-[#C8521C]/30 text-[#E06629]">
+                  <Compass className="w-5 h-5" />
+                </div>
+                <div>
+                  <h2 className="font-bold text-base sm:text-lg text-white">
+                    25 Trained Job Categories
+                  </h2>
+                  <p className="text-xs text-zinc-400">
+                    Pre-trained NLP multi-class model categories
+                  </p>
+                </div>
               </div>
               <button
                 onClick={() => setShowRolesModal(false)}
-                className="p-1 text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white cursor-pointer"
+                className="p-1.5 text-zinc-400 hover:text-white hover:bg-white/[0.08] rounded-lg transition cursor-pointer"
                 aria-label="Close modal"
               >
-                <X className="w-4 h-4" />
+                <X className="w-5 h-5" />
               </button>
             </div>
-            <p className="text-[11px] sm:text-xs text-slate-600 dark:text-slate-400 leading-relaxed">
-              Our natural language classifier automatically recognizes competencies across these 25 domains:
-            </p>
-            <div className="flex flex-wrap gap-1.5 sm:gap-2 pt-1">
+            <div className="flex flex-wrap gap-2 pt-4">
               {[
                 "Data Science", "Python Developer", "Java Developer", "DevOps Engineer",
                 "Web Designing", "HR", "Testing", "Automation Testing", "Blockchain",
@@ -389,98 +434,207 @@ export default function Home() {
               ].map((role) => (
                 <span
                   key={role}
-                  className="px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700/60 text-slate-800 dark:text-slate-200 text-[11px] sm:text-xs font-medium"
+                  className="px-3 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-zinc-300 text-xs font-medium"
                 >
                   {role}
                 </span>
               ))}
             </div>
+            <div className="mt-6 pt-4 border-t border-white/10 flex justify-end">
+              <button
+                onClick={() => setShowRolesModal(false)}
+                className="px-5 py-2 rounded-full bg-[#C8521C] hover:bg-[#D95B22] text-white text-xs font-semibold cursor-pointer"
+              >
+                Close
+              </button>
+            </div>
           </div>
         </div>
       )}
 
-      {/* Main Content Area */}
-      <main className="max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 py-5 sm:py-8 flex-1 w-full space-y-6 sm:space-y-8">
-        {/* Human-Centered Hero Section */}
-        <div className="text-center max-w-2xl mx-auto pt-1 sm:pt-2 space-y-2.5 sm:space-y-3">
-          <div className="inline-flex items-center gap-1.5 sm:gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-indigo-50 dark:bg-indigo-500/10 border border-indigo-200 dark:border-indigo-500/20 text-indigo-700 dark:text-indigo-400 text-[11px] sm:text-xs font-semibold shadow-sm">
-            <Sparkles className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400 shrink-0" />
-            <span>AI Talent Intelligence for Modern Hiring</span>
-          </div>
-          <h2 className="text-2xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight leading-snug sm:leading-tight">
-            Find the right role for every candidate — <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 dark:from-indigo-400 dark:via-purple-300 dark:to-pink-400 bg-clip-text text-transparent">in seconds</span>
-          </h2>
-          <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-base leading-relaxed px-1">
-            Drop in candidate CVs or resumes to automatically reveal their strongest domain fit, extract proven technical skills, and generate actionable recruiter interview notes.
-          </p>
-
-          {/* 3 Step Indicator (Responsive Wrapping) */}
-          <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 text-[10px] sm:text-xs text-slate-500 dark:text-slate-400 pt-1 font-medium">
-            <span className="flex items-center gap-1 text-slate-700 dark:text-slate-300"><Check className="w-3 h-3 text-emerald-600 dark:text-emerald-400" /> 1. Upload CV</span>
-            <span className="text-slate-400 dark:text-slate-600 hidden xs:inline">→</span>
-            <span className="flex items-center gap-1 text-slate-700 dark:text-slate-300"><Check className="w-3 h-3 text-emerald-600 dark:text-emerald-400" /> 2. AI Analysis</span>
-            <span className="text-slate-400 dark:text-slate-600 hidden xs:inline">→</span>
-            <span className="flex items-center gap-1 text-slate-700 dark:text-slate-300"><Check className="w-3 h-3 text-emerald-600 dark:text-emerald-400" /> 3. Interview Insights</span>
+      {/* Model Architecture Modal */}
+      {showArchModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fadeIn">
+          <div className="bg-[#0e1015] border border-white/10 rounded-2xl max-w-xl w-full p-5 sm:p-7 shadow-2xl relative max-h-[85vh] overflow-y-auto space-y-4">
+            <div className="flex items-center justify-between pb-3 border-b border-white/10">
+              <div className="flex items-center gap-2">
+                <Cpu className="w-5 h-5 text-[#D45B1E]" />
+                <h3 className="font-bold text-white text-base">Model &amp; Pipeline Architecture</h3>
+              </div>
+              <button
+                onClick={() => setShowArchModal(false)}
+                className="p-1.5 text-zinc-400 hover:text-white hover:bg-white/[0.08] rounded-lg transition cursor-pointer"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            <div className="space-y-3 text-xs text-zinc-300 leading-relaxed">
+              <p><strong className="text-white">Dataset:</strong> Kaggle UpdatedResumeDataSet comprising 962 resumes across 25 distinct job classifications.</p>
+              <p><strong className="text-white">Preprocessing:</strong> URL removal, punctuation cleaning, symbol stripping, extra whitespace trimming, and lowercasing via Python regex.</p>
+              <p><strong className="text-white">Feature Representation:</strong> Scikit-Learn TF-IDF vectorizer (Term Frequency-Inverse Document Frequency) with English stopword filtering.</p>
+              <p><strong className="text-white">Classifier:</strong> Multi-class Random Forest with 100 estimators achieving 100% test evaluation score.</p>
+              <p><strong className="text-white">Document Parsing:</strong> PDF extraction via pypdf, Word document parsing via python-docx, and UTF-8 plain text handling.</p>
+            </div>
+            <div className="pt-3 border-t border-white/10 flex justify-end">
+              <button
+                onClick={() => setShowArchModal(false)}
+                className="px-4 py-2 rounded-full bg-[#C8521C] hover:bg-[#D95B22] text-white text-xs font-semibold cursor-pointer"
+              >
+                Got it
+              </button>
+            </div>
           </div>
         </div>
+      )}
 
-        {/* Workspace Layout Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8 items-start">
-          {/* Left Column: Input Form (7 cols) */}
-          <div className="lg:col-span-7 space-y-4 sm:space-y-6">
-            <div className="bg-white dark:bg-slate-900/90 border border-slate-200/90 dark:border-slate-800/90 rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-xl shadow-slate-200/50 dark:shadow-2xl backdrop-blur-md transition-colors duration-200">
-              {/* Tab Selector & Sample Buttons */}
-              <div className="flex flex-col gap-3 border-b border-slate-200 dark:border-slate-800 pb-4 sm:pb-5 mb-4 sm:mb-5">
-                <div className="flex items-center justify-between gap-2 flex-wrap">
-                  <div className="flex gap-1 p-1 bg-slate-100 dark:bg-slate-950 rounded-xl border border-slate-200 dark:border-slate-800 w-full sm:w-fit">
-                    <button
-                      type="button"
-                      onClick={() => setActiveTab("upload")}
-                      className={`flex-1 sm:flex-initial px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs font-semibold transition flex items-center justify-center gap-1.5 sm:gap-2 cursor-pointer ${
-                        activeTab === "upload"
-                          ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/30"
-                          : "text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"
-                      }`}
-                    >
-                      <UploadCloud className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> Upload Document
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setActiveTab("paste")}
-                      className={`flex-1 sm:flex-initial px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg text-xs font-semibold transition flex items-center justify-center gap-1.5 sm:gap-2 cursor-pointer ${
-                        activeTab === "paste"
-                          ? "bg-indigo-600 text-white shadow-md shadow-indigo-600/30"
-                          : "text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-slate-200"
-                      }`}
-                    >
-                      <FileText className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> Paste Text
-                    </button>
-                  </div>
+      {/* 2. Hero Section (Project Centered with Subtle Warm Horizon) */}
+      <section className="relative pt-12 sm:pt-16 pb-0 overflow-hidden flex flex-col items-center text-center px-4 sm:px-6 lg:px-8">
+        {/* Project Tag Badge */}
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.04] border border-white/10 text-xs text-zinc-300 mb-5">
+          <span className="w-2 h-2 rounded-full bg-[#C8521C]" />
+          <span>Machine Learning &amp; NLP Project</span>
+          <span className="text-zinc-500">•</span>
+          <span className="text-zinc-400">25 Career Categories</span>
+        </div>
+
+        {/* Honest Heading */}
+        <h1 className="text-3xl sm:text-5xl md:text-6xl font-extrabold text-white tracking-tight leading-[1.15] max-w-3xl mx-auto px-2">
+          Resume Screening &amp; Classification
+        </h1>
+
+        {/* Project Description */}
+        <p className="mt-4 sm:mt-5 text-sm sm:text-base text-zinc-400 max-w-2xl mx-auto leading-relaxed px-2">
+          An automated machine learning system trained on resume text to predict job category fit across 25 career domains, extract key technical competencies, and measure alignment with target job requisitions.
+        </p>
+
+        {/* Action Buttons */}
+        <div className="mt-7 sm:mt-8 flex flex-wrap items-center justify-center gap-3 sm:gap-4 w-full px-4">
+          <button
+            type="button"
+            onClick={() => loadSample("data_scientist")}
+            className="px-5 sm:px-6 py-2.5 sm:py-3 rounded-full bg-white/[0.05] hover:bg-white/[0.09] text-white font-medium text-xs sm:text-sm border border-white/10 transition-colors flex items-center gap-2 cursor-pointer"
+          >
+            <Play className="w-3.5 h-3.5 fill-white text-white" />
+            <span>Load Sample Resume</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={scrollToWorkspace}
+            className="px-6 sm:px-7 py-2.5 sm:py-3 rounded-full bg-[#C8521C] hover:bg-[#D95B22] text-white font-semibold text-xs sm:text-sm transition-colors border border-[#E06629]/40 flex items-center gap-1.5 cursor-pointer"
+          >
+            <span>Analyze Resume</span>
+          </button>
+        </div>
+
+        {/* 3. Subtle Warm Orange Horizon Arc (Refined, Non-Neon) */}
+        <div className="horizon-arc-wrapper mt-10 sm:mt-16">
+          <div className="horizon-arc flex flex-col items-center pt-6 sm:pt-10">
+            {/* Genuine Technical Specs of the Project Inside the Curve */}
+            <div className="max-w-4xl mx-auto px-4 text-center">
+              <p className="text-[10px] sm:text-xs uppercase tracking-wider text-zinc-400 font-semibold mb-3 sm:mb-4">
+                Core System Architecture
+              </p>
+              <div className="grid grid-cols-2 sm:flex sm:flex-wrap items-center justify-center gap-x-6 gap-y-2.5 sm:gap-8 text-zinc-300 text-xs font-medium">
+                <div className="flex items-center justify-center sm:justify-start gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#C8521C]" />
+                  <span>25 Job Categories</span>
                 </div>
+                <div className="flex items-center justify-center sm:justify-start gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#C8521C]" />
+                  <span>TF-IDF Vectorization</span>
+                </div>
+                <div className="flex items-center justify-center sm:justify-start gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#C8521C]" />
+                  <span>Random Forest Model</span>
+                </div>
+                <div className="flex items-center justify-center sm:justify-start gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#C8521C]" />
+                  <span>PDF, DOCX &amp; TXT Parser</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
-                {/* Quick Sample Selector */}
-                <div className="flex items-center flex-wrap gap-1 sm:gap-1.5 text-xs pt-1">
-                  <span className="text-slate-500 font-medium text-[10px] sm:text-[11px] mr-0.5">Try sample:</span>
+      {/* 4. Interactive Workspace Dashboard (Embedded Below the Arc) */}
+      <section
+        ref={workspaceRef}
+        className="relative z-10 -mt-16 sm:-mt-24 md:-mt-32 max-w-7xl mx-auto px-3.5 sm:px-6 lg:px-8 pb-16 sm:pb-20 w-full"
+      >
+        <div className="rounded-2xl sm:rounded-3xl border border-white/[0.08] bg-[#0c0d12] shadow-2xl p-4 sm:p-7">
+          {/* Workspace Header */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-white/[0.07] gap-3 mb-5 sm:mb-6">
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-lg bg-[#C8521C]/20 border border-[#C8521C]/30 text-[#E06629] flex items-center justify-center">
+                <Brain className="w-4 h-4" />
+              </div>
+              <div>
+                <h3 className="font-bold text-sm sm:text-base text-white">
+                  Resume Screener &amp; Skill Matcher
+                </h3>
+                <p className="text-xs text-zinc-400">
+                  Select a sample profile or upload a document to run inference
+                </p>
+              </div>
+            </div>
+
+            {/* Quick Sample Selector Pills */}
+            <div className="flex items-center flex-wrap gap-1.5 text-xs">
+              <span className="text-zinc-500 text-[11px] font-medium mr-0.5">Try sample:</span>
+              <button
+                type="button"
+                onClick={() => loadSample("data_scientist")}
+                className="px-2.5 py-1 rounded-full bg-white/[0.04] hover:bg-[#C8521C]/20 text-zinc-300 hover:text-white border border-white/10 hover:border-[#C8521C]/40 text-[11px] font-medium transition cursor-pointer"
+              >
+                Alex (Data Science)
+              </button>
+              <button
+                type="button"
+                onClick={() => loadSample("java_developer")}
+                className="px-2.5 py-1 rounded-full bg-white/[0.04] hover:bg-[#C8521C]/20 text-zinc-300 hover:text-white border border-white/10 hover:border-[#C8521C]/40 text-[11px] font-medium transition cursor-pointer"
+              >
+                Marcus (Java)
+              </button>
+              <button
+                type="button"
+                onClick={() => loadSample("devops_engineer")}
+                className="px-2.5 py-1 rounded-full bg-white/[0.04] hover:bg-[#C8521C]/20 text-zinc-300 hover:text-white border border-white/10 hover:border-[#C8521C]/40 text-[11px] font-medium transition cursor-pointer"
+              >
+                Sarah (DevOps)
+              </button>
+            </div>
+          </div>
+
+          {/* Dual Column Workspace Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-7 items-start">
+            {/* Left Column: Input Form (7 cols) */}
+            <div className="lg:col-span-7 space-y-4 sm:space-y-5">
+              {/* Tab Selector: Upload Document vs Paste Text */}
+              <div className="flex items-center justify-between gap-2 border-b border-white/[0.06] pb-3.5">
+                <div className="flex p-1 bg-black/40 rounded-xl border border-white/[0.08] w-full sm:w-auto">
                   <button
                     type="button"
-                    onClick={() => loadSample("data_scientist")}
-                    className="px-2 py-0.5 sm:px-2.5 sm:py-1 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/90 dark:hover:bg-slate-700 text-indigo-700 dark:text-indigo-300 rounded-md sm:rounded-lg text-[10px] sm:text-[11px] font-medium transition cursor-pointer border border-slate-200 dark:border-slate-700/60"
+                    onClick={() => setActiveTab("upload")}
+                    className={`flex-1 sm:flex-initial px-3.5 py-1.5 rounded-lg text-xs font-semibold transition flex items-center justify-center gap-1.5 cursor-pointer ${
+                      activeTab === "upload"
+                        ? "bg-[#C8521C] text-white"
+                        : "text-zinc-400 hover:text-white"
+                    }`}
                   >
-                    Alex (Data Science)
+                    <UploadCloud className="w-3.5 h-3.5" /> Upload Document
                   </button>
                   <button
                     type="button"
-                    onClick={() => loadSample("java_developer")}
-                    className="px-2 py-0.5 sm:px-2.5 sm:py-1 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/90 dark:hover:bg-slate-700 text-indigo-700 dark:text-indigo-300 rounded-md sm:rounded-lg text-[10px] sm:text-[11px] font-medium transition cursor-pointer border border-slate-200 dark:border-slate-700/60"
+                    onClick={() => setActiveTab("paste")}
+                    className={`flex-1 sm:flex-initial px-3.5 py-1.5 rounded-lg text-xs font-semibold transition flex items-center justify-center gap-1.5 cursor-pointer ${
+                      activeTab === "paste"
+                        ? "bg-[#C8521C] text-white"
+                        : "text-zinc-400 hover:text-white"
+                    }`}
                   >
-                    Marcus (Java)
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => loadSample("devops_engineer")}
-                    className="px-2 py-0.5 sm:px-2.5 sm:py-1 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800/90 dark:hover:bg-slate-700 text-indigo-700 dark:text-indigo-300 rounded-md sm:rounded-lg text-[10px] sm:text-[11px] font-medium transition cursor-pointer border border-slate-200 dark:border-slate-700/60"
-                  >
-                    Sarah (DevOps)
+                    <FileText className="w-3.5 h-3.5" /> Paste Text
                   </button>
                 </div>
               </div>
@@ -491,7 +645,7 @@ export default function Home() {
                   onDragOver={(e) => e.preventDefault()}
                   onDrop={handleDrop}
                   onClick={() => fileInputRef.current?.click()}
-                  className="border-2 border-dashed border-slate-300 hover:border-indigo-500/80 dark:border-slate-700 dark:hover:border-indigo-500/80 rounded-xl sm:rounded-2xl p-5 sm:p-8 text-center cursor-pointer transition bg-slate-50/60 hover:bg-indigo-50/50 dark:bg-slate-950/40 dark:hover:bg-indigo-950/15 group"
+                  className="border border-dashed border-white/15 hover:border-[#C8521C]/70 rounded-xl sm:rounded-2xl p-6 sm:p-9 text-center cursor-pointer transition bg-black/30 hover:bg-black/50 group"
                 >
                   <input
                     ref={fileInputRef}
@@ -500,25 +654,27 @@ export default function Home() {
                     onChange={handleFileChange}
                     className="hidden"
                   />
-                  <div className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-2.5 sm:mb-3.5 rounded-xl sm:rounded-2xl bg-slate-100 dark:bg-slate-800/80 group-hover:bg-indigo-100 dark:group-hover:bg-indigo-600/20 text-slate-500 dark:text-slate-400 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 flex items-center justify-center transition border border-slate-200 dark:border-slate-700 shadow-inner">
-                    <UploadCloud className="w-6 h-6 sm:w-8 sm:h-8" />
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 mx-auto mb-3 rounded-xl bg-white/[0.04] group-hover:bg-[#C8521C]/20 text-zinc-400 group-hover:text-[#E06629] flex items-center justify-center transition border border-white/10 group-hover:border-[#C8521C]/40">
+                    <UploadCloud className="w-6 h-6 sm:w-7 sm:h-7" />
                   </div>
                   {selectedFile ? (
                     <div className="space-y-1">
-                      <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-[11px] font-semibold mb-1">
+                      <div className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold mb-1">
                         <FileCheck className="w-3.5 h-3.5" /> File Selected
                       </div>
-                      <p className="text-sm sm:text-base font-bold text-slate-900 dark:text-white break-all px-2">{selectedFile.name}</p>
-                      <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400">
-                        {(selectedFile.size / 1024).toFixed(1)} KB • Tap to replace
+                      <p className="text-sm font-bold text-white break-all px-2">
+                        {selectedFile.name}
+                      </p>
+                      <p className="text-xs text-zinc-400">
+                        {(selectedFile.size / 1024).toFixed(1)} KB • Click to replace file
                       </p>
                     </div>
                   ) : (
                     <div>
-                      <p className="text-xs sm:text-sm font-semibold text-slate-800 dark:text-slate-200">
-                        Drop candidate resume here, or <span className="text-indigo-600 dark:text-indigo-400 underline decoration-indigo-400/50 underline-offset-2">browse</span>
+                      <p className="text-xs sm:text-sm font-medium text-white">
+                        Drop resume file here, or <span className="text-[#D45B1E] underline underline-offset-4">browse</span>
                       </p>
-                      <p className="text-[10px] sm:text-xs text-slate-500 mt-1">
+                      <p className="text-[11px] sm:text-xs text-zinc-500 mt-1">
                         Supports PDF, DOCX, and TXT files
                       </p>
                     </div>
@@ -533,10 +689,10 @@ export default function Home() {
                     rows={7}
                     value={resumeText}
                     onChange={(e) => setResumeText(e.target.value)}
-                    placeholder="Paste resume text here (Summary, Technical Experience, Skills, Education)..."
-                    className="w-full bg-slate-50 dark:bg-slate-950/90 border border-slate-200 dark:border-slate-800 rounded-xl p-3 sm:p-3.5 text-xs sm:text-sm text-slate-900 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-indigo-500 font-mono transition resize-y min-h-[140px]"
+                    placeholder="Paste resume text here (Summary, Work Experience, Technical Skills, Education)..."
+                    className="w-full bg-black/40 border border-white/10 rounded-xl sm:rounded-2xl p-3.5 text-xs sm:text-sm text-white placeholder:text-zinc-600 focus:outline-none focus:border-[#C8521C] font-mono transition resize-y min-h-[150px]"
                   />
-                  <div className="flex justify-between items-center text-[10px] sm:text-[11px] text-slate-500 mt-1 px-1 font-mono">
+                  <div className="flex justify-between items-center text-xs text-zinc-500 mt-1.5 px-1 font-mono">
                     <span>{resumeText.split(/\s+/).filter(Boolean).length} words</span>
                     <span>{resumeText.length} characters</span>
                   </div>
@@ -544,22 +700,22 @@ export default function Home() {
               )}
 
               {/* ATS Job Description Matching Section */}
-              <div className="mt-4 sm:mt-6 pt-4 sm:pt-5 border-t border-slate-200 dark:border-slate-800">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-3 mb-2.5">
-                  <label className="flex items-center gap-2 text-xs font-semibold text-slate-800 dark:text-slate-200 cursor-pointer">
+              <div className="pt-3.5 border-t border-white/[0.07]">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 mb-2.5">
+                  <label className="flex items-center gap-2 text-xs font-semibold text-zinc-300 cursor-pointer select-none">
                     <input
                       type="checkbox"
                       checked={includeAts}
                       onChange={(e) => setIncludeAts(e.target.checked)}
-                      className="rounded border-slate-300 dark:border-slate-700 text-indigo-600 focus:ring-indigo-500 bg-white dark:bg-slate-800 h-4 w-4 shrink-0"
+                      className="rounded border-white/20 bg-black text-[#C8521C] focus:ring-[#C8521C] h-4 w-4 shrink-0 cursor-pointer accent-[#C8521C]"
                     />
-                    <span className="text-[11px] sm:text-xs">Compare with Job Req (ATS Alignment)</span>
+                    <span>Compare with Target Job Description (Skill Matching)</span>
                   </label>
                   {includeAts && (
                     <button
                       type="button"
                       onClick={() => setJobDescription(SAMPLE_JOB_DESCRIPTION)}
-                      className="text-[10px] sm:text-[11px] text-indigo-600 dark:text-indigo-400 hover:underline transition cursor-pointer font-medium self-end sm:self-auto"
+                      className="text-xs text-[#D45B1E] hover:underline transition cursor-pointer font-medium self-end sm:self-auto"
                     >
                       Paste Sample Job Req
                     </button>
@@ -572,8 +728,8 @@ export default function Home() {
                       rows={4}
                       value={jobDescription}
                       onChange={(e) => setJobDescription(e.target.value)}
-                      placeholder="Paste target job description to check keyword alignment and skill gaps..."
-                      className="w-full bg-slate-50 dark:bg-slate-950/90 border border-slate-200 dark:border-slate-800 rounded-xl p-2.5 sm:p-3 text-xs sm:text-sm text-slate-900 dark:text-slate-200 placeholder:text-slate-400 dark:placeholder:text-slate-600 focus:outline-none focus:border-indigo-500 font-mono transition resize-y min-h-[90px]"
+                      placeholder="Paste target job description to measure keyword overlap and missing competencies..."
+                      className="w-full bg-black/40 border border-white/10 rounded-xl p-3 text-xs sm:text-sm text-white placeholder:text-zinc-600 focus:outline-none focus:border-[#C8521C] font-mono transition resize-y min-h-[90px]"
                     />
                   </div>
                 )}
@@ -581,282 +737,295 @@ export default function Home() {
 
               {/* Error Message Alert */}
               {error && (
-                <div className="mt-3.5 p-3 rounded-xl bg-red-50 dark:bg-red-950/50 border border-red-200 dark:border-red-500/50 text-red-700 dark:text-red-300 text-xs flex items-center gap-2">
-                  <AlertCircle className="w-4 h-4 shrink-0 text-red-500 dark:text-red-400" />
+                <div className="p-3 rounded-xl bg-red-950/40 border border-red-500/30 text-red-300 text-xs flex items-center gap-2">
+                  <AlertCircle className="w-4 h-4 shrink-0 text-red-400" />
                   <span className="font-medium">{error}</span>
                 </div>
               )}
 
-              {/* Action Buttons (Full Width on Mobile) */}
-              <div className="mt-5 flex flex-col sm:flex-row items-stretch sm:items-center gap-2 sm:gap-3">
+              {/* Action Buttons: Clean Dark Warm Styling */}
+              <div className="pt-1 flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5">
                 <button
                   type="button"
                   onClick={handleScreenResume}
                   disabled={isLoading}
-                  className="flex-1 py-2.5 sm:py-3 px-4 sm:px-6 rounded-xl font-bold text-xs sm:text-sm bg-gradient-to-r from-indigo-600 via-indigo-500 to-purple-600 hover:from-indigo-500 hover:to-purple-500 text-white shadow-lg shadow-indigo-600/30 transition flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                  className="flex-1 py-2.5 sm:py-3 px-5 rounded-full font-semibold text-xs sm:text-sm bg-[#C8521C] hover:bg-[#D95B22] text-white transition-colors border border-[#E06629]/40 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
                 >
                   {isLoading ? (
                     <>
-                      <RefreshCw className="w-3.5 h-3.5 sm:w-4 sm:h-4 animate-spin" />
+                      <RefreshCw className="w-3.5 h-3.5 animate-spin" />
                       Evaluating Profile...
                     </>
                   ) : (
                     <>
-                      <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                      Evaluate &amp; Screen Resume
+                      <Sparkles className="w-3.5 h-3.5" />
+                      Classify Resume
                     </>
                   )}
                 </button>
                 <button
                   type="button"
                   onClick={resetAll}
-                  className="py-2.5 sm:py-3 px-4 sm:px-5 rounded-xl border border-slate-200 dark:border-slate-800 hover:bg-slate-100 dark:hover:bg-slate-800/80 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200 text-xs font-semibold transition cursor-pointer text-center"
+                  className="py-2.5 sm:py-3 px-5 rounded-full border border-white/10 hover:bg-white/[0.06] text-zinc-400 hover:text-white text-xs font-medium transition cursor-pointer text-center"
                 >
                   Clear
                 </button>
               </div>
             </div>
 
-            {/* Platform Highlights */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3 text-xs">
-              <div className="bg-white dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800/80 rounded-xl p-3 flex items-start gap-2 shadow-sm">
-                <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0 mt-0.5" />
-                <div>
-                  <h4 className="font-semibold text-slate-800 dark:text-slate-200 text-[11px] sm:text-xs">Zero-Bias Screening</h4>
-                  <p className="text-slate-500 dark:text-slate-400 text-[10px] sm:text-[11px] mt-0.5">Focuses purely on verified technical skills, experience, and domain alignment.</p>
-                </div>
-              </div>
-              <div className="bg-white dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800/80 rounded-xl p-3 flex items-start gap-2 shadow-sm">
-                <Target className="w-4 h-4 text-indigo-600 dark:text-indigo-400 shrink-0 mt-0.5" />
-                <div>
-                  <h4 className="font-semibold text-slate-800 dark:text-slate-200 text-[11px] sm:text-xs">25 Career Tracks</h4>
-                  <p className="text-slate-500 dark:text-slate-400 text-[10px] sm:text-[11px] mt-0.5">Trained across engineering, data science, management, and tech roles.</p>
-                </div>
-              </div>
-              <div className="bg-white dark:bg-slate-900/60 border border-slate-200/80 dark:border-slate-800/80 rounded-xl p-3 flex items-start gap-2 shadow-sm">
-                <BarChart3 className="w-4 h-4 text-purple-600 dark:text-purple-400 shrink-0 mt-0.5" />
-                <div>
-                  <h4 className="font-semibold text-slate-800 dark:text-slate-200 text-[11px] sm:text-xs">Instant ATS Check</h4>
-                  <p className="text-slate-500 dark:text-slate-400 text-[10px] sm:text-[11px] mt-0.5">Measure cosine similarity alignment against target role descriptions.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Column: Results Dashboard (5 cols) */}
-          <div className="lg:col-span-5 space-y-4 sm:space-y-6">
-            {result ? (
-              <div className="space-y-4 sm:space-y-6 animate-fadeIn">
-                {/* Human-Like Recruiter Assessment Card */}
-                {result.assessment && (
-                  <div className="bg-gradient-to-br from-indigo-50/90 via-white to-white dark:from-indigo-950/90 dark:via-slate-900 dark:to-slate-900 border border-indigo-200 dark:border-indigo-500/40 rounded-xl sm:rounded-2xl p-4 sm:p-6 shadow-xl dark:shadow-2xl relative overflow-hidden transition-colors duration-200">
-                    <div className="flex items-center justify-between text-xs font-semibold mb-2.5 sm:mb-3 gap-2 flex-wrap">
-                      <span className="flex items-center gap-1.5 text-indigo-700 dark:text-indigo-300 text-[11px] sm:text-xs">
-                        <UserCheck className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-indigo-600 dark:text-indigo-400" /> AI Recruiter Assessment
-                      </span>
-                      <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-700 dark:text-emerald-400 font-bold text-[10px] sm:text-[11px] shrink-0">
-                        {result.assessment.verdict}
-                      </span>
-                    </div>
-
-                    <div className="mt-2">
-                      <span className="text-[10px] sm:text-xs uppercase tracking-wider text-slate-500 dark:text-slate-400 font-bold">
-                        Top Recommended Role Fit
-                      </span>
-                      <h3 className="text-xl sm:text-3xl font-extrabold text-slate-900 dark:text-white mt-0.5 sm:mt-1 tracking-tight break-words">
-                        {result.predicted_category}
-                      </h3>
-                    </div>
-
-                    {/* Conversational Narrative */}
-                    <p className="mt-3 text-xs text-slate-700 dark:text-slate-300 leading-relaxed bg-slate-100/80 dark:bg-slate-950/60 p-3 sm:p-3.5 rounded-xl border border-slate-200 dark:border-slate-800/80">
-                      {result.assessment.narrative}
-                    </p>
-
-                    {/* Actionable Interview Tips */}
-                    <div className="mt-3.5 space-y-1.5">
-                      <span className="text-[10px] sm:text-[11px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider flex items-center gap-1.5">
-                        <Lightbulb className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400 shrink-0" /> Recruiter Interview Tips:
-                      </span>
-                      <ul className="space-y-1 text-xs text-slate-700 dark:text-slate-300 pl-1">
-                        {result.assessment.actionable_tips.map((tip, idx) => (
-                          <li key={idx} className="flex items-start gap-1.5 text-[11px] sm:text-xs">
-                            <span className="text-indigo-600 dark:text-indigo-400 font-bold">•</span>
-                            <span>{tip}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-
-                    {/* Progress Bar */}
-                    <div className="mt-4 pt-3.5 border-t border-slate-200 dark:border-slate-800">
-                      <div className="flex justify-between items-center text-xs mb-1.5">
-                        <span className="text-slate-700 dark:text-slate-300 font-semibold text-[11px] sm:text-xs">Model Confidence</span>
-                        <span className="text-indigo-600 dark:text-indigo-300 font-bold font-mono text-xs sm:text-sm">
-                          {result.confidence}%
+            {/* Right Column: Results Dashboard (5 cols) */}
+            <div className="lg:col-span-5 space-y-4">
+              {result ? (
+                <div className="space-y-4 animate-fadeIn">
+                  {/* Model Classification Result Card */}
+                  {result.assessment && (
+                    <div className="bg-[#101217] border border-[#C8521C]/40 rounded-xl sm:rounded-2xl p-4 sm:p-5 shadow-lg relative overflow-hidden">
+                      <div className="flex items-center justify-between text-xs font-semibold mb-2.5 gap-2 flex-wrap">
+                        <span className="flex items-center gap-1.5 text-[#E06629] text-xs font-bold uppercase tracking-wider">
+                          <CheckCircle2 className="w-4 h-4" /> Classification Result
+                        </span>
+                        <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-bold text-[11px]">
+                          {result.assessment.verdict}
                         </span>
                       </div>
-                      <div className="w-full bg-slate-200 dark:bg-slate-800/90 h-2 sm:h-2.5 rounded-full overflow-hidden border border-slate-300 dark:border-slate-700/50">
-                        <div
-                          className="bg-gradient-to-r from-indigo-500 via-indigo-400 to-purple-500 h-full rounded-full transition-all duration-700"
-                          style={{ width: `${Math.max(result.confidence, 8)}%` }}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                )}
 
-                {/* ATS Job Match Card (If calculated) */}
-                {result.ats_match && (
-                  <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/90 rounded-xl sm:rounded-2xl p-4 sm:p-5 shadow-md dark:shadow-lg transition-colors duration-200">
-                    <div className="flex items-center justify-between mb-3 gap-2">
-                      <div className="flex items-center gap-1.5">
-                        <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400 shrink-0" />
-                        <h4 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">Job Match (ATS)</h4>
-                      </div>
-                      <span
-                        className={`text-xs font-bold font-mono px-2 py-0.5 rounded-lg border ${
-                          result.ats_match.score >= 50
-                            ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-700 dark:text-emerald-400"
-                            : "bg-amber-500/10 border-amber-500/30 text-amber-700 dark:text-amber-400"
-                        }`}
-                      >
-                        {result.ats_match.score}% Alignment
-                      </span>
-                    </div>
-
-                    <div className="space-y-3 text-xs">
-                      <div>
-                        <span className="text-slate-600 dark:text-slate-400 block mb-1 font-semibold text-[11px] sm:text-xs">
-                          Matching Strengths ({result.ats_match.matched_skills.length}):
+                      <div className="mt-1">
+                        <span className="text-[10px] sm:text-[11px] uppercase tracking-wider text-zinc-500 font-bold">
+                          Predicted Job Category
                         </span>
-                        <div className="flex flex-wrap gap-1">
-                          {result.ats_match.matched_skills.length > 0 ? (
-                            result.ats_match.matched_skills.map((s) => (
-                              <span
-                                key={s}
-                                className="px-2 py-0.5 rounded-md bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-200 dark:border-emerald-500/30 text-emerald-800 dark:text-emerald-300 text-[10px] sm:text-[11px] font-medium"
-                              >
-                                ✓ {s}
-                              </span>
-                            ))
-                          ) : (
-                            <span className="text-slate-500 italic text-[11px]">No keyword overlap detected.</span>
-                          )}
-                        </div>
+                        <h3 className="text-xl sm:text-2xl font-extrabold text-white mt-0.5 tracking-tight break-words">
+                          {result.predicted_category}
+                        </h3>
                       </div>
 
-                      {result.ats_match.missing_skills.length > 0 && (
-                        <div>
-                          <span className="text-slate-600 dark:text-slate-400 block mb-1 font-semibold text-[11px] sm:text-xs">
-                            Missing Skills to Probe ({result.ats_match.missing_skills.length}):
-                          </span>
-                          <div className="flex flex-wrap gap-1">
-                            {result.ats_match.missing_skills.map((s) => (
-                              <span
-                                key={s}
-                                className="px-2 py-0.5 rounded-md bg-amber-50 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-500/30 text-amber-800 dark:text-amber-300 text-[10px] sm:text-[11px] font-medium"
-                              >
-                                ✗ {s}
-                              </span>
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                )}
+                      {/* Model Narrative */}
+                      <p className="mt-3 text-xs text-zinc-300 leading-relaxed bg-black/40 p-3 rounded-lg border border-white/[0.06]">
+                        {result.assessment.narrative}
+                      </p>
 
-                {/* Top 5 Alternative Role Matches */}
-                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/90 rounded-xl sm:rounded-2xl p-4 sm:p-5 shadow-md dark:shadow-lg transition-colors duration-200">
-                  <div className="flex items-center gap-1.5 mb-3.5">
-                    <BarChart3 className="w-4 h-4 text-indigo-600 dark:text-indigo-400 shrink-0" />
-                    <h4 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">Role Probability Distribution</h4>
-                  </div>
-                  <div className="space-y-2.5">
-                    {result.top_categories.map((cat, idx) => (
-                      <div key={cat.category}>
-                        <div className="flex justify-between items-center text-[11px] sm:text-xs mb-1">
-                          <span className="text-slate-800 dark:text-slate-200 font-medium truncate mr-2">
-                            {idx + 1}. {cat.category}
+                      {/* Technical Focus Areas */}
+                      <div className="mt-3.5 space-y-1.5">
+                        <span className="text-[11px] font-bold text-zinc-300 uppercase tracking-wider flex items-center gap-1">
+                          <Lightbulb className="w-3.5 h-3.5 text-zinc-400 shrink-0" /> Suggested Focus Areas:
+                        </span>
+                        <ul className="space-y-1 text-xs text-zinc-400 pl-1">
+                          {result.assessment.actionable_tips.map((tip, idx) => (
+                            <li key={idx} className="flex items-start gap-1.5 text-xs">
+                              <span className="text-[#C8521C] font-bold">•</span>
+                              <span>{tip}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+
+                      {/* Model Confidence Progress Bar */}
+                      <div className="mt-4 pt-3.5 border-t border-white/[0.08]">
+                        <div className="flex justify-between items-center text-xs mb-1">
+                          <span className="text-zinc-300 font-medium">Model Confidence</span>
+                          <span className="text-[#E06629] font-bold font-mono text-xs sm:text-sm">
+                            {result.confidence}%
                           </span>
-                          <span className="text-slate-500 dark:text-slate-400 font-mono font-bold shrink-0">{cat.probability}%</span>
                         </div>
-                        <div className="w-full bg-slate-100 dark:bg-slate-800/90 h-1.5 sm:h-2 rounded-full overflow-hidden border border-slate-200 dark:border-slate-700/40">
+                        <div className="w-full bg-black/60 h-2 rounded-full overflow-hidden border border-white/10">
                           <div
-                            className={`h-full rounded-full transition-all duration-500 ${
-                              idx === 0
-                                ? "bg-gradient-to-r from-indigo-500 to-purple-500"
-                                : idx === 1
-                                ? "bg-indigo-600/70"
-                                : "bg-slate-400 dark:bg-slate-600"
-                            }`}
-                            style={{ width: `${Math.max(cat.probability, 4)}%` }}
+                            className="bg-[#C8521C] h-full rounded-full transition-all duration-700"
+                            style={{ width: `${Math.max(result.confidence, 8)}%` }}
                           />
                         </div>
                       </div>
-                    ))}
-                  </div>
-                </div>
+                    </div>
+                  )}
 
-                {/* Extracted Skills Section */}
-                <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800/90 rounded-xl sm:rounded-2xl p-4 sm:p-5 shadow-md dark:shadow-lg transition-colors duration-200">
-                  <div className="flex items-center gap-1.5 mb-3">
-                    <Layers className="w-4 h-4 text-indigo-600 dark:text-indigo-400 shrink-0" />
-                    <h4 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">Detected Competencies</h4>
-                  </div>
+                  {/* ATS Job Match Card (If calculated) */}
+                  {result.ats_match && (
+                    <div className="bg-[#101217] border border-white/10 rounded-xl sm:rounded-2xl p-4 shadow-md">
+                      <div className="flex items-center justify-between mb-3 gap-2">
+                        <div className="flex items-center gap-1.5">
+                          <ShieldCheck className="w-4 h-4 text-emerald-400 shrink-0" />
+                          <h4 className="text-xs sm:text-sm font-bold text-white">Job Alignment</h4>
+                        </div>
+                        <span
+                          className={`text-xs font-bold font-mono px-2 py-0.5 rounded-full border ${
+                            result.ats_match.score >= 50
+                              ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-400"
+                              : "bg-amber-500/10 border-amber-500/30 text-amber-400"
+                          }`}
+                        >
+                          {result.ats_match.score}% Skill Overlap
+                        </span>
+                      </div>
 
-                  {Object.keys(result.detected_skills).length > 0 ? (
-                    <div className="space-y-2.5 text-xs">
-                      {Object.entries(result.detected_skills).map(([group, skills]) => (
-                        <div key={group}>
-                          <span className="text-slate-500 dark:text-slate-400 text-[10px] font-bold uppercase tracking-wider block mb-1">
-                            {group}
+                      <div className="space-y-3 text-xs">
+                        <div>
+                          <span className="text-zinc-400 block mb-1 font-semibold text-xs">
+                            Matched Skills ({result.ats_match.matched_skills.length}):
                           </span>
                           <div className="flex flex-wrap gap-1">
-                            {skills.map((skill) => (
-                              <span
-                                key={skill}
-                                className="px-2 py-0.5 rounded-md bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-500/25 text-indigo-700 dark:text-indigo-300 text-[10px] sm:text-[11px] font-medium"
-                              >
-                                {skill}
-                              </span>
-                            ))}
+                            {result.ats_match.matched_skills.length > 0 ? (
+                              result.ats_match.matched_skills.map((s) => (
+                                <span
+                                  key={s}
+                                  className="px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-[11px] font-medium"
+                                >
+                                  ✓ {s}
+                                </span>
+                              ))
+                            ) : (
+                              <span className="text-zinc-500 italic">No keyword overlap detected.</span>
+                            )}
+                          </div>
+                        </div>
+
+                        {result.ats_match.missing_skills.length > 0 && (
+                          <div>
+                            <span className="text-zinc-400 block mb-1 font-semibold text-xs">
+                              Missing Role Keywords ({result.ats_match.missing_skills.length}):
+                            </span>
+                            <div className="flex flex-wrap gap-1">
+                              {result.ats_match.missing_skills.map((s) => (
+                                <span
+                                  key={s}
+                                  className="px-2 py-0.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300 text-[11px] font-medium"
+                                >
+                                  ✗ {s}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Top 5 Probability Distribution */}
+                  <div className="bg-[#101217] border border-white/10 rounded-xl sm:rounded-2xl p-4 shadow-md">
+                    <div className="flex items-center gap-1.5 mb-3">
+                      <BarChart3 className="w-4 h-4 text-[#C8521C] shrink-0" />
+                      <h4 className="text-xs sm:text-sm font-bold text-white">Top Role Probabilities</h4>
+                    </div>
+                    <div className="space-y-2.5">
+                      {result.top_categories.map((cat, idx) => (
+                        <div key={cat.category}>
+                          <div className="flex justify-between items-center text-xs mb-1">
+                            <span className="text-zinc-300 font-medium truncate mr-2">
+                              {idx + 1}. {cat.category}
+                            </span>
+                            <span className="text-zinc-400 font-mono font-bold shrink-0">{cat.probability}%</span>
+                          </div>
+                          <div className="w-full bg-black/60 h-2 rounded-full overflow-hidden border border-white/[0.06]">
+                            <div
+                              className={`h-full rounded-full transition-all duration-500 ${
+                                idx === 0
+                                  ? "bg-[#C8521C]"
+                                  : idx === 1
+                                  ? "bg-[#C8521C]/60"
+                                  : "bg-zinc-700"
+                              }`}
+                              style={{ width: `${Math.max(cat.probability, 4)}%` }}
+                            />
                           </div>
                         </div>
                       ))}
                     </div>
-                  ) : (
-                    <p className="text-xs text-slate-500 italic">
-                      No standardized domain skills detected in text.
-                    </p>
-                  )}
+                  </div>
+
+                  {/* Extracted Skills Section */}
+                  <div className="bg-[#101217] border border-white/10 rounded-xl sm:rounded-2xl p-4 shadow-md">
+                    <div className="flex items-center gap-1.5 mb-3">
+                      <Layers className="w-4 h-4 text-[#C8521C] shrink-0" />
+                      <h4 className="text-xs sm:text-sm font-bold text-white">Extracted Skills</h4>
+                    </div>
+
+                    {Object.keys(result.detected_skills).length > 0 ? (
+                      <div className="space-y-2.5 text-xs">
+                        {Object.entries(result.detected_skills).map(([group, skills]) => (
+                          <div key={group}>
+                            <span className="text-zinc-500 text-[10px] font-bold uppercase tracking-wider block mb-1">
+                              {group}
+                            </span>
+                            <div className="flex flex-wrap gap-1">
+                              {skills.map((skill) => (
+                                <span
+                                  key={skill}
+                                  className="px-2 py-0.5 rounded-full bg-white/[0.04] border border-white/10 text-zinc-300 text-[11px] font-medium"
+                                >
+                                  {skill}
+                                </span>
+                              ))}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <p className="text-xs text-zinc-500 italic">
+                        No standardized domain skills detected in text.
+                      </p>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ) : (
-              /* Empty State Placeholder */
-              <div className="h-full min-h-[260px] sm:min-h-[380px] bg-white/60 dark:bg-slate-900/40 border-2 border-dashed border-slate-300 dark:border-slate-800 rounded-xl sm:rounded-2xl p-6 sm:p-8 flex flex-col items-center justify-center text-center transition-colors duration-200">
-                <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-xl sm:rounded-2xl bg-slate-100 dark:bg-slate-800/60 flex items-center justify-center text-slate-400 dark:text-slate-500 mb-3 sm:mb-4 border border-slate-200 dark:border-slate-700/50 shadow-inner">
-                  <Briefcase className="w-6 h-6 sm:w-8 sm:h-8" />
+              ) : (
+                /* Empty State Workspace Placeholder */
+                <div className="h-full min-h-[280px] sm:min-h-[380px] bg-black/30 border border-dashed border-white/10 rounded-xl sm:rounded-2xl p-6 flex flex-col items-center justify-center text-center">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-white/[0.04] flex items-center justify-center text-zinc-500 mb-3 border border-white/10">
+                    <Briefcase className="w-6 h-6 text-[#C8521C]/60" />
+                  </div>
+                  <h3 className="text-sm sm:text-base font-bold text-white">Profile Evaluation Ready</h3>
+                  <p className="text-xs text-zinc-400 max-w-xs mt-1.5 leading-relaxed">
+                    Upload a resume file or load a sample profile on the left to view the predicted role classification and extracted skills.
+                  </p>
                 </div>
-                <h3 className="text-sm sm:text-base font-bold text-slate-800 dark:text-slate-200">Candidate Evaluation Ready</h3>
-                <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 max-w-xs mt-1.5 leading-relaxed">
-                  Upload a candidate resume or pick one of the quick profiles on the left to see the AI recruiter assessment and role match.
-                </p>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
-      </main>
 
-      {/* Responsive Footer */}
-      <footer className="border-t border-slate-200 dark:border-slate-900 bg-white/80 dark:bg-slate-950/90 py-5 sm:py-6 text-center text-xs text-slate-500 dark:text-slate-500 mt-8 sm:mt-12 transition-colors duration-200 w-full px-4">
-        <div className="max-w-7xl mx-auto space-y-1">
-          <p className="font-semibold text-slate-700 dark:text-slate-400 text-[11px] sm:text-xs">
-            TalentScan AI • Intelligent Resume Screening &amp; Candidate Classification
-          </p>
-          <p className="text-slate-500 dark:text-slate-600 text-[10px] sm:text-[11px]">
-            Powered by Natural Language Processing &amp; Machine Learning • Privacy-First Architecture
+        {/* Technical Highlights Section */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-5 mt-6 sm:mt-8">
+          <div className="bg-[#0c0d12] border border-white/[0.07] rounded-xl sm:rounded-2xl p-4 sm:p-5 flex items-start gap-3 shadow-lg">
+            <div className="p-2 rounded-lg bg-[#C8521C]/20 border border-[#C8521C]/30 text-[#E06629] shrink-0">
+              <FileText className="w-4 h-4 sm:w-5 sm:h-5" />
+            </div>
+            <div>
+              <h4 className="font-bold text-xs sm:text-sm text-white">NLP Text Processing</h4>
+              <p className="text-xs text-zinc-400 mt-1 leading-relaxed">
+                Cleans resume content using regex patterns, tokenization, stopword filtering, and TF-IDF matrix generation.
+              </p>
+            </div>
+          </div>
+          <div className="bg-[#0c0d12] border border-white/[0.07] rounded-xl sm:rounded-2xl p-4 sm:p-5 flex items-start gap-3 shadow-lg">
+            <div className="p-2 rounded-lg bg-[#C8521C]/20 border border-[#C8521C]/30 text-[#E06629] shrink-0">
+              <Target className="w-4 h-4 sm:w-5 sm:h-5" />
+            </div>
+            <div>
+              <h4 className="font-bold text-xs sm:text-sm text-white">25 Career Classifications</h4>
+              <p className="text-xs text-zinc-400 mt-1 leading-relaxed">
+                Categorizes candidate documents across Engineering, Data Science, Cloud, Management, and IT tracks.
+              </p>
+            </div>
+          </div>
+          <div className="bg-[#0c0d12] border border-white/[0.07] rounded-xl sm:rounded-2xl p-4 sm:p-5 flex items-start gap-3 shadow-lg">
+            <div className="p-2 rounded-lg bg-[#C8521C]/20 border border-[#C8521C]/30 text-[#E06629] shrink-0">
+              <BarChart3 className="w-4 h-4 sm:w-5 sm:h-5" />
+            </div>
+            <div>
+              <h4 className="font-bold text-xs sm:text-sm text-white">Skill &amp; Keyword Alignment</h4>
+              <p className="text-xs text-zinc-400 mt-1 leading-relaxed">
+                Compares candidate competencies against target job descriptions using cosine similarity and keyword extraction.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Minimal Footer */}
+      <footer className="border-t border-white/[0.06] bg-[#08080a] py-6 sm:py-7 text-center text-xs text-zinc-500 w-full px-4 mt-auto">
+        <div className="max-w-7xl mx-auto space-y-1.5">
+          <div className="flex items-center justify-center gap-2">
+            <span className="font-semibold text-zinc-300">ResumeScreening.ai</span>
+            <span>• Machine Learning &amp; Natural Language Processing Project</span>
+          </div>
+          <p className="text-zinc-500 text-[11px]">
+            Trained with Python, Scikit-Learn &amp; FastAPI • Next.js &amp; Tailwind CSS Frontend
           </p>
         </div>
       </footer>

@@ -14,5 +14,82 @@
 }
 
 .animate-fadeIn {
-  animation: fadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Deep Charcoal Background with Subtle Warm Ambient Undertones */
+.dark-space-bg {
+  background-color: #08080a;
+  background-image: 
+    radial-gradient(ellipse 60% 40% at 20% -5%, rgba(190, 75, 25, 0.06) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% -5%, rgba(190, 75, 25, 0.06) 0%, transparent 60%);
+}
+
+/* Subtle Warm Orange Curved Horizon (No Blinding Neon) */
+.horizon-arc-wrapper {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding-top: 10px;
+}
+
+.horizon-arc {
+  position: relative;
+  width: 150%;
+  left: -25%;
+  height: 180px;
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(195, 80, 28, 0.18) 0%, rgba(160, 65, 22, 0.06) 40%, rgba(8, 8, 10, 0.95) 75%);
+  border-top: 1px solid rgba(210, 88, 32, 0.55);
+  box-shadow: 
+    0 -8px 24px rgba(185, 75, 25, 0.25),
+    0 -1px 6px rgba(220, 95, 38, 0.4),
+    inset 0 8px 30px rgba(185, 75, 25, 0.12);
+}
+
+@media (min-width: 640px) {
+  .horizon-arc {
+    width: 135%;
+    left: -17.5%;
+    height: 240px;
+    box-shadow: 
+      0 -10px 32px rgba(185, 75, 25, 0.28),
+      0 -1px 8px rgba(220, 95, 38, 0.45),
+      inset 0 10px 40px rgba(185, 75, 25, 0.14);
+  }
+}
+
+@media (min-width: 1024px) {
+  .horizon-arc {
+    width: 125%;
+    left: -12.5%;
+    height: 280px;
+  }
+}
+
+/* Card Panels: Deep Matte Obsidian */
+.dark-card {
+  background: #0f1015;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.dark-card-inner {
+  background: #090a0d;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Subtle Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #08080a;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(210, 88, 32, 0.4);
 }
