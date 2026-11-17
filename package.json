@@ -1,13 +1,10 @@
 {
-  "name": "resume-screening-nlp",
+  "name": "talentscan-ai-services",
   "version": "1.0.0",
-  "description": "Resume Screening using NLP - Academic Project by BHUMIREDDY NANDA KUMAR REDDY (20241CSD0022)",
+  "private": true,
   "scripts": {
-    "dev:frontend": "npm --prefix frontend run dev",
+    "dev": "npm --prefix frontend run dev",
     "dev:backend": "py -m uvicorn api.index:app --reload --port 8000",
-    "build": "npm --prefix frontend run build",
-    "start": "npm --prefix frontend run start"
-  },
-  "keywords": ["nlp", "resume-screening", "machine-learning", "fastapi", "nextjs"],
-  "author": "BHUMIREDDY NANDA KUMAR REDDY"
+    "build": "npm --prefix frontend run build"
+  }
 }
