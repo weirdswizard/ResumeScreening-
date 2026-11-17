@@ -17,28 +17,40 @@
   animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Dual-Contrast Ambient Background: Warm Coral/Orange Left + Cool Teal/Cyan Right */
-.contrasting-ambient-bg {
-  background-color: #060709;
-  background-image: 
-    /* Left ambient warm reddish-orange / coral glow */
-    radial-gradient(ellipse 55% 55% at 5% 25%, rgba(225, 75, 35, 0.16) 0%, rgba(180, 50, 20, 0.05) 50%, transparent 75%),
-    /* Right ambient contrasting cool teal / cyan glow */
-    radial-gradient(ellipse 55% 55% at 95% 30%, rgba(16, 145, 140, 0.16) 0%, rgba(10, 95, 95, 0.05) 50%, transparent 75%),
-    /* Center bottom subtle depth */
-    radial-gradient(ellipse 80% 45% at 50% 85%, rgba(20, 24, 30, 0.5) 0%, transparent 80%),
-    /* Base dark gradation */
-    linear-gradient(180deg, #090a0d 0%, #060709 40%, #040507 100%);
+/* Base Dark & Light Backgrounds */
+.base-dark-bg {
+  background-color: #06070a;
+  background-image: linear-gradient(180deg, #08090e 0%, #06070a 45%, #040507 100%);
 }
 
-.contrasting-ambient-bg-light {
+.base-light-bg {
   background-color: #f8fafc;
-  background-image: 
-    /* Left warm ambient tint */
-    radial-gradient(ellipse 55% 55% at 5% 25%, rgba(234, 88, 12, 0.08) 0%, transparent 65%),
-    /* Right contrasting cool teal tint */
-    radial-gradient(ellipse 55% 55% at 95% 30%, rgba(13, 148, 136, 0.08) 0%, transparent 65%),
-    linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  background-image: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+}
+
+/* Dynamic Scrollable Ambient Orbs (Vibrant Purple #9C27B0 & Electric Cyan #00BCD4) */
+.ambient-orb-purple {
+  background: radial-gradient(circle, rgba(156, 39, 176, 0.34) 0%, rgba(156, 39, 176, 0.12) 48%, transparent 75%);
+  filter: blur(110px);
+  will-change: transform;
+}
+
+.ambient-orb-cyan {
+  background: radial-gradient(circle, rgba(0, 188, 212, 0.30) 0%, rgba(0, 188, 212, 0.10) 48%, transparent 75%);
+  filter: blur(110px);
+  will-change: transform;
+}
+
+.ambient-orb-purple-light {
+  background: radial-gradient(circle, rgba(156, 39, 176, 0.16) 0%, rgba(156, 39, 176, 0.05) 45%, transparent 75%);
+  filter: blur(95px);
+  will-change: transform;
+}
+
+.ambient-orb-cyan-light {
+  background: radial-gradient(circle, rgba(0, 188, 212, 0.16) 0%, rgba(0, 188, 212, 0.05) 45%, transparent 75%);
+  filter: blur(95px);
+  will-change: transform;
 }
 
 /* Subtle Scrollbar */
@@ -50,9 +62,9 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(150, 150, 150, 0.2);
+  background: rgba(156, 39, 176, 0.3);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(210, 88, 32, 0.5);
+  background: rgba(0, 188, 212, 0.5);
 }

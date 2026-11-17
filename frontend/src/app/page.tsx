@@ -191,6 +191,7 @@ export default function Home() {
   const [result, setResult] = useState<ScreenResponse | null>(null);
   const [showRolesModal, setShowRolesModal] = useState(false);
   const [showArchModal, setShowArchModal] = useState(false);
+  const [scrollY, setScrollY] = useState(0);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
   const workspaceRef = useRef<HTMLDivElement>(null);
@@ -204,6 +205,22 @@ export default function Home() {
       setTheme("dark");
       document.documentElement.classList.add("dark");
     }
+  }, []);
+
+  // Smooth scroll listener for scrollable background colors
+  useEffect(() => {
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrollY(window.scrollY);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const toggleTheme = () => {
@@ -309,19 +326,54 @@ export default function Home() {
 
   return (
     <div
-      className={`min-h-screen flex flex-col font-sans selection:bg-[#C8521C] selection:text-white transition-colors duration-300 antialiased w-full max-w-full overflow-x-hidden ${
-        theme === "dark"
-          ? "bg-[#060709] text-zinc-100 contrasting-ambient-bg"
-          : "bg-[#f8fafc] text-slate-900 contrasting-ambient-bg-light"
+      className={`min-h-screen relative flex flex-col font-sans selection:bg-[#9C27B0] selection:text-white transition-colors duration-300 antialiased w-full max-w-full overflow-x-hidden ${
+        theme === "dark" ? "base-dark-bg text-zinc-100" : "base-light-bg text-slate-900"
       }`}
     >
-      {/* 1. Clean Minimal Navigation Bar (Clean Text Logo, No Clunky Box or Badge) */}
-      <header className="sticky top-0 z-50 w-full border-b border-slate-200/80 dark:border-white/[0.07] bg-white/80 dark:bg-[#060709]/80 backdrop-blur-xl transition-all duration-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-18 flex items-center justify-between gap-3">
+      {/* Scrollable Dynamic Ambient Background Colors (Vibrant Purple #9C27B0 & Electric Cyan #00BCD4) */}
+      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
+        {/* Vibrant Purple Glow in Middle (moves down dynamically as you scroll) */}
+        <div
+          className={`absolute left-1/2 w-[520px] sm:w-[720px] h-[450px] sm:h-[600px] rounded-full transition-transform duration-100 ease-out ${
+            theme === "dark" ? "ambient-orb-purple" : "ambient-orb-purple-light"
+          }`}
+          style={{
+            top: "5%",
+            transform: `translate3d(-65%, ${scrollY * 0.42}px, 0)`,
+          }}
+        />
+
+        {/* Electric Cyan Glow in Middle (moves down dynamically as you scroll with smooth parallax) */}
+        <div
+          className={`absolute left-1/2 w-[520px] sm:w-[720px] h-[450px] sm:h-[600px] rounded-full transition-transform duration-100 ease-out ${
+            theme === "dark" ? "ambient-orb-cyan" : "ambient-orb-cyan-light"
+          }`}
+          style={{
+            top: "20%",
+            transform: `translate3d(-35%, ${scrollY * 0.68}px, 0)`,
+          }}
+        />
+
+        {/* Third Deep Harmonizing Glow Bloom that descends further down into the workspace */}
+        <div
+          className={`absolute left-1/2 w-[600px] sm:w-[850px] h-[400px] sm:h-[550px] rounded-full transition-transform duration-100 ease-out ${
+            theme === "dark" ? "ambient-orb-purple" : "ambient-orb-purple-light"
+          }`}
+          style={{
+            top: "52%",
+            opacity: 0.6,
+            transform: `translate3d(-50%, ${scrollY * 0.32}px, 0)`,
+          }}
+        />
+      </div>
+
+      {/* 1. Clean Navigation Bar (Clean Text Logo, No Clunky Box or Badge) */}
+      <header className="sticky top-0 z-50 w-full border-b border-slate-200/80 dark:border-white/[0.07] bg-white/80 dark:bg-[#06070a]/80 backdrop-blur-xl transition-all duration-200">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-18 flex items-center justify-between gap-3 relative z-10">
           {/* Clean Elegant Text Logo */}
           <div className="flex items-center gap-2">
             <span className="text-lg sm:text-xl font-extrabold tracking-tight text-slate-900 dark:text-white font-sans">
-              Resume<span className="text-[#E05626]">Screening</span>
+              Resume<span className="bg-gradient-to-r from-[#9C27B0] to-[#00BCD4] bg-clip-text text-transparent">Screening</span>
             </span>
           </div>
 
@@ -331,14 +383,14 @@ export default function Home() {
               onClick={() => setShowRolesModal(true)}
               className="hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer flex items-center gap-1.5"
             >
-              <Compass className="w-3.5 h-3.5 text-[#E05626]" />
+              <Compass className="w-3.5 h-3.5 text-[#9C27B0]" />
               <span>25 Categories</span>
             </button>
             <button
               onClick={() => setShowArchModal(true)}
               className="hover:text-slate-900 dark:hover:text-white transition-colors cursor-pointer flex items-center gap-1.5"
             >
-              <Cpu className="w-3.5 h-3.5 text-[#0D9488]" />
+              <Cpu className="w-3.5 h-3.5 text-[#00BCD4]" />
               <span>Model Specs</span>
             </button>
             <a
@@ -360,7 +412,7 @@ export default function Home() {
               onClick={() => setShowRolesModal(!showRolesModal)}
               className="md:hidden px-2.5 py-1.5 rounded-full bg-slate-100 dark:bg-white/[0.05] hover:bg-slate-200 dark:hover:bg-white/[0.1] text-xs text-slate-700 dark:text-zinc-300 border border-slate-200 dark:border-white/10 transition flex items-center gap-1 cursor-pointer"
             >
-              <Compass className="w-3 h-3 text-[#E05626]" />
+              <Compass className="w-3 h-3 text-[#9C27B0]" />
               <span className="text-[11px]">Roles</span>
             </button>
 
@@ -379,11 +431,11 @@ export default function Home() {
               )}
             </button>
 
-            {/* Screener Anchor Button */}
+            {/* Screener CTA Button */}
             <button
               type="button"
               onClick={scrollToWorkspace}
-              className="px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full bg-[#E05626] hover:bg-[#eb6130] text-white font-semibold text-xs sm:text-sm tracking-wide transition-all shadow-md shadow-orange-500/20 cursor-pointer active:scale-95"
+              className="px-3.5 sm:px-5 py-1.5 sm:py-2 rounded-full bg-gradient-to-r from-[#9C27B0] to-[#00BCD4] hover:opacity-90 text-white font-semibold text-xs sm:text-sm tracking-wide transition-all shadow-md shadow-purple-500/20 cursor-pointer active:scale-95"
             >
               Screen Resume
             </button>
@@ -397,7 +449,7 @@ export default function Home() {
           <div className="bg-white dark:bg-[#0e1015] border border-slate-200 dark:border-white/10 rounded-2xl max-w-2xl w-full p-5 sm:p-7 shadow-2xl relative max-h-[85vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-white/10">
               <div className="flex items-center gap-2.5">
-                <div className="p-2 rounded-xl bg-orange-500/10 border border-orange-500/20 text-[#E05626]">
+                <div className="p-2 rounded-xl bg-purple-500/10 border border-purple-500/20 text-[#9C27B0]">
                   <Compass className="w-5 h-5" />
                 </div>
                 <div>
@@ -436,7 +488,7 @@ export default function Home() {
             <div className="mt-6 pt-4 border-t border-slate-200 dark:border-white/10 flex justify-end">
               <button
                 onClick={() => setShowRolesModal(false)}
-                className="px-5 py-2 rounded-full bg-[#E05626] hover:bg-[#eb6130] text-white text-xs font-semibold cursor-pointer"
+                className="px-5 py-2 rounded-full bg-gradient-to-r from-[#9C27B0] to-[#00BCD4] text-white text-xs font-semibold cursor-pointer"
               >
                 Close
               </button>
@@ -451,7 +503,7 @@ export default function Home() {
           <div className="bg-white dark:bg-[#0e1015] border border-slate-200 dark:border-white/10 rounded-2xl max-w-xl w-full p-5 sm:p-7 shadow-2xl relative max-h-[85vh] overflow-y-auto space-y-4">
             <div className="flex items-center justify-between pb-3 border-b border-slate-200 dark:border-white/10">
               <div className="flex items-center gap-2">
-                <Cpu className="w-5 h-5 text-[#0D9488]" />
+                <Cpu className="w-5 h-5 text-[#00BCD4]" />
                 <h3 className="font-bold text-slate-900 dark:text-white text-base">Model &amp; Pipeline Architecture</h3>
               </div>
               <button
@@ -471,7 +523,7 @@ export default function Home() {
             <div className="pt-3 border-t border-slate-200 dark:border-white/10 flex justify-end">
               <button
                 onClick={() => setShowArchModal(false)}
-                className="px-4 py-2 rounded-full bg-[#E05626] hover:bg-[#eb6130] text-white text-xs font-semibold cursor-pointer"
+                className="px-4 py-2 rounded-full bg-gradient-to-r from-[#9C27B0] to-[#00BCD4] text-white text-xs font-semibold cursor-pointer"
               >
                 Got it
               </button>
@@ -480,15 +532,11 @@ export default function Home() {
         </div>
       )}
 
-      {/* 2. Hero Section (Dual Contrasting Ambient Highlights: Coral Left + Teal Right) */}
-      <section className="relative pt-12 sm:pt-16 pb-0 overflow-hidden flex flex-col items-center text-center px-4 sm:px-6 lg:px-8">
-        {/* Dual Contrasting Color Blooms (Left Coral/Orange + Right Teal/Cyan) */}
-        <div className="absolute top-1/3 left-[-5%] sm:left-[5%] w-[450px] sm:w-[550px] max-w-full h-[320px] bg-gradient-to-r from-[#E04B26]/18 to-transparent blur-[85px] rounded-full pointer-events-none -z-10" />
-        <div className="absolute top-1/3 right-[-5%] sm:right-[5%] w-[450px] sm:w-[550px] max-w-full h-[320px] bg-gradient-to-l from-[#0D9488]/18 to-transparent blur-[85px] rounded-full pointer-events-none -z-10" />
-
+      {/* 2. Hero Section */}
+      <section className="relative pt-12 sm:pt-16 pb-0 overflow-hidden flex flex-col items-center text-center px-4 sm:px-6 lg:px-8 z-10">
         {/* Project Tag Badge */}
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-100 dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 text-xs text-slate-700 dark:text-zinc-300 mb-5 shadow-sm">
-          <span className="w-2 h-2 rounded-full bg-[#E05626]" />
+          <span className="w-2 h-2 rounded-full bg-[#9C27B0]" />
           <span>Machine Learning &amp; NLP Project</span>
           <span className="text-slate-400 dark:text-zinc-500">•</span>
           <span className="text-slate-600 dark:text-zinc-400">25 Career Categories</span>
@@ -518,28 +566,28 @@ export default function Home() {
           <button
             type="button"
             onClick={scrollToWorkspace}
-            className="px-6 sm:px-7 py-2.5 sm:py-3 rounded-full bg-[#E05626] hover:bg-[#eb6130] text-white font-semibold text-xs sm:text-sm transition-all shadow-md shadow-orange-500/25 flex items-center gap-1.5 cursor-pointer active:scale-95"
+            className="px-6 sm:px-7 py-2.5 sm:py-3 rounded-full bg-gradient-to-r from-[#9C27B0] to-[#00BCD4] hover:opacity-90 text-white font-semibold text-xs sm:text-sm transition-all shadow-md shadow-purple-500/25 flex items-center gap-1.5 cursor-pointer active:scale-95"
           >
             <span>Analyze Resume</span>
           </button>
         </div>
 
-        {/* Clean Architecture Badges (No Arc, Crisp Alignment) */}
+        {/* Clean Architecture Badges */}
         <div className="mt-9 sm:mt-12 flex flex-wrap items-center justify-center gap-2 sm:gap-3 max-w-3xl mx-auto px-4">
           <span className="px-3.5 py-1.5 rounded-full bg-white/80 dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 text-slate-700 dark:text-zinc-300 text-xs font-medium flex items-center gap-2 shadow-sm">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#E05626]" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#9C27B0]" />
             25 Job Categories
           </span>
           <span className="px-3.5 py-1.5 rounded-full bg-white/80 dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 text-slate-700 dark:text-zinc-300 text-xs font-medium flex items-center gap-2 shadow-sm">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#0D9488]" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#00BCD4]" />
             TF-IDF Vectorization
           </span>
           <span className="px-3.5 py-1.5 rounded-full bg-white/80 dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 text-slate-700 dark:text-zinc-300 text-xs font-medium flex items-center gap-2 shadow-sm">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#E05626]" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#9C27B0]" />
             Random Forest Model
           </span>
           <span className="px-3.5 py-1.5 rounded-full bg-white/80 dark:bg-white/[0.04] border border-slate-200 dark:border-white/10 text-slate-700 dark:text-zinc-300 text-xs font-medium flex items-center gap-2 shadow-sm">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#0D9488]" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#00BCD4]" />
             PDF, DOCX &amp; TXT Parser
           </span>
         </div>
@@ -554,7 +602,7 @@ export default function Home() {
           {/* Workspace Header */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-slate-200 dark:border-white/[0.07] gap-3 mb-5 sm:mb-6">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-lg bg-orange-500/10 border border-orange-500/20 text-[#E05626] flex items-center justify-center">
+              <div className="w-8 h-8 rounded-lg bg-purple-500/10 border border-purple-500/20 text-[#9C27B0] flex items-center justify-center">
                 <Brain className="w-4 h-4" />
               </div>
               <div>
@@ -573,21 +621,21 @@ export default function Home() {
               <button
                 type="button"
                 onClick={() => loadSample("data_scientist")}
-                className="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-white/[0.04] dark:hover:bg-[#E05626]/20 dark:text-zinc-300 dark:hover:text-white border border-slate-200 dark:border-white/10 text-[11px] font-medium transition cursor-pointer"
+                className="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-white/[0.04] dark:hover:bg-purple-500/20 dark:text-zinc-300 dark:hover:text-white border border-slate-200 dark:border-white/10 text-[11px] font-medium transition cursor-pointer"
               >
                 Alex (Data Science)
               </button>
               <button
                 type="button"
                 onClick={() => loadSample("java_developer")}
-                className="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-white/[0.04] dark:hover:bg-[#E05626]/20 dark:text-zinc-300 dark:hover:text-white border border-slate-200 dark:border-white/10 text-[11px] font-medium transition cursor-pointer"
+                className="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-white/[0.04] dark:hover:bg-cyan-500/20 dark:text-zinc-300 dark:hover:text-white border border-slate-200 dark:border-white/10 text-[11px] font-medium transition cursor-pointer"
               >
                 Marcus (Java)
               </button>
               <button
                 type="button"
                 onClick={() => loadSample("devops_engineer")}
-                className="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-white/[0.04] dark:hover:bg-[#E05626]/20 dark:text-zinc-300 dark:hover:text-white border border-slate-200 dark:border-white/10 text-[11px] font-medium transition cursor-pointer"
+                className="px-2.5 py-1 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-700 dark:bg-white/[0.04] dark:hover:bg-purple-500/20 dark:text-zinc-300 dark:hover:text-white border border-slate-200 dark:border-white/10 text-[11px] font-medium transition cursor-pointer"
               >
                 Sarah (DevOps)
               </button>
@@ -606,7 +654,7 @@ export default function Home() {
                     onClick={() => setActiveTab("upload")}
                     className={`flex-1 sm:flex-initial px-3.5 py-1.5 rounded-lg text-xs font-semibold transition flex items-center justify-center gap-1.5 cursor-pointer ${
                       activeTab === "upload"
-                        ? "bg-[#E05626] text-white shadow-sm"
+                        ? "bg-gradient-to-r from-[#9C27B0] to-[#7B1FA2] text-white shadow-sm"
                         : "text-slate-600 hover:text-slate-900 dark:text-zinc-400 dark:hover:text-white"
                     }`}
                   >
@@ -617,7 +665,7 @@ export default function Home() {
                     onClick={() => setActiveTab("paste")}
                     className={`flex-1 sm:flex-initial px-3.5 py-1.5 rounded-lg text-xs font-semibold transition flex items-center justify-center gap-1.5 cursor-pointer ${
                       activeTab === "paste"
-                        ? "bg-[#E05626] text-white shadow-sm"
+                        ? "bg-gradient-to-r from-[#9C27B0] to-[#7B1FA2] text-white shadow-sm"
                         : "text-slate-600 hover:text-slate-900 dark:text-zinc-400 dark:hover:text-white"
                     }`}
                   >
@@ -632,7 +680,7 @@ export default function Home() {
                   onDragOver={(e) => e.preventDefault()}
                   onDrop={handleDrop}
                   onClick={() => fileInputRef.current?.click()}
-                  className="border border-dashed border-slate-300 hover:border-[#E05626] dark:border-white/15 dark:hover:border-[#E05626]/70 rounded-xl sm:rounded-2xl p-6 sm:p-9 text-center cursor-pointer transition bg-slate-50/70 hover:bg-slate-100/70 dark:bg-black/30 dark:hover:bg-black/50 group"
+                  className="border border-dashed border-slate-300 hover:border-[#9C27B0] dark:border-white/15 dark:hover:border-[#9C27B0]/70 rounded-xl sm:rounded-2xl p-6 sm:p-9 text-center cursor-pointer transition bg-slate-50/70 hover:bg-slate-100/70 dark:bg-black/30 dark:hover:bg-black/50 group"
                 >
                   <input
                     ref={fileInputRef}
@@ -641,7 +689,7 @@ export default function Home() {
                     onChange={handleFileChange}
                     className="hidden"
                   />
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 mx-auto mb-3 rounded-xl bg-white dark:bg-white/[0.04] group-hover:bg-orange-50 dark:group-hover:bg-[#E05626]/20 text-slate-500 dark:text-zinc-400 group-hover:text-[#E05626] flex items-center justify-center transition border border-slate-200 dark:border-white/10 shadow-sm">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 mx-auto mb-3 rounded-xl bg-white dark:bg-white/[0.04] group-hover:bg-purple-50 dark:group-hover:bg-purple-500/20 text-slate-500 dark:text-zinc-400 group-hover:text-[#9C27B0] flex items-center justify-center transition border border-slate-200 dark:border-white/10 shadow-sm">
                     <UploadCloud className="w-6 h-6 sm:w-7 sm:h-7" />
                   </div>
                   {selectedFile ? (
@@ -659,7 +707,7 @@ export default function Home() {
                   ) : (
                     <div>
                       <p className="text-xs sm:text-sm font-medium text-slate-800 dark:text-white">
-                        Drop resume file here, or <span className="text-[#E05626] underline underline-offset-4 font-semibold">browse</span>
+                        Drop resume file here, or <span className="text-[#9C27B0] underline underline-offset-4 font-semibold">browse</span>
                       </p>
                       <p className="text-[11px] sm:text-xs text-slate-500 dark:text-zinc-500 mt-1">
                         Supports PDF, DOCX, and TXT files
@@ -677,7 +725,7 @@ export default function Home() {
                     value={resumeText}
                     onChange={(e) => setResumeText(e.target.value)}
                     placeholder="Paste resume text here (Summary, Work Experience, Technical Skills, Education)..."
-                    className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-xl sm:rounded-2xl p-3.5 text-xs sm:text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-zinc-600 focus:outline-none focus:border-[#E05626] font-mono transition resize-y min-h-[150px]"
+                    className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-xl sm:rounded-2xl p-3.5 text-xs sm:text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-zinc-600 focus:outline-none focus:border-[#9C27B0] font-mono transition resize-y min-h-[150px]"
                   />
                   <div className="flex justify-between items-center text-xs text-slate-500 dark:text-zinc-500 mt-1.5 px-1 font-mono">
                     <span>{resumeText.split(/\s+/).filter(Boolean).length} words</span>
@@ -694,7 +742,7 @@ export default function Home() {
                       type="checkbox"
                       checked={includeAts}
                       onChange={(e) => setIncludeAts(e.target.checked)}
-                      className="rounded border-slate-300 dark:border-white/20 bg-white dark:bg-black text-[#E05626] focus:ring-[#E05626] h-4 w-4 shrink-0 cursor-pointer accent-[#E05626]"
+                      className="rounded border-slate-300 dark:border-white/20 bg-white dark:bg-black text-[#9C27B0] focus:ring-[#9C27B0] h-4 w-4 shrink-0 cursor-pointer accent-[#9C27B0]"
                     />
                     <span>Compare with Target Job Description (Skill Matching)</span>
                   </label>
@@ -702,7 +750,7 @@ export default function Home() {
                     <button
                       type="button"
                       onClick={() => setJobDescription(SAMPLE_JOB_DESCRIPTION)}
-                      className="text-xs text-[#E05626] hover:underline transition cursor-pointer font-medium self-end sm:self-auto"
+                      className="text-xs text-[#00BCD4] hover:underline transition cursor-pointer font-medium self-end sm:self-auto"
                     >
                       Paste Sample Job Req
                     </button>
@@ -716,7 +764,7 @@ export default function Home() {
                       value={jobDescription}
                       onChange={(e) => setJobDescription(e.target.value)}
                       placeholder="Paste target job description to measure keyword overlap and missing competencies..."
-                      className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-xl p-3 text-xs sm:text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-zinc-600 focus:outline-none focus:border-[#E05626] font-mono transition resize-y min-h-[90px]"
+                      className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-xl p-3 text-xs sm:text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-zinc-600 focus:outline-none focus:border-[#00BCD4] font-mono transition resize-y min-h-[90px]"
                     />
                   </div>
                 )}
@@ -736,7 +784,7 @@ export default function Home() {
                   type="button"
                   onClick={handleScreenResume}
                   disabled={isLoading}
-                  className="flex-1 py-2.5 sm:py-3 px-5 rounded-full font-semibold text-xs sm:text-sm bg-[#E05626] hover:bg-[#eb6130] text-white transition-all shadow-md shadow-orange-500/25 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer active:scale-95"
+                  className="flex-1 py-2.5 sm:py-3 px-5 rounded-full font-semibold text-xs sm:text-sm bg-gradient-to-r from-[#9C27B0] to-[#00BCD4] hover:opacity-90 text-white transition-all shadow-md shadow-purple-500/25 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer active:scale-95"
                 >
                   {isLoading ? (
                     <>
@@ -766,9 +814,9 @@ export default function Home() {
                 <div className="space-y-4 animate-fadeIn">
                   {/* Model Classification Result Card */}
                   {result.assessment && (
-                    <div className="bg-slate-50 dark:bg-[#101217] border border-orange-200 dark:border-[#E05626]/40 rounded-xl sm:rounded-2xl p-4 sm:p-5 shadow-md relative overflow-hidden transition-colors">
+                    <div className="bg-slate-50 dark:bg-[#101217] border border-purple-200 dark:border-purple-500/30 rounded-xl sm:rounded-2xl p-4 sm:p-5 shadow-md relative overflow-hidden transition-colors">
                       <div className="flex items-center justify-between text-xs font-semibold mb-2.5 gap-2 flex-wrap">
-                        <span className="flex items-center gap-1.5 text-[#E05626] text-xs font-bold uppercase tracking-wider">
+                        <span className="flex items-center gap-1.5 text-[#9C27B0] text-xs font-bold uppercase tracking-wider">
                           <CheckCircle2 className="w-4 h-4" /> Classification Result
                         </span>
                         <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 font-bold text-[11px]">
@@ -793,12 +841,12 @@ export default function Home() {
                       {/* Technical Focus Areas */}
                       <div className="mt-3.5 space-y-1.5">
                         <span className="text-[11px] font-bold text-slate-700 dark:text-zinc-300 uppercase tracking-wider flex items-center gap-1">
-                          <Lightbulb className="w-3.5 h-3.5 text-amber-500 shrink-0" /> Suggested Focus Areas:
+                          <Lightbulb className="w-3.5 h-3.5 text-[#00BCD4] shrink-0" /> Suggested Focus Areas:
                         </span>
                         <ul className="space-y-1 text-xs text-slate-600 dark:text-zinc-400 pl-1">
                           {result.assessment.actionable_tips.map((tip, idx) => (
                             <li key={idx} className="flex items-start gap-1.5 text-xs">
-                              <span className="text-[#E05626] font-bold">•</span>
+                              <span className="text-[#9C27B0] font-bold">•</span>
                               <span>{tip}</span>
                             </li>
                           ))}
@@ -809,13 +857,13 @@ export default function Home() {
                       <div className="mt-4 pt-3.5 border-t border-slate-200 dark:border-white/[0.08]">
                         <div className="flex justify-between items-center text-xs mb-1">
                           <span className="text-slate-700 dark:text-zinc-300 font-medium">Model Confidence</span>
-                          <span className="text-[#E05626] font-bold font-mono text-xs sm:text-sm">
+                          <span className="text-[#00BCD4] font-bold font-mono text-xs sm:text-sm">
                             {result.confidence}%
                           </span>
                         </div>
                         <div className="w-full bg-slate-200 dark:bg-black/60 h-2 rounded-full overflow-hidden border border-slate-300 dark:border-white/10">
                           <div
-                            className="bg-[#E05626] h-full rounded-full transition-all duration-700"
+                            className="bg-gradient-to-r from-[#9C27B0] to-[#00BCD4] h-full rounded-full transition-all duration-700"
                             style={{ width: `${Math.max(result.confidence, 8)}%` }}
                           />
                         </div>
@@ -835,7 +883,7 @@ export default function Home() {
                           className={`text-xs font-bold font-mono px-2 py-0.5 rounded-full border ${
                             result.ats_match.score >= 50
                               ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-600 dark:text-emerald-400"
-                              : "bg-amber-500/10 border-amber-500/30 text-amber-600 dark:text-amber-400"
+                              : "bg-cyan-500/10 border-cyan-500/30 text-cyan-600 dark:text-cyan-400"
                           }`}
                         >
                           {result.ats_match.score}% Skill Overlap
@@ -872,7 +920,7 @@ export default function Home() {
                               {result.ats_match.missing_skills.map((s) => (
                                 <span
                                   key={s}
-                                  className="px-2 py-0.5 rounded-full bg-amber-50 dark:bg-amber-500/10 border border-amber-200 dark:border-amber-500/20 text-amber-700 dark:text-amber-300 text-[11px] font-medium"
+                                  className="px-2 py-0.5 rounded-full bg-purple-50 dark:bg-purple-500/10 border border-purple-200 dark:border-purple-500/20 text-purple-700 dark:text-purple-300 text-[11px] font-medium"
                                 >
                                   ✗ {s}
                                 </span>
@@ -887,7 +935,7 @@ export default function Home() {
                   {/* Top 5 Probability Distribution */}
                   <div className="bg-slate-50 dark:bg-[#101217] border border-slate-200 dark:border-white/10 rounded-xl sm:rounded-2xl p-4 shadow-sm">
                     <div className="flex items-center gap-1.5 mb-3">
-                      <BarChart3 className="w-4 h-4 text-[#E05626] shrink-0" />
+                      <BarChart3 className="w-4 h-4 text-[#9C27B0] shrink-0" />
                       <h4 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">Top Role Probabilities</h4>
                     </div>
                     <div className="space-y-2.5">
@@ -903,9 +951,9 @@ export default function Home() {
                             <div
                               className={`h-full rounded-full transition-all duration-500 ${
                                 idx === 0
-                                  ? "bg-[#E05626]"
+                                  ? "bg-gradient-to-r from-[#9C27B0] to-[#00BCD4]"
                                   : idx === 1
-                                  ? "bg-[#E05626]/70"
+                                  ? "bg-[#9C27B0]/70"
                                   : "bg-slate-400 dark:bg-zinc-700"
                               }`}
                               style={{ width: `${Math.max(cat.probability, 4)}%` }}
@@ -919,7 +967,7 @@ export default function Home() {
                   {/* Extracted Skills Section */}
                   <div className="bg-slate-50 dark:bg-[#101217] border border-slate-200 dark:border-white/10 rounded-xl sm:rounded-2xl p-4 shadow-sm">
                     <div className="flex items-center gap-1.5 mb-3">
-                      <Layers className="w-4 h-4 text-[#E05626] shrink-0" />
+                      <Layers className="w-4 h-4 text-[#00BCD4] shrink-0" />
                       <h4 className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white">Extracted Skills</h4>
                     </div>
 
@@ -954,7 +1002,7 @@ export default function Home() {
                 /* Empty State Workspace Placeholder */
                 <div className="h-full min-h-[280px] sm:min-h-[380px] bg-slate-50/50 dark:bg-black/30 border border-dashed border-slate-300 dark:border-white/10 rounded-xl sm:rounded-2xl p-6 flex flex-col items-center justify-center text-center">
                   <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-white dark:bg-white/[0.04] flex items-center justify-center text-slate-400 dark:text-zinc-500 mb-3 border border-slate-200 dark:border-white/10 shadow-sm">
-                    <Briefcase className="w-6 h-6 text-[#E05626]/70" />
+                    <Briefcase className="w-6 h-6 text-[#9C27B0]/70" />
                   </div>
                   <h3 className="text-sm sm:text-base font-bold text-slate-800 dark:text-white">Profile Evaluation Ready</h3>
                   <p className="text-xs text-slate-500 dark:text-zinc-400 max-w-xs mt-1.5 leading-relaxed">
@@ -969,7 +1017,7 @@ export default function Home() {
         {/* Technical Highlights Section */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3.5 sm:gap-5 mt-6 sm:mt-8">
           <div className="bg-white/90 dark:bg-[#0c0d12] border border-slate-200/90 dark:border-white/[0.07] rounded-xl sm:rounded-2xl p-4 sm:p-5 flex items-start gap-3 shadow-sm dark:shadow-lg transition-colors">
-            <div className="p-2 rounded-lg bg-orange-500/10 border border-orange-500/20 text-[#E05626] shrink-0">
+            <div className="p-2 rounded-lg bg-purple-500/10 border border-purple-500/20 text-[#9C27B0] shrink-0">
               <FileText className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
             <div>
@@ -980,7 +1028,7 @@ export default function Home() {
             </div>
           </div>
           <div className="bg-white/90 dark:bg-[#0c0d12] border border-slate-200/90 dark:border-white/[0.07] rounded-xl sm:rounded-2xl p-4 sm:p-5 flex items-start gap-3 shadow-sm dark:shadow-lg transition-colors">
-            <div className="p-2 rounded-lg bg-teal-500/10 border border-teal-500/20 text-[#0D9488] shrink-0">
+            <div className="p-2 rounded-lg bg-cyan-500/10 border border-cyan-500/20 text-[#00BCD4] shrink-0">
               <Target className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
             <div>
@@ -991,7 +1039,7 @@ export default function Home() {
             </div>
           </div>
           <div className="bg-white/90 dark:bg-[#0c0d12] border border-slate-200/90 dark:border-white/[0.07] rounded-xl sm:rounded-2xl p-4 sm:p-5 flex items-start gap-3 shadow-sm dark:shadow-lg transition-colors">
-            <div className="p-2 rounded-lg bg-orange-500/10 border border-orange-500/20 text-[#E05626] shrink-0">
+            <div className="p-2 rounded-lg bg-purple-500/10 border border-purple-500/20 text-[#9C27B0] shrink-0">
               <BarChart3 className="w-4 h-4 sm:w-5 sm:h-5" />
             </div>
             <div>
@@ -1005,7 +1053,7 @@ export default function Home() {
       </section>
 
       {/* 4. Minimal Footer */}
-      <footer className="border-t border-slate-200 dark:border-white/[0.06] bg-white/70 dark:bg-[#08080a] py-6 sm:py-7 text-center text-xs text-slate-500 dark:text-zinc-500 w-full px-4 mt-auto transition-colors">
+      <footer className="border-t border-slate-200 dark:border-white/[0.06] bg-white/70 dark:bg-[#08080a] py-6 sm:py-7 text-center text-xs text-slate-500 dark:text-zinc-500 w-full px-4 mt-auto transition-colors relative z-10">
         <div className="max-w-7xl mx-auto space-y-1.5">
           <div className="flex items-center justify-center gap-2">
             <span className="font-semibold text-slate-700 dark:text-zinc-300">ResumeScreening</span>
