@@ -1,0 +1,42 @@
+{
+  "project_name": "Resume Screening using NLP",
+  "dataset": "Kaggle Resume Dataset (UpdatedResumeDataSet.csv)",
+  "total_records": 962,
+  "num_classes": 25,
+  "classes": [
+    "Advocate", "Arts", "Automation Testing", "Blockchain", "Business Analyst",
+    "Civil Engineer", "Data Science", "Database", "DevOps Engineer", "DotNet Developer",
+    "ETL Developer", "Electrical Engineering", "HR", "Hadoop", "Health and fitness",
+    "Java Developer", "Mechanical Engineer", "Network Security Engineer", "Operations Manager",
+    "PMO", "Python Developer", "SAP Developer", "Sales", "Testing", "Web Designing"
+  ],
+  "best_model": "Random Forest",
+  "test_accuracy": 1.0,
+  "benchmarks": {
+    "Calibrated LinearSVC": {
+      "cv_accuracy_mean": 0.9948,
+      "cv_accuracy_std": 0.0049,
+      "test_accuracy": 0.9948
+    },
+    "Random Forest": {
+      "cv_accuracy_mean": 0.9922,
+      "cv_accuracy_std": 0.0049,
+      "test_accuracy": 1.0
+    },
+    "Multinomial Naive Bayes": {
+      "cv_accuracy_mean": 0.9948,
+      "cv_accuracy_std": 0.0049,
+      "test_accuracy": 0.9896
+    },
+    "K-Nearest Neighbors": {
+      "cv_accuracy_mean": 0.9623,
+      "cv_accuracy_std": 0.0133,
+      "test_accuracy": 0.9845
+    },
+    "Logistic Regression": {
+      "cv_accuracy_mean": 0.9922,
+      "cv_accuracy_std": 0.0064,
+      "test_accuracy": 0.9896
+    }
+  }
+}

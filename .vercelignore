@@ -1,0 +1,11 @@
+training/
+sample_resumes/
+.git
+.gitignore
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.env.local
+.env*.local
+node_modules/

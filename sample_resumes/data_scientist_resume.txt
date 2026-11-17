@@ -1,0 +1,24 @@
+ALEX CHEN
+Email: alex.chen@example.com | Phone: +1-415-555-0199 | San Francisco, CA
+LinkedIn: linkedin.com/in/alexchen-ai | GitHub: github.com/alexchen-data
+
+PROFESSIONAL SUMMARY
+Senior Data Scientist with 5+ years of experience delivering end-to-end machine learning, predictive modeling, and NLP applications. Proven background in designing large-scale statistical pipelines, fine-tuning neural networks, and deploying real-time inference microservices.
+
+TECHNICAL COMPETENCIES
+- Programming: Python, SQL, R, C++
+- ML & Deep Learning: Scikit-learn, TensorFlow, PyTorch, Keras, Pandas, NumPy, NLP, Transformers, BERT, HuggingFace
+- Cloud & MLOps: AWS (SageMaker, S3), Docker, Git, FastAPI, CI/CD, MLflow
+
+EXPERIENCE
+Staff Data Scientist | Horizon Analytics (2021 - Present)
+- Designed automated document understanding and classification systems utilizing TF-IDF and ensemble classifiers, cutting processing time by 80%.
+- Fine-tuned transformer architectures for multi-class taxonomy classification across 25 industry domains with 98.7% test precision.
+- Engineered high-throughput REST APIs handling 4M+ predictive queries daily.
+
+Data Science Associate | Nexa Corp (2019 - 2021)
+- Developed customer churn prediction pipelines and time-series forecasting models using Pandas, XGBoost, and Scikit-Learn.
+- Built interactive analytics dashboards visualizing model telemetry and hiring funnel conversions.
+
+EDUCATION
+B.S. in Computer Science & Applied Statistics

@@ -1,0 +1,25 @@
+VIKRAM SHARMA
+Email: vikram.sharma@example.com | Phone: +91-9123456780 | Location: Hyderabad, India
+
+PROFESSIONAL SUMMARY
+Senior Java Backend Developer with 5+ years of experience in enterprise application design, microservices architecture, and high-throughput distributed systems. Specialized in Java 17, Spring Boot, Spring Security, Hibernate ORM, Apache Kafka, and relational databases.
+
+TECHNICAL SKILLS
+- Languages: Java, SQL, JavaScript
+- Frameworks & Tools: Spring Boot, Spring Cloud, Hibernate, JPA, RESTful Web Services, Microservices, Maven, Gradle
+- Databases: MySQL, PostgreSQL, Oracle, Redis
+- Messaging & Cloud: Apache Kafka, RabbitMQ, AWS (ECS, RDS, S3), Docker, Kubernetes, Jenkins CI/CD
+- Testing: JUnit, Mockito, TestNG, Postman
+
+EXPERIENCE
+Senior Software Engineer | Apex Financial Systems (2021 - Present)
+- Developed secure payment processing microservices using Spring Boot and Kafka handling over 2M transactions daily.
+- Optimized database query performance in PostgreSQL and MySQL, improving API response latency by 35%.
+- Implemented OAuth2 and JWT token-based authentication services using Spring Security.
+
+Software Engineer | Infosolutions Global (2019 - 2021)
+- Designed and maintained REST APIs for core banking operations using Java, Hibernate, and Oracle database.
+- Wrote unit and integration tests with JUnit and Mockito achieving 88% code coverage.
+
+EDUCATION
+Bachelor of Technology in Information Technology
